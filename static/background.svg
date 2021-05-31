@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   width="1280"
+   height="720"
+   viewBox="0 0 338.66666 190.50001"
+   version="1.1"
+   id="svg8">
+  <defs
+     id="defs2">
+    <linearGradient
+       id="linearGradient897">
+      <stop
+         style="stop-color:#745fb5;stop-opacity:1"
+         offset="0"
+         id="stop893" />
+      <stop
+         style="stop-color:#978181;stop-opacity:1"
+         offset="1"
+         id="stop895" />
+    </linearGradient>
+    <linearGradient
+       id="linearGradient884">
+      <stop
+         style="stop-color:#808000;stop-opacity:1;"
+         offset="0"
+         id="stop880" />
+      <stop
+         style="stop-color:#808000;stop-opacity:0;"
+         offset="1"
+         id="stop882" />
+    </linearGradient>
+    <linearGradient
+       id="linearGradient860">
+      <stop
+         style="stop-color:#7cb5da;stop-opacity:0.97240175"
+         offset="0"
+         id="stop856" />
+      <stop
+         style="stop-color:#8a7495;stop-opacity:1"
+         offset="1"
+         id="stop858" />
+    </linearGradient>
+    <linearGradient
+       xlink:href="#linearGradient884"
+       id="linearGradient886"
+       x1="0"
+       y1="95.25"
+       x2="269.69117"
+       y2="95.25"
+       gradientUnits="userSpaceOnUse" />
+    <linearGradient
+       xlink:href="#linearGradient897"
+       id="linearGradient899"
+       x1="0"
+       y1="0"
+       x2="171.65161"
+       y2="208.39067"
+       gradientUnits="userSpaceOnUse" />
+    <filter
+       style="color-interpolation-filters:sRGB;"
+       id="filter983">
+      <feGaussianBlur
+         stdDeviation="3.32805 10"
+         result="blur"
+         id="feGaussianBlur981" />
+    </filter>
+    <filter
+       style="color-interpolation-filters:sRGB;"
+       id="filter987">
+      <feGaussianBlur
+         stdDeviation="3.32805 10"
+         result="blur"
+         id="feGaussianBlur985" />
+    </filter>
+    <radialGradient
+       xlink:href="#linearGradient860"
+       id="radialGradient989"
+       cx="378.845"
+       cy="97.149055"
+       fx="378.845"
+       fy="97.149055"
+       r="134.65724"
+       gradientTransform="matrix(-0.79180807,-0.61077,0.55849861,-0.72404294,530.08263,370.83376)"
+       gradientUnits="userSpaceOnUse" />
+  </defs>
+  <metadata
+     id="metadata5">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     id="layer1">
+    <path
+       style="fill:url(#linearGradient899);fill-opacity:1;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;filter:url(#filter983)"
+       d="m 0,0 v 190.5 l 338.66667,0 10e-6,-190.5 H 69.731296 Z"
+       id="path852" />
+    <path
+       style="opacity:0.737139;mix-blend-mode:normal;fill:url(#radialGradient989);fill-opacity:1;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;filter:url(#filter987)"
+       d="m 0,190.5 254.68956,0 h 83.97712 V 0 H 0 Z"
+       id="path854" />
+  </g>
+</svg>
