@@ -4,8 +4,8 @@ import { Cube } from "./movable.js"
 export class CubeContainer {
 
     protected svg_node = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-    protected parent_node;
-    protected parent_div;
+    protected parent_node: HTMLElement;
+    protected parent_div_name: string;
 
     // cubes in the interface
     private contains = [];
