@@ -16,16 +16,25 @@ export class CubeContainer {
     // sizing
     private numrows: number;
     private numcolumns: number;
+    // dimensions for the cube positions
+    private gridwidth: number;
+    private gridheight: number;
+    private rowseperation: number;
+    private columnseperation: number;
 
     constructor(div_name: string, numrows: number, numcolumns: number) {
-        this.numrows = numrows;
-        this.numcolumns = numcolumns;
-        this.numberofshapes = numrows * numcolumns;
-
         this.parent_div_name = div_name;
         this.parent_node = document.getElementById(div_name);
         this.svg_node.onclick = this.checkClickedCube;
         this.parent_node.appendChild(this.svg_node);
+
+        this.numrows = numrows;
+        this.numcolumns = numcolumns;
+        this.numberofshapes = numrows * numcolumns;
+        this.gridwidth = this.parent_node.clientWidth; // Dimensions of grid
+        this.gridheight = this.parent_node.clientHeight; // Dimensions of grid
+        this.rowseperation = this.gridheight / (this.numrows + 1);
+        this.columnseperation = this.gridwidth / (this.numcolumns + 1);
     }
 
     public fillContainer(empty = false) {
@@ -67,18 +76,12 @@ export class CubeContainer {
      * addCube
      */
     public addCube(color: string, id: number): void {
-        // dimensions for the cube positions
-        const gridwidth = this.parent_node.clientWidth; // Dimensions of grid
-        const gridheight = this.parent_node.clientHeight; // Dimensions of grid
-        const rowseperation = gridheight / (this.numrows + 1);
-        const columnseperation = gridwidth / (this.numcolumns + 1);
         const row = Math.floor(id / this.numcolumns);
         const column = id % this.numcolumns;
-
         const default_size = 40;
         const cube = new Cube(this.parent_div_name + id.toString(),
-            columnseperation * (column + 1),
-            rowseperation * (row + 1),
+            this.columnseperation * (column + 1),
+            this.rowseperation * (row + 1),
             default_size,
             color);
         this.contains.push(cube);
