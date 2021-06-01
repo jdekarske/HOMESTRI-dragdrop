@@ -15,7 +15,6 @@ for (let index = 0; index < 14; index++) {
     instructionContainer.addCube(random_color,element);
 });
 
-[1,4,6,5].forEach(element => {
-    let random_color = '#' + Math.floor(Math.random() * 16777215).toString(16)
-    commandContainer.addCube(random_color, element);
-});
+for (let index = 0; index < 8; index++) {
+    commandContainer.addNextCube('#f1f3f5');
+}
