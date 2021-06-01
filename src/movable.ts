@@ -25,11 +25,6 @@ class Movable {
     public getObjectDOM(): HTMLElement {
         return document.getElementById(this.id.toString());
     }
-
-    onSelect = () => {
-        let elem = this.getObjectDOM();
-        elem.setAttributeNS(null, 'stroke-width', "4")
-    }
 }
 
 export class Cube extends Movable {
@@ -47,7 +42,6 @@ export class Cube extends Movable {
         this.shape_node.setAttributeNS(null, 'class', 'movable');
         this.shape_node.setAttributeNS(null, 'stroke', "#AAA");
         this.shape_node.setAttributeNS(null, 'stroke-width', "0");
-        this.shape_node.onclick = this.onSelect;
     }
 
     // call this after changing object attributes
