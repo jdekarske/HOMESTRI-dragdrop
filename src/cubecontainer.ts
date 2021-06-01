@@ -19,7 +19,7 @@ export class CubeContainer {
         this.numrows = numrows;
         this.numcolumns = numcolumns;
 
-        this.parent_div = div_name;
+        this.parent_div_name = div_name;
         this.parent_node = document.getElementById(div_name);
         this.parent_node.appendChild(this.svg_node);
     }
@@ -37,7 +37,7 @@ export class CubeContainer {
         const column = id % this.numcolumns;
 
         const default_size = 40;
-        const cube = new Cube(this.parent_div + id.toString(),
+        const cube = new Cube(this.parent_div_name + id.toString(),
             columnseperation * (column + 1),
             rowseperation * (row + 1),
             default_size,
