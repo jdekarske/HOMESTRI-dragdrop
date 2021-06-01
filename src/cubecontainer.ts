@@ -27,23 +27,30 @@ export class CubeContainer {
     /**
      * addCube
      */
-    public addCube(color: string): void {
+    public addCube(color: string, id: number): void {
         // dimensions for the cube positions
         const gridwidth = this.parent_node.clientWidth; // Dimensions of grid
         const gridheight = this.parent_node.clientHeight; // Dimensions of grid
         const rowseperation = gridheight / (this.numrows + 1);
         const columnseperation = gridwidth / (this.numcolumns + 1);
-        const row = Math.floor(this.next_id / this.numcolumns);
-        const column = this.next_id % this.numcolumns;
+        const row = Math.floor(id / this.numcolumns);
+        const column = id % this.numcolumns;
 
         const default_size = 40;
-        const cube = new Cube(this.parent_div + this.next_id.toString(),
+        const cube = new Cube(this.parent_div + id.toString(),
             columnseperation * (column + 1),
             rowseperation * (row + 1),
             default_size,
             color);
         this.contains.push(cube);
         cube.addToContainer(this.parent_node);
+    }
+
+    /**
+ * addCube
+ */
+    public addNextCube(color: string): void {
+        this.addCube(color, this.next_id)
         this.next_id++;
     }
 
