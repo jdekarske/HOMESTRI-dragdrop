@@ -3,14 +3,14 @@ class Movable {
     public shape_node;
     private parent_node: HTMLElement;
 
-    public id: number;
+    public id: string;
     public position_x: number;
     public position_y: number;
     public size: number;
     public color: string;
     public select = false;
 
-    constructor(id: number, position_x: number, position_y: number, size: number, color: string) {
+    constructor(id: string, position_x: number, position_y: number, size: number, color: string) {
         this.id = id;
         this.position_x = position_x;
         this.position_y = position_y;
@@ -33,7 +33,7 @@ class Movable {
 }
 
 export class Cube extends Movable {
-    constructor(id: number, position_x: number, position_y: number, size: number, color: string) {
+    constructor(id: string, position_x: number, position_y: number, size: number, color: string) {
         super(id, position_x, position_y, size, color);
         this.shape_node = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
         this.shape_node.setAttributeNS(null, 'id', this.id.toString());

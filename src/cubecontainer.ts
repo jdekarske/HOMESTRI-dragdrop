@@ -5,12 +5,21 @@ export class CubeContainer {
 
     protected svg_node = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
     protected parent_node;
+    protected parent_div;
 
     // cubes in the interface
     private contains = [];
     private next_id = 0;
 
-    constructor(div_name: string) {
+    // sizing
+    private numrows: number;
+    private numcolumns: number;
+
+    constructor(div_name: string, numrows: number, numcolumns: number) {
+        this.numrows = numrows;
+        this.numcolumns = numcolumns;
+
+        this.parent_div = div_name;
         this.parent_node = document.getElementById(div_name);
         this.parent_node.appendChild(this.svg_node);
     }
@@ -20,17 +29,15 @@ export class CubeContainer {
      */
     public addCube(color: string): void {
         // dimensions for the cube positions
-        const numrows = 2;
-        const numcolumns = 7;
         const gridwidth = this.parent_node.clientWidth; // Dimensions of grid
         const gridheight = this.parent_node.clientHeight; // Dimensions of grid
-        const rowseperation = gridheight / (numrows + 1);
-        const columnseperation = gridwidth / (numcolumns + 1);
-        const row = Math.floor(this.next_id / numcolumns);
-        const column = this.next_id % numcolumns;
+        const rowseperation = gridheight / (this.numrows + 1);
+        const columnseperation = gridwidth / (this.numcolumns + 1);
+        const row = Math.floor(this.next_id / this.numcolumns);
+        const column = this.next_id % this.numcolumns;
 
-        const default_size = 50;
-        const cube = new Cube(this.next_id,
+        const default_size = 40;
+        const cube = new Cube(this.parent_div + this.next_id.toString(),
             columnseperation * (column + 1),
             rowseperation * (row + 1),
             default_size,
