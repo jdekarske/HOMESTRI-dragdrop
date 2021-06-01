@@ -8,8 +8,9 @@ export class CubeContainer {
     protected parent_div_name: string;
 
     // cubes in the interface
-    private contains = [];
+    private contains: Cube[] = [];
     private next_id = 0;
+    private static selected_cube: string;
 
     // sizing
     private numrows: number;
@@ -21,7 +22,32 @@ export class CubeContainer {
 
         this.parent_div_name = div_name;
         this.parent_node = document.getElementById(div_name);
+        this.svg_node.onclick = this.checkClickedCube;
         this.parent_node.appendChild(this.svg_node);
+    }
+
+    private static setObjectVisuals(id: string) {
+        let obj_node = document.getElementById(id);
+        if (!obj_node) { return; }
+        obj_node.setAttributeNS(null, 'stroke-width', "2");
+    }
+
+    private static unsetObjectVisuals(id: string) {
+        let obj_node = document.getElementById(id);
+        if (!obj_node) { return; }
+        obj_node.setAttributeNS(null, 'stroke-width', "0");
+    }
+
+    private checkClickedCube(evt) {
+        // if no cube selected, select it
+        if (!CubeContainer.selected_cube) {
+            CubeContainer.selected_cube = evt.target.id;
+            CubeContainer.setObjectVisuals(evt.target.id);
+
+        } else { // otherwise, swap the cubes
+            CubeContainer.unsetObjectVisuals(CubeContainer.selected_cube);
+            CubeContainer.selected_cube = null;
+        }
     }
 
     /**
