@@ -26,6 +26,23 @@ p select {
   color: #89a;
 }
 
+svg {
+  height: 100%;
+  width: 100%;
+}
+
+.movable:hover {
+  opacity: 50%;
+}
+
+.shape_container {
+  background-color: rgb(255, 255, 255);
+  border-style: solid;
+  border-color: #89a;
+  margin-bottom: 1em;
+  margin-top: 1em;
+}
+
 .likert {
   margin-bottom: 0px;
   display: flex;
@@ -46,7 +63,7 @@ p select {
   -webkit-appearance: none;
   width: 100%;
   height: 15px;
-  border-radius: 5px;  
+  border-radius: 5px;
   background: #d3d3d3;
   outline: none;
   opacity: 0.7;
@@ -59,7 +76,7 @@ p select {
   appearance: none;
   width: 25px;
   height: 25px;
-  border-radius: 50%; 
+  border-radius: 50%;
   background: #745fb5;
   cursor: pointer;
 }
@@ -80,3 +97,4 @@ p select {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+}

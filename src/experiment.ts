@@ -1,11 +1,11 @@
 import { CubeContainer } from "./cubecontainer.js"
 
 let message: string = 'Hello';
-let startContainer = new CubeContainer();
+let startContainer = new CubeContainer("startcontainer");
+let instructionContainer = new CubeContainer("instructioncontainer");
+let commandContainer = new CubeContainer("commandcontainer");
 
-startContainer.addCube("1");
-
-window.onload = function () {
-    document.getElementById("instructions").textContent = "test";
-    startContainer.listCubes();
-} 
+for (let index = 0; index < 14; index++) {
+    let random_color = '#' + Math.floor(Math.random() * 16777215).toString(16)
+    startContainer.addCube(random_color);
+}
