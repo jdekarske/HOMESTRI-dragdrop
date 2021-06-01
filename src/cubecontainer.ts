@@ -11,6 +11,7 @@ export class CubeContainer {
     private contains: Cube[] = [];
     private next_id = 0;
     private static selected_cube: string;
+    public numberofshapes = 0;
 
     // sizing
     private numrows: number;
@@ -19,11 +20,23 @@ export class CubeContainer {
     constructor(div_name: string, numrows: number, numcolumns: number) {
         this.numrows = numrows;
         this.numcolumns = numcolumns;
+        this.numberofshapes = numrows * numcolumns;
 
         this.parent_div_name = div_name;
         this.parent_node = document.getElementById(div_name);
         this.svg_node.onclick = this.checkClickedCube;
         this.parent_node.appendChild(this.svg_node);
+    }
+
+    public fillContainer(empty = false) {
+        for (let index = 0; index < this.numberofshapes; index++) {
+            if (empty) {
+                this.addNextCube('#f1f3f5'); // empty cubes
+            } else {
+                let random_color = '#' + Math.floor(Math.random() * 16777215).toString(16)
+                this.addNextCube(random_color);
+            }
+        }
     }
 
     private static setObjectVisuals(id: string) {
