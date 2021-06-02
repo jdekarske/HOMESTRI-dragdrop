@@ -68,6 +68,12 @@ export class CubeContainer {
 
         } else { // otherwise, swap the cubes
             CubeContainer.unsetObjectVisuals(CubeContainer.selected_cube);
+            let new_cube_DOM = document.getElementById(evt.target.id);
+            let old_cube_DOM = document.getElementById(CubeContainer.selected_cube);
+            let new_color = new_cube_DOM.getAttribute('fill');
+            let old_color = old_cube_DOM.getAttribute('fill');
+            old_cube_DOM.setAttribute('fill', new_color);
+            new_cube_DOM.setAttribute('fill', old_color);
             CubeContainer.selected_cube = null;
         }
     }
