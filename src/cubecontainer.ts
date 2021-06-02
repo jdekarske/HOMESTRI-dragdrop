@@ -42,8 +42,7 @@ export class CubeContainer {
             if (empty) {
                 this.addNextCube('#f1f3f5'); // empty cubes
             } else {
-                let random_color = '#' + Math.floor(Math.random() * 16777215).toString(16)
-                this.addNextCube(random_color);
+                this.addNextCube(randomColor());
             }
         }
     }
@@ -114,3 +113,7 @@ export class CubeContainer {
     }
 }
 
+function randomColor(): string {
+    let colors = ["#337ab7", "#5bc0de", "#5cb85c", "#f0ad4e", "#d9534f"]
+    return colors[Math.floor(Math.random() * colors.length)];
+}
