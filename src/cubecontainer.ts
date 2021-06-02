@@ -51,7 +51,7 @@ export class CubeContainer {
     private static setObjectVisuals(id: string) {
         let obj_node = document.getElementById(id);
         if (!obj_node) { return; }
-        obj_node.setAttributeNS(null, 'stroke-width', "2");
+        obj_node.setAttributeNS(null, 'stroke-width', "3");
     }
 
     private static unsetObjectVisuals(id: string) {
