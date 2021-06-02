@@ -60,8 +60,13 @@ export class CubeContainer {
     }
 
     private checkClickedCube(evt) {
+        // make sure we have a cube
+        if (!evt.target.id) { return; } // could unselect here
+
+        // instruction cubes are not selectable
         const dont_select = 'instructioncontainer';
         if (evt.target.id.includes(dont_select)) { return; }
+
         // if no cube selected, select it
         if (!CubeContainer.selected_cube) {
             CubeContainer.selected_cube = evt.target.id;
