@@ -1,5 +1,6 @@
 {
   "dependencies": {
-    "signale": "^1.4.0"
+    "@types/roslib": "^1.1.1",
+    "roslib": "^1.1.0"
   }
 }
