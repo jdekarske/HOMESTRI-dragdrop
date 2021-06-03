@@ -1,4 +1,17 @@
 {
+  "name": "homestri-dragdrop",
+  "version": "0.1",
+  "description": "",
+
+ "main": "index.ts",
+
+ "private": true,
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Jason Dekarske (dekarskej@gmail.com)",
+  "license": "GPL",
   "dependencies": {
     "@types/roslib": "^1.1.1",
     "roslib": "^1.1.0"
