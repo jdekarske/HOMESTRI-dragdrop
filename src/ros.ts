@@ -35,14 +35,13 @@ export class ROSInterface {
 
     private camera_topic = new ROSLIB.Topic({
         ros: this.ros,
-        name: '/camera/remote_camera/compressed',
+        name: '/camera/remote_camera_rack/compressed',
         messageType: 'sensor_msgs/CompressedImage'
     });
 
     public subscribeToCamera() {
-        this.camera_topic.subscribe(function (message) {
-            //TODO
-            document.getElementById('camera_stream').setAttribute('src', "data:image/jpg;base64," + message);
+        this.camera_topic.subscribe(function (message: ROSLIB.Message & any) {
+            document.getElementById('camera_stream').setAttribute('src', "data:image/jpg;base64," + message.data);
         });
     }
 
