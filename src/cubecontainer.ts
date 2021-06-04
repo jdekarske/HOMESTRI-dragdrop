@@ -1,5 +1,5 @@
 
-import { Cube } from "./movable.js"
+import { Cube } from "./movable"
 
 export class CubeContainer {
 

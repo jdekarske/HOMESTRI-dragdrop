@@ -1,10 +1,9 @@
-import * as ROSLIB from "roslib"
+import * as ROSLIB from "roslib";
 
 export class ROSInterface {
-    private remote_url = 'ws://172.19.0.2:9090'
+    private remote_url = 'ws://172.17.0.2:9090'
     private local_url = 'ws://localhost:9090'
     private ros = new ROSLIB.Ros({});
-
     private url = this.remote_url;
 
     // Connecting to server
