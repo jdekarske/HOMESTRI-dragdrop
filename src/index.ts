@@ -1,5 +1,6 @@
-import { CubeContainer } from "./cubecontainer.js"
-import { ROSInterface } from "./ros.js";
+import "./static/style.css"
+import { CubeContainer } from "./cubecontainer"
+import { ROSInterface } from "./ros";
 
 let startContainer = new CubeContainer("startcontainer", 2, 8);
 let instructionContainer = new CubeContainer("instructioncontainer", 2, 4);
