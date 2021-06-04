@@ -11,3 +11,4 @@ instructionContainer.fillContainer();
 commandContainer.fillContainer(true);
 
 let ros = new ROSInterface();
+ros.subscribeToCamera();
