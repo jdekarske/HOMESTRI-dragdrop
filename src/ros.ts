@@ -6,6 +6,8 @@ export class ROSInterface {
     private ros = new ROSLIB.Ros({});
     private url = this.remote_url;
 
+    private cubes_in_simulation: string[];
+
     // Connecting to server
     // ----------------------
 
@@ -28,6 +30,9 @@ export class ROSInterface {
         });
 
         this.ros.connect(this.url);
+
+        this.subscribeToCamera();
+        this.subscribeToCubeCheck();
     }
 
     // Subscribing to the camera stream
@@ -45,12 +50,6 @@ export class ROSInterface {
         });
     }
 
-    private filterItems(arr, query) {
-        return arr.filter(function (el) {
-            return el.toLowerCase().indexOf(query.toLowerCase()) !== -1
-        })
-    }
-
     // https://stackoverflow.com/questions/22395357/how-to-compare-two-arrays-are-equal-using-javascript
     private arraysAreIdentical(arr1, arr2) {
         if (arr1.length !== arr2.length) return false;
@@ -62,21 +61,21 @@ export class ROSInterface {
         return true;
     }
 
-    // check which cubes are in gazebo
-    // var cubes_topic = new ROSLIB.Topic({
-    //     ros: ros,
-    //     name: '/gazebo/model_states',
-    //     messageType: 'gazebo_msgs/ModelStates'
-    // });
+    // Check for cubes
+    // -----------------
 
-    // cubes_topic.subscribe(function (message) {
-    //     var newcubes = filterItems(message.name, 'cube_');
-    //     if (!arraysAreIdentical(newcubes, cubes)) {
-    //         cubes = newcubes;
-    //         updatePick(cubes);
-    //     }
+    public subscribeToCubeCheck() {
 
-    // });
+        let cubes_topic = new ROSLIB.Topic({
+            ros: this.ros,
+            name: '/gazebo/model_states',
+            messageType: 'gazebo_msgs/ModelStates'
+        });
+
+        cubes_topic.subscribe(function (message: ROSLIB.Message & any) {
+            this.cubes_in_simulation = filterItems(message.name, 'cube_');
+        });
+    }
 
     // Spawning cubes
     // -----------------
@@ -132,9 +131,17 @@ export class ROSInterface {
     });
 
     public goPickPlace(position1: number, position2: number) {
+        let pick_object = 'cube_' + position1.toString()
+        let place_object = 'cube_' + position2.toString()
+
+        if (this.cubes_in_simulation.indexOf(pick_object) > -1) {
+            console.warn(pick_object + ' not in simulation');
+            return;
+        }
+
         let request = new ROSLIB.ServiceRequest({
-            pick_object: 'cube_' + position1.toString(),
-            place_object: 'cube_' + position2.toString(),
+            pick_object: pick_object,
+            place_object: place_object,
         });
 
         this.goPickPlaceClient.callService(request, function (result) {
@@ -161,4 +168,10 @@ function hexToRgb(hex: string): { r: number; g: number; b: number; } {
         g: parseInt(result[2], 16),
         b: parseInt(result[3], 16)
     } : null;
+}
+
+function filterItems(arr, query) {
+    return arr.filter(function (el) {
+        return el.toLowerCase().indexOf(query.toLowerCase()) !== -1
+    })
 }
