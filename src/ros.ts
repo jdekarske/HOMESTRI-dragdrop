@@ -93,7 +93,7 @@ export class ROSInterface {
         let rgbcolors = hexToRgb(color);
         let request = new ROSLIB.ServiceRequest({
             param_name: '/cube_positions/inputs',
-            overwrite: true,
+            overwrite: false,
             position: position,
             color: [rgbcolors.r, rgbcolors.g, rgbcolors.b],
             length: 0,
@@ -107,17 +107,34 @@ export class ROSInterface {
         });
     }
 
+    public deleteAllCubes() {
+        let request = new ROSLIB.ServiceRequest({
+            param_name: '',
+            overwrite: true,
+            position: 0,
+            color: [0],
+            length: 0,
+            width: 0
+        }
+        );
+
+        this.spawnCubesClient.callService(request, function (result) {
+            console.log('Result for service call on spawncubes: '
+                + result.status);
+        });
+    }
+
+    // rosservice call /pick_place "{pick_object: 'cube_1', place_object: 'cube_1'}"
     private goPickPlaceClient = new ROSLIB.Service({
         ros: this.ros,
         name: '/pick_place',
         serviceType: 'targetpose/pickplace'
     });
 
-    private goPickPlace() {
+    public goPickPlace(position1: number, position2: number) {
         let request = new ROSLIB.ServiceRequest({
-            // TODO
-            pick_object: 'todo',
-            place_object: 'todo'
+            pick_object: 'cube_' + position1.toString(),
+            place_object: 'cube_' + position2.toString(),
         });
 
         this.goPickPlaceClient.callService(request, function (result) {
