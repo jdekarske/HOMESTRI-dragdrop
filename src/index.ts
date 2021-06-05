@@ -12,3 +12,15 @@ commandContainer.fillContainer(true);
 
 let ros = new ROSInterface();
 ros.subscribeToCamera();
+
+document.getElementById("send_btn").onclick = (() => {
+    ros.deleteAllCubes();
+    ros.spawnCube(1, "#5cb85c")
+    ros.spawnCube(2, "#5cb85c")
+    ros.spawnCube(3, "#5cb85c")
+    ros.spawnCube(4, "#5cb85c")
+})
+
+document.getElementById("sort_btn").onclick = (() => {
+    ros.goPickPlace(1, 1)
+})
