@@ -87,12 +87,19 @@ export class ROSInterface {
         serviceType: 'spawn_objects/spawn_objects'
     });
 
-    private spawnCubes() {
+
+    // rosservice call /spawn_objects_service "{param_name: '/cube_positions/inputs', overwrite: true, position: 1, color: [0,0,1], length: 0, width: 0}"
+    public spawnCube(position: number, color: string) {
+        let rgbcolors = hexToRgb(color);
         let request = new ROSLIB.ServiceRequest({
-            //TODO
-            surface_name: '',
+            param_name: '/cube_positions/inputs',
             overwrite: true,
-        });
+            position: position,
+            color: [rgbcolors.r, rgbcolors.g, rgbcolors.b],
+            length: 0,
+            width: 0
+        }
+        );
 
         this.spawnCubesClient.callService(request, function (result) {
             console.log('Result for service call on spawncubes: '
@@ -118,4 +125,23 @@ export class ROSInterface {
                 + result.status);
         });
     }
+}
+
+// https://stackoverflow.com/questions/5623838/rgb-to-hex-and-hex-to-rgb
+function componentToHex(c: number) {
+    var hex = c.toString(16);
+    return hex.length == 1 ? "0" + hex : hex;
+}
+
+function rgbToHex(r: number, g: number, b: number) {
+    return "#" + componentToHex(r) + componentToHex(g) + componentToHex(b);
+}
+
+function hexToRgb(hex: string): { r: number; g: number; b: number; } {
+    var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+    return result ? {
+        r: parseInt(result[1], 16),
+        g: parseInt(result[2], 16),
+        b: parseInt(result[3], 16)
+    } : null;
 }
