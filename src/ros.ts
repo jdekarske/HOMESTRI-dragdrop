@@ -6,7 +6,7 @@ export class ROSInterface {
     private ros = new ROSLIB.Ros({});
     private url = this.remote_url;
 
-    private cubes_in_simulation: string[];
+    public cubes_in_simulation: string[];
 
     // Connecting to server
     // ----------------------
@@ -87,6 +87,7 @@ export class ROSInterface {
     });
 
     static spawn_cubes_queue: ROSLIB.ServiceRequest[] = []
+    static spawning_flag = false; // determines if the simulation is spawning 
 
     // rosservice call /spawn_objects_service "{param_name: '/cube_positions/inputs', overwrite: true, position: 1, color: [0,0,1], length: 0, width: 0}"
     public spawnCube(position: number, color: string) {
@@ -102,22 +103,27 @@ export class ROSInterface {
         );
 
         // add to queue and call the service if its the only thing in there
-        if (ROSInterface.spawn_cubes_queue.push(request) == 1) {
-            this.spawnCubesServiceCall(ROSInterface.spawn_cubes_queue.shift());
-        }
+        ROSInterface.spawn_cubes_queue.push(request);
+        this.spawnCubesServiceCall();
     }
 
-    // method to send spawn cube request to the simulation backend, there is no guarantee messages are received sequentially
-    public spawnCubesServiceCall(request: ROSLIB.ServiceRequest) {
-        this.spawnCubesClient.callService(request, function (result) {
-            console.log('Result for service call on spawncubes: '
-                + result.status);
+    public spawnCubesCallback (result){
+            console.log('Result for service call on spawncubes: ' + result.status);
+
+            ROSInterface.spawning_flag = false;
 
             // if there are more things in the queue, send the next one
             if (ROSInterface.spawn_cubes_queue.length >= 1) {
-                this.spawnCubesServiceCall(ROSInterface.spawn_cubes_queue.shift());
+                this.spawnCubesServiceCall();
             }
-        });
+        }
+
+    // method to send spawn cube request to the simulation backend, there is no guarantee messages are received sequentially
+    public spawnCubesServiceCall () {
+        if (!ROSInterface.spawning_flag) {
+            ROSInterface.spawning_flag = true;
+            this.spawnCubesClient.callService(ROSInterface.spawn_cubes_queue.shift(), this.spawnCubesCallback.bind(this));
+        }
     }
 
     public deleteAllCubes() {
@@ -131,11 +137,12 @@ export class ROSInterface {
         }
         );
 
-        // add to queue and call the service if its the only thing in there
-        if (ROSInterface.spawn_cubes_queue.push(request) == 1) {
-            this.spawnCubesServiceCall(ROSInterface.spawn_cubes_queue.shift());
-        }
+        ROSInterface.spawn_cubes_queue.push(request);
+        this.spawnCubesServiceCall();
     }
+
+    // Moving cubes
+    // -----------------
 
     // rosservice call /pick_place "{pick_object: 'cube_1', place_object: 'cube_1'}"
     private goPickPlaceClient = new ROSLIB.Service({
@@ -144,24 +151,39 @@ export class ROSInterface {
         serviceType: 'targetpose/pickplace'
     });
 
+    static move_cubes_queue: ROSLIB.ServiceRequest[] = []
+
+    // method to send move cube request to the simulation backend, there is no guarantee messages are received sequentially
+    public moveCubesServiceCall(request: ROSLIB.ServiceRequest) {
+        this.goPickPlaceClient.callService(request, function (result) {
+            console.log('Result for service call on movecubes: '
+                + result.status);
+
+            // if there are more things in the queue, send the next one
+            if (ROSInterface.move_cubes_queue.length = 1) {
+                this.moveCubesServiceCall(ROSInterface.move_cubes_queue.shift());
+            }
+        });
+    }
+
     public goPickPlace(position1: number, position2: number) {
         let pick_object = 'cube_' + position1.toString()
         let place_object = 'cube_' + position2.toString()
 
-        if (this.cubes_in_simulation.indexOf(pick_object) > -1) {
-            console.warn(pick_object + ' not in simulation');
-            return;
-        }
+        // if (this.cubes_in_simulation.indexOf(pick_object) > -1) {
+        //     console.warn(pick_object + ' not in simulation');
+        //     return;
+        // }
 
         let request = new ROSLIB.ServiceRequest({
             pick_object: pick_object,
             place_object: place_object,
         });
 
-        this.goPickPlaceClient.callService(request, function (result) {
-            console.log('Result for service call on pickplace: '
-                + result.status);
-        });
+        // add to queue and call the service if its the only thing in there
+        if (ROSInterface.move_cubes_queue.push(request) >= 1) {
+            this.moveCubesServiceCall(ROSInterface.move_cubes_queue.shift());
+        }
     }
 }
 
