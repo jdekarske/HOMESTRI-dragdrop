@@ -86,6 +86,7 @@ export class ROSInterface {
         serviceType: 'spawn_objects/spawn_objects'
     });
 
+    static spawn_cubes_queue: ROSLIB.ServiceRequest[] = []
 
     // rosservice call /spawn_objects_service "{param_name: '/cube_positions/inputs', overwrite: true, position: 1, color: [0,0,1], length: 0, width: 0}"
     public spawnCube(position: number, color: string) {
@@ -100,9 +101,22 @@ export class ROSInterface {
         }
         );
 
+        // add to queue and call the service if its the only thing in there
+        if (ROSInterface.spawn_cubes_queue.push(request) == 1) {
+            this.spawnCubesServiceCall(ROSInterface.spawn_cubes_queue.shift());
+        }
+    }
+
+    // method to send spawn cube request to the simulation backend, there is no guarantee messages are received sequentially
+    public spawnCubesServiceCall(request: ROSLIB.ServiceRequest) {
         this.spawnCubesClient.callService(request, function (result) {
             console.log('Result for service call on spawncubes: '
                 + result.status);
+
+            // if there are more things in the queue, send the next one
+            if (ROSInterface.spawn_cubes_queue.length >= 1) {
+                this.spawnCubesServiceCall(ROSInterface.spawn_cubes_queue.shift());
+            }
         });
     }
 
@@ -117,10 +131,10 @@ export class ROSInterface {
         }
         );
 
-        this.spawnCubesClient.callService(request, function (result) {
-            console.log('Result for service call on spawncubes: '
-                + result.status);
-        });
+        // add to queue and call the service if its the only thing in there
+        if (ROSInterface.spawn_cubes_queue.push(request) == 1) {
+            this.spawnCubesServiceCall(ROSInterface.spawn_cubes_queue.shift());
+        }
     }
 
     // rosservice call /pick_place "{pick_object: 'cube_1', place_object: 'cube_1'}"
