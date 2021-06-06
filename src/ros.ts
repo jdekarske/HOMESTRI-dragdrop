@@ -107,19 +107,18 @@ export class ROSInterface {
         this.spawnCubesServiceCall();
     }
 
-    public spawnCubesCallback (result){
-            console.log('Result for service call on spawncubes: ' + result.status);
+    public spawnCubesCallback(result) {
+        console.log('Result for service call on spawncubes: ' + result.status);
+        ROSInterface.spawning_flag = false;
 
-            ROSInterface.spawning_flag = false;
-
-            // if there are more things in the queue, send the next one
-            if (ROSInterface.spawn_cubes_queue.length >= 1) {
-                this.spawnCubesServiceCall();
-            }
+        // if there are more things in the queue, send the next one
+        if (ROSInterface.spawn_cubes_queue.length >= 1) {
+            this.spawnCubesServiceCall();
         }
+    }
 
     // method to send spawn cube request to the simulation backend, there is no guarantee messages are received sequentially
-    public spawnCubesServiceCall () {
+    public spawnCubesServiceCall() {
         if (!ROSInterface.spawning_flag) {
             ROSInterface.spawning_flag = true;
             this.spawnCubesClient.callService(ROSInterface.spawn_cubes_queue.shift(), this.spawnCubesCallback.bind(this));
@@ -152,18 +151,25 @@ export class ROSInterface {
     });
 
     static move_cubes_queue: ROSLIB.ServiceRequest[] = []
+    static moving_flag = false; // determines if the simulation is moving
+
+    public moveCubesCallback(result) {
+        console.log('Result for service call on movecubes: '
+            + result.status);
+        ROSInterface.moving_flag = false;
+
+        // if there are more things in the queue, send the next one
+        if (ROSInterface.move_cubes_queue.length >= 1) {
+            this.moveCubesServiceCall();
+        }
+    }
 
     // method to send move cube request to the simulation backend, there is no guarantee messages are received sequentially
-    public moveCubesServiceCall(request: ROSLIB.ServiceRequest) {
-        this.goPickPlaceClient.callService(request, function (result) {
-            console.log('Result for service call on movecubes: '
-                + result.status);
-
-            // if there are more things in the queue, send the next one
-            if (ROSInterface.move_cubes_queue.length = 1) {
-                this.moveCubesServiceCall(ROSInterface.move_cubes_queue.shift());
-            }
-        });
+    public moveCubesServiceCall() {
+        if (!ROSInterface.moving_flag) {
+            ROSInterface.moving_flag = true;
+            this.goPickPlaceClient.callService(ROSInterface.move_cubes_queue.shift(), this.moveCubesCallback.bind(this));
+        }
     }
 
     public goPickPlace(position1: number, position2: number) {
@@ -181,10 +187,10 @@ export class ROSInterface {
         });
 
         // add to queue and call the service if its the only thing in there
-        if (ROSInterface.move_cubes_queue.push(request) >= 1) {
-            this.moveCubesServiceCall(ROSInterface.move_cubes_queue.shift());
-        }
+        ROSInterface.move_cubes_queue.push(request)
+        this.moveCubesServiceCall();
     }
+
 }
 
 // https://stackoverflow.com/questions/5623838/rgb-to-hex-and-hex-to-rgb
