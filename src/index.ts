@@ -22,5 +22,8 @@ document.getElementById("send_btn").onclick = (() => {
 })
 
 document.getElementById("sort_btn").onclick = (() => {
-    ros.goPickPlace(1, 1)
+    ros.goPickPlace(1, 1);
+    ros.goPickPlace(2, 5);
+    ros.goPickPlace(3, 3);
+    ros.goPickPlace(4, 8);
 })
