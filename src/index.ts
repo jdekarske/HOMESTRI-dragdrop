@@ -15,11 +15,12 @@ ros.subscribeToCamera();
 
 document.getElementById("send_btn").onclick = (() => {
     ros.deleteAllCubes();
-    let command_cubes = commandContainer.listCubes()
+    let command_cubes = commandContainer.listCubes();
     if (command_cubes.num_cubes == 4) {
-        command_cubes.cubelist.forEach((element, i) => {
+        let i = 1;
+        command_cubes.cubelist.forEach((element) => {
             if (element.color) {
-                ros.spawnCube(i + 1, element.color)
+                ros.spawnCube(i++, element.color)
             }
         });
     } else {
@@ -28,8 +29,15 @@ document.getElementById("send_btn").onclick = (() => {
 })
 
 document.getElementById("sort_btn").onclick = (() => {
-    ros.goPickPlace(1, 1);
-    ros.goPickPlace(2, 5);
-    ros.goPickPlace(3, 3);
-    ros.goPickPlace(4, 8);
+    let command_cubes = commandContainer.listCubes();
+    if (command_cubes.num_cubes == 4) {
+        let i = 1;
+        command_cubes.cubelist.forEach((element) => {
+            if (element.color) {
+                ros.goPickPlace(i++, element.id + 1);
+            }
+        });
+    } else {
+        return false;
+    }
 })
