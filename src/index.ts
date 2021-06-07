@@ -14,8 +14,17 @@ let ros = new ROSInterface();
 ros.subscribeToCamera();
 
 document.getElementById("send_btn").onclick = (() => {
-    let cubes = commandContainer.listCubes()
-    console.log(cubes);
+    ros.deleteAllCubes();
+    let command_cubes = commandContainer.listCubes()
+    if (command_cubes.num_cubes == 4) {
+        command_cubes.cubelist.forEach((element, i) => {
+            if (element.color) {
+                ros.spawnCube(i + 1, element.color)
+            }
+        });
+    } else {
+        return false;
+    }
 })
 
 document.getElementById("sort_btn").onclick = (() => {

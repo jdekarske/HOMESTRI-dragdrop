@@ -115,7 +115,6 @@ export class CubeContainer {
             cubelist: [],
             num_cubes: 0
         }
-        let num_cubes = 0
         this.svg_node.childNodes.forEach(element => {
             let color = (element as SVGElement).getAttribute('fill');
             if (color == this.empty_color) { color = null; } else { cubes.num_cubes++; }
