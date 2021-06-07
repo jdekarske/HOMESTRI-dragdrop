@@ -8,10 +8,10 @@ export class CubeContainer {
     protected parent_div_name: string;
 
     // cubes in the interface
-    private contains: Cube[] = [];
     private next_id = 0;
     private static selected_cube: string;
     public numberofshapes = 0;
+    private empty_color = '#f1f3f5';
 
     // sizing
     private numrows: number;
@@ -40,7 +40,7 @@ export class CubeContainer {
     public fillContainer(empty = false) {
         for (let index = 0; index < this.numberofshapes; index++) {
             if (empty) {
-                this.addNextCube('#f1f3f5'); // empty cubes
+                this.addNextCube(this.empty_color); // empty cubes
             } else {
                 this.addNextCube(randomColor());
             }
@@ -96,7 +96,6 @@ export class CubeContainer {
             this.rowseperation * (row + 1),
             default_size,
             color);
-        this.contains.push(cube);
         cube.addToContainer(this.parent_node);
     }
 
@@ -111,10 +110,22 @@ export class CubeContainer {
     /**
      * listCubes
      */
-    public listCubes(): void {
-        this.contains.forEach(element => {
-            console.log(element);
+    public listCubes(): any {
+        let cubes = {
+            cubelist: [],
+            num_cubes: 0
+        }
+        let num_cubes = 0
+        this.svg_node.childNodes.forEach(element => {
+            let color = (element as SVGElement).getAttribute('fill');
+            if (color == this.empty_color) { color = null; } else { cubes.num_cubes++; }
+            let cube = {
+                color: color,
+                id: (element as SVGElement).getAttribute('id').substring(this.parent_div_name.length),
+            }
+            cubes.cubelist.push(cube);
         });
+        return cubes;
     }
 }
 
