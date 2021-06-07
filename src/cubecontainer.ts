@@ -120,7 +120,7 @@ export class CubeContainer {
             if (color == this.empty_color) { color = null; } else { cubes.num_cubes++; }
             let cube = {
                 color: color,
-                id: (element as SVGElement).getAttribute('id').substring(this.parent_div_name.length),
+                id: parseInt((element as SVGElement).getAttribute('id').substring(this.parent_div_name.length)),
             }
             cubes.cubelist.push(cube);
         });
