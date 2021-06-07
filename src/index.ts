@@ -14,11 +14,8 @@ let ros = new ROSInterface();
 ros.subscribeToCamera();
 
 document.getElementById("send_btn").onclick = (() => {
-    ros.deleteAllCubes();
-    ros.spawnCube(1, "#5cb85c")
-    ros.spawnCube(2, "#5cb85c")
-    ros.spawnCube(3, "#5cb85c")
-    ros.spawnCube(4, "#5cb85c")
+    let cubes = commandContainer.listCubes()
+    console.log(cubes);
 })
 
 document.getElementById("sort_btn").onclick = (() => {
