@@ -1,14 +1,31 @@
 import "./static/style.css"
 import { CubeContainer } from "./cubecontainer"
 import { ROSInterface } from "./ros";
+import { range, shuffle } from "./util";
 
 let startContainer = new CubeContainer("startcontainer", 2, 8);
 let instructionContainer = new CubeContainer("instructioncontainer", 2, 4);
 let commandContainer = new CubeContainer("commandcontainer", 2, 4);
 
+// Setup the experiment
+//---------------------
+commandContainer.fillContainer(true); // empty
+instructionContainer.fillContainer(true); //empty
+
+// generate random cubes
 startContainer.fillContainer();
-instructionContainer.fillContainer();
-commandContainer.fillContainer(true);
+
+// grab four random ones
+var start_cubes = startContainer.listCubes();
+var random_start_cubes_i = shuffle(range(0, start_cubes.cubelist.length)); // randomly selected cubes
+
+// put those in four random instruction places
+var random_instruction_cubes_i = shuffle(range(0, instructionContainer.numberofshapes));
+for (let i = 0; i < 4; i++) {
+    instructionContainer.setcubeColor(
+        random_instruction_cubes_i[i], // the position in the instruction box
+        start_cubes.cubelist[random_start_cubes_i[i]].color) // random color from start box
+}
 
 let ros = new ROSInterface();
 

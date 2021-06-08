@@ -47,6 +47,11 @@ export class CubeContainer {
         }
     }
 
+    public setcubeColor(position: number, color: string) {
+        let cube_DOM = document.getElementById(this.parent_div_name + position.toString());
+        cube_DOM.setAttribute('fill', color);
+    }
+
     private static setObjectVisuals(id: string) {
         let obj_node = document.getElementById(id);
         if (!obj_node) { return; }
