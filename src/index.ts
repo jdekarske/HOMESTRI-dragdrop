@@ -11,7 +11,6 @@ instructionContainer.fillContainer();
 commandContainer.fillContainer(true);
 
 let ros = new ROSInterface();
-ros.subscribeToCamera();
 
 document.getElementById("send_btn").onclick = (() => {
     ros.deleteAllCubes();

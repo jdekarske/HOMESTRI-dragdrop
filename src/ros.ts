@@ -1,9 +1,9 @@
 import * as ROSLIB from "roslib";
 
 export class ROSInterface {
-    private remote_url = 'ws://172.17.0.2:9090'
+    private remote_url = 'ws://simulator:9090'
     private local_url = 'ws://localhost:9090'
-    private ros = new ROSLIB.Ros({});
+    public ros = new ROSLIB.Ros({});
     private url = this.remote_url;
 
     public cubes_in_simulation: string[];
@@ -11,28 +11,31 @@ export class ROSInterface {
     // Connecting to server
     // ----------------------
 
+    private rosOnConnect() {
+        console.log('Connection to websocket!');
+        this.subscribeToCamera();
+        this.subscribeToCubeCheck();
+    }
+
+    private rosOnReconnect(error) {
+        console.log('Error connecting to websocket server: ', error);
+        if (this.url === this.remote_url) {
+            this.url = this.local_url;
+            this.ros.connect(this.url);
+        }
+    }
+
     constructor() {
 
-        this.ros.on('connection', function () {
-            console.log('Connection to websocket!');
-        });
+        this.ros.on('connection', this.rosOnConnect.bind(this));
 
-        this.ros.on('error', function (error) {
-            console.log('Error connecting to websocket server: ', error);
-            if (this.url === this.remote_url) {
-                this.url = this.local_url;
-                this.ros.connect(this.url);
-            }
-        });
+        this.ros.on('error', this.rosOnReconnect.bind(this));
 
         this.ros.on('close', function () {
             console.log('Connection to websocket server closed.');
         });
 
         this.ros.connect(this.url);
-
-        this.subscribeToCamera();
-        this.subscribeToCubeCheck();
     }
 
     // Subscribing to the camera stream
