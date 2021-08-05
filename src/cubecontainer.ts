@@ -38,6 +38,7 @@ export class CubeContainer {
     }
 
     public fillContainer(empty = false) {
+        this.next_id = 0; // start placing cubes from the beginning
         for (let index = 0; index < this.numberofshapes; index++) {
             if (empty) {
                 this.addNextCube(this.empty_color); // empty cubes
@@ -46,6 +47,12 @@ export class CubeContainer {
             }
         }
     }
+
+    public clearContainer() {
+        while (this.svg_node.lastChild) {
+            this.svg_node.removeChild(this.svg_node.lastChild);
+        }
+    };
 
     public setcubeColor(position: number, color: string) {
         let cube_DOM = document.getElementById(this.parent_div_name + position.toString());

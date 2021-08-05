@@ -74,16 +74,16 @@
                 <div class="row">
                     <p>Please rate your trust using the scale below.</p>
                     <form class="slide-container">
-                        <input type="range" min="0" max="100" class="slider" />
+                        <input id="trust_slider" type="range" min="0" max="100" class="slider" />
                     </form>
                 </div>
                 <hr>
                 <div class="row">
                     <div class="col">
-                        <button type="button" class="btn btn-primary">Replace Parts</button>
+                        <button id="replace_btn" type="button" class="btn btn-primary">Replace Parts</button>
                     </div>
                     <div class="dropdown">
-                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Change Algorithm</button>
+                        <button id="algorithm_selector" class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Change Algorithm</button>
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                           <a class="dropdown-item" href="#">Algorithm Gamma</a>
                           <a class="dropdown-item" href="#">Algorithm Echo</a>
