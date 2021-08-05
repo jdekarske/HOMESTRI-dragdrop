@@ -83,6 +83,8 @@ export class ROSInterface {
     // Spawning cubes
     // -----------------
 
+    // always spawn sequentially in position 1. the ROS stuff will take care of further naming
+
     private spawnCubesClient = new ROSLIB.Service({
         ros: this.ros,
         name: '/spawn_objects_service',
@@ -98,7 +100,7 @@ export class ROSInterface {
         let request = new ROSLIB.ServiceRequest({
             param_name: '/cube_positions/inputs',
             overwrite: false,
-            position: position,
+            position: 1, //position,
             color: [rgbcolors.r, rgbcolors.g, rgbcolors.b],
             length: 0,
             width: 0
@@ -145,6 +147,8 @@ export class ROSInterface {
 
     // Moving cubes
     // -----------------
+
+    // always  positions 1,2,3,4 (5,6,7,8). the ROS stuff will take care of further naming
 
     // rosservice call /pick_place "{pick_object: 'cube_1', place_object: 'cube_1'}"
     private goPickPlaceClient = new ROSLIB.Service({
