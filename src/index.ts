@@ -3,9 +3,14 @@ import { CubeContainer } from "./cubecontainer"
 import { ROSInterface } from "./ros";
 import { range, shuffle } from "./util";
 
+// Init
+//---------------------
+
 let startContainer = new CubeContainer("startcontainer", 2, 8);
 let instructionContainer = new CubeContainer("instructioncontainer", 2, 4);
 let commandContainer = new CubeContainer("commandcontainer", 2, 4);
+
+let ros = new ROSInterface();
 
 // Setup the experiment
 //---------------------
@@ -34,10 +39,11 @@ function setupExperiment() {
             random_instruction_cubes_i[i], // the position in the instruction box
             start_cubes.cubelist[random_start_cubes_i[i]].color) // random color from start box
     }
+
+    ros.deleteAllCubes();
 }
 
 setupExperiment();
-let ros = new ROSInterface();
 
 // Setup the buttons
 //---------------------
