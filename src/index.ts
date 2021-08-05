@@ -80,3 +80,7 @@ document.getElementById("sort_btn").onclick = (() => {
 document.getElementById("replace_btn").onclick = (() => {
     setupExperiment();
 })
+
+document.getElementById("trust_slider").oninput = function () {
+    console.log((this as HTMLInputElement).value);
+}
