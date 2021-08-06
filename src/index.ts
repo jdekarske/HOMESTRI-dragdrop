@@ -10,6 +10,16 @@ let startContainer = new CubeContainer("startcontainer", 2, 8);
 let instructionContainer = new CubeContainer("instructioncontainer", 2, 4);
 let commandContainer = new CubeContainer("commandcontainer", 2, 4);
 
+let gamma = 0.9; // good capability
+let echo = 0.3 // bad capability
+
+let current_algorithm = "algorithm_gamma";
+let current_capability = gamma;
+
+function randomMistake(capability: number) {
+    return (Math.random() > capability); //if the random number is higher than the capability, we will make a mistake
+}
+
 let ros = new ROSInterface();
 
 let logs = [];
@@ -67,6 +77,7 @@ document.getElementById("send_btn").onclick = (() => {
         let i = 1;
         command_cubes.cubelist.forEach((element) => {
             if (element.color) {
+                logthis("spawncube: " + i.toString() + ":" + element.color)
                 ros.spawnCube(i++, element.color)
             }
         });
@@ -79,10 +90,26 @@ document.getElementById("sort_btn").onclick = (() => {
     logthis("sortcubes")
     let command_cubes = commandContainer.listCubes();
     if (command_cubes.num_cubes == 4) {
+        // find the empty command spaces
+        let empty: number[] = [];
+        let iempty = 0;
+        command_cubes.cubelist.forEach((element) => {
+            if (!element.color) {
+                empty.push(element.id);
+            }
+        });
+        let random_empty = shuffle(empty);
+
         let i = 1;
         command_cubes.cubelist.forEach((element) => {
             if (element.color) {
-                ros.goPickPlace(i++, element.id + 1);
+                if (randomMistake(current_capability)) {
+                    logthis("mistake: " + (element.id + 1) + ":" + (random_empty[iempty]+1).toString())
+                    ros.goPickPlace(i++, random_empty[iempty++] + 1); // put it in an empty space
+                } else {
+                    ros.goPickPlace(i++, element.id + 1); // put it in the designated space
+                    logthis("correct: " + (element.id + 1) + ":" + (element.id + 1).toString())
+                }
             }
         });
     } else {
@@ -95,7 +122,21 @@ document.getElementById("replace_btn").onclick = (() => {
 })
 
 document.getElementById("export_btn").onclick = (() => {
+    logthis("exporting...")
     downloadObjectAsJson(logs, getFormattedTime());
+})
+
+document.getElementById("algorithm_gamma_btn").onclick = (() => {
+    current_algorithm = "algorithm_gamma";
+    current_capability = gamma;
+    document.getElementById("current_algorithm").innerText = current_algorithm
+})
+
+document.getElementById("algorithm_echo_btn").onclick = (() => {
+    current_algorithm = "algorithm_echo";
+    current_capability = echo;
+    document.getElementById("current_algorithm").innerText = current_algorithm
+
 })
 
 document.getElementById("trust_slider").oninput = function () {
