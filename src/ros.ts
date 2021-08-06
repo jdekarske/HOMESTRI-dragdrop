@@ -1,7 +1,7 @@
 import * as ROSLIB from "roslib";
 
 export class ROSInterface {
-    private remote_url = 'ws://simulator:9090'
+    private remote_url = 'ws://192.168.10.104:9090'
     private local_url = 'ws://localhost:9090'
     public ros = new ROSLIB.Ros({});
     private url = this.remote_url;
