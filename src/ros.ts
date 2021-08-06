@@ -100,7 +100,7 @@ export class ROSInterface {
         let request = new ROSLIB.ServiceRequest({
             param_name: '/cube_positions/inputs',
             overwrite: false,
-            position: 1, //position,
+            position: position,
             color: [rgbcolors.r, rgbcolors.g, rgbcolors.b],
             length: 0,
             width: 0
