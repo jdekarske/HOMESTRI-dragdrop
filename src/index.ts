@@ -1,7 +1,7 @@
 import "./static/style.css"
 import { CubeContainer } from "./cubecontainer"
 import { ROSInterface } from "./ros";
-import { range, shuffle } from "./util";
+import { range, shuffle, getFormattedTime, downloadObjectAsJson } from "./util";
 
 // Init
 //---------------------
@@ -12,10 +12,21 @@ let commandContainer = new CubeContainer("commandcontainer", 2, 4);
 
 let ros = new ROSInterface();
 
+let logs = [];
+
+function logthis(object) {
+    logs.push({
+        "time": performance.now(),
+        value: object
+    });
+}
+
 // Setup the experiment
 //---------------------
 
 function setupExperiment() {
+
+    logthis("trial start!")
 
     // make sure the containers are empty
     commandContainer.clearContainer()
@@ -49,6 +60,7 @@ setupExperiment();
 //---------------------
 
 document.getElementById("send_btn").onclick = (() => {
+    logthis("sendcubes")
     ros.deleteAllCubes();
     let command_cubes = commandContainer.listCubes();
     if (command_cubes.num_cubes == 4) {
@@ -64,6 +76,7 @@ document.getElementById("send_btn").onclick = (() => {
 })
 
 document.getElementById("sort_btn").onclick = (() => {
+    logthis("sortcubes")
     let command_cubes = commandContainer.listCubes();
     if (command_cubes.num_cubes == 4) {
         let i = 1;
@@ -81,6 +94,11 @@ document.getElementById("replace_btn").onclick = (() => {
     setupExperiment();
 })
 
+document.getElementById("export_btn").onclick = (() => {
+    downloadObjectAsJson(logs, getFormattedTime());
+})
+
 document.getElementById("trust_slider").oninput = function () {
-    console.log((this as HTMLInputElement).value);
+    logthis("trust: " + (this as HTMLInputElement).value.toString())
+    // console.log((this as HTMLInputElement).value);
 }
