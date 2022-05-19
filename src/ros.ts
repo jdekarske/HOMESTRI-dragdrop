@@ -1,7 +1,7 @@
 import * as ROSLIB from "roslib";
 
 export class ROSInterface {
-    private remote_url = 'ws://192.168.10.104:9090'
+    private remote_url = 'wss://coe-mae-lella.ou.ad3.ucdavis.edu/simulatorws/001'
     private local_url = 'ws://localhost:9090'
     public ros = new ROSLIB.Ros({});
     private url = this.remote_url;
@@ -20,6 +20,7 @@ export class ROSInterface {
     private rosOnReconnect(error) {
         console.log('Error connecting to websocket server: ', error);
         if (this.url === this.remote_url) {
+            console.error("can't connect!")
             this.url = this.local_url;
             this.ros.connect(this.url);
         }
