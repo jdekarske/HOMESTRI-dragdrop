@@ -5,7 +5,8 @@ import { range, shuffle, getFormattedTime, downloadObjectAsJson } from "./util";
 
 //TODO get jatos types
 declare var jatos: any;
-let trialsRemaining: number = 10;
+let trialsRemaining = 10;
+let missingJatos = true;
 
 // Init
 //---------------------
@@ -16,6 +17,9 @@ let commandContainer = new CubeContainer("commandcontainer", 2, 4);
 
 let gamma = 0.9; // good capability
 let echo = 0.3 // bad capability
+
+let capabilities = [gamma, echo];
+let algorithms = ["gamma", "echo"];
 
 let current_algorithm = "algorithm_gamma";
 let current_capability = gamma;
@@ -42,7 +46,14 @@ function setupExperiment() {
 
     logthis("trial start!")
 
-    document.getElementById("trials_remaining").innerText = `${trialsRemaining} trials remaining.`
+    document.getElementById("trials_remaining").innerText = `${trialsRemaining} trials remaining.`;
+
+    let choice = Math.ceil(Math.random() * 2) - 1;
+    current_algorithm = algorithms[choice];
+    current_capability = capabilities[choice];
+    logthis(current_algorithm);
+    logthis(current_capability);
+    document.getElementById("current_algorithm").innerText = `Current Algorithm: ${current_algorithm}`;
 
     // make sure the containers are empty
     commandContainer.clearContainer()
@@ -128,11 +139,11 @@ document.getElementById("sort_btn").onclick = (() => {
 
 document.getElementById("end_trial_btn").onclick = (() => {
     logthis("end trial")
-    jatos.submitResultdata(logs); // TODO log everything better
+    if (!missingJatos) jatos.submitResultdata(logs); // TODO log everything better
 
     trialsRemaining -= 1;
     if (trialsRemaining <= 0) {
-        jatos.startNextComponent()
+        if (!missingJatos) jatos.startNextComponent();
     }
     setupExperiment();
 })
@@ -155,7 +166,14 @@ document.getElementById("trust_slider").oninput = function () {
     // console.log((this as HTMLInputElement).value);
 }
 
-jatos.onLoad(() => {
-    //    jatos.studyJsonInput["numTrials"] 
+if (typeof jatos === "undefined") {
+    console.log("JATOS not loaded, assuming we're local");
+    missingJatos = true;
     setupExperiment();
-});
+} else {
+    missingJatos = false;
+    jatos.onLoad(() => {
+        //    jatos.studyJsonInput["numTrials"] 
+        setupExperiment();
+    });
+}
