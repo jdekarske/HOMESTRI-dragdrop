@@ -173,7 +173,7 @@ if (typeof jatos === "undefined") {
 } else {
     missingJatos = false;
     jatos.onLoad(() => {
-        //    jatos.studyJsonInput["numTrials"] 
+        //    jatos.componentJsonInput["numTrials"] 
         setupExperiment();
     });
 }

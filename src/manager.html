@@ -57,8 +57,8 @@
                 xmlHttpReq.send(null);
             }
 
-            if ("simulation" in jatos.studyJsonInput) {
-                httpGetAsync(`https://***REMOVED***/manager/${jatos.studyJsonInput.simulation}/001`, function (result) {
+            if ("simulation" in jatos.componentJsonInput) {
+                httpGetAsync(`https://***REMOVED***/manager/${jatos.componentJsonInput.simulation}/001`, function (result) {
                     alert(result);
                 });
             }
