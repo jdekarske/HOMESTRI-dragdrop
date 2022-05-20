@@ -7,7 +7,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "npx webpack",
-    "serve": "cd dist && npx http-server"
+    "serve": "cd dist && npx http-server",
+    "deploy": "./deploy.sh"
   },
   "keywords": [],
   "author": "Jason Dekarske (dekarskej@gmail.com)",
