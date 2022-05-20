@@ -5,7 +5,7 @@ import { range, shuffle, getFormattedTime, downloadObjectAsJson } from "./util";
 
 //TODO get jatos types
 declare var jatos: any;
-let trialsLeft: number = 10;
+let trialsRemaining: number = 10;
 
 // Init
 //---------------------
@@ -41,6 +41,8 @@ function logthis(object) {
 function setupExperiment() {
 
     logthis("trial start!")
+
+    document.getElementById("trials_remaining").innerText = `${trialsRemaining} trials remaining.`
 
     // make sure the containers are empty
     commandContainer.clearContainer()
@@ -119,17 +121,18 @@ document.getElementById("sort_btn").onclick = (() => {
     }
 })
 
-document.getElementById("replace_btn").onclick = (() => {
-    setupExperiment();
-})
+// TODO not using right now
+// document.getElementById("replace_btn").onclick = (() => {
+//     setupExperiment();
+// })
 
 document.getElementById("end_trial_btn").onclick = (() => {
     logthis("end trial")
     jatos.submitResultdata(logs); // TODO log everything better
 
-    trialsLeft -= 1;
-    if (trialsLeft <= 0) {
-        jatos.startNextComponent
+    trialsRemaining -= 1;
+    if (trialsRemaining <= 0) {
+        jatos.startNextComponent()
     }
     setupExperiment();
 })
@@ -153,8 +156,6 @@ document.getElementById("trust_slider").oninput = function () {
 }
 
 jatos.onLoad(() => {
-    
-    
+    //    jatos.studyJsonInput["numTrials"] 
     setupExperiment();
-
 });
