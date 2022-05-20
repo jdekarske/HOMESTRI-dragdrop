@@ -38,6 +38,7 @@ module.exports = {
             patterns: [
                 { context: "src/static", from: "./**/*", to: "static" },
                 { from: "src/index.html", to: "index.html" },
+                { from: "src/manager.html", to: "manager.html" },
             ],
         }),
     ],
