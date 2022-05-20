@@ -139,7 +139,7 @@ document.getElementById("sort_btn").onclick = (() => {
 
 document.getElementById("end_trial_btn").onclick = (() => {
     logthis("end trial")
-    if (!missingJatos) jatos.submitResultdata(logs); // TODO log everything better
+    if (!missingJatos) jatos.submitResultData(logs); // TODO log everything better
 
     trialsRemaining -= 1;
     if (trialsRemaining <= 0) {
