@@ -19,19 +19,22 @@ export class ROSInterface {
 
     private rosOnReconnect(error) {
         console.log('Error connecting to websocket server: ', error);
-        if (this.url === this.remote_url) {
-            console.error("can't connect!")
-            this.url = this.local_url;
-            this.ros.connect(this.url);
-        }
+        setTimeout(() => {
+            this.ros.connect(this.remote_url);
+        }, 1000);
+
+        //    no local url 
+        // if (this.url === this.remote_url) {
+        //     console.error("can't connect!")
+        //     this.url = this.local_url;
+        //     this.ros.connect(this.url);
+        // }
     }
 
     constructor() {
 
         this.ros.on('connection', this.rosOnConnect.bind(this));
-
         this.ros.on('error', this.rosOnReconnect.bind(this));
-
         this.ros.on('close', function () {
             console.log('Connection to websocket server closed.');
         });
