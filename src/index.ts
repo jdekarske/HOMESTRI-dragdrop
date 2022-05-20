@@ -5,6 +5,7 @@ import { range, shuffle, getFormattedTime, downloadObjectAsJson } from "./util";
 
 //TODO get jatos types
 declare var jatos: any;
+let trialsLeft: number = 10;
 
 // Init
 //---------------------
@@ -67,8 +68,6 @@ function setupExperiment() {
     ros.deleteAllCubes();
 }
 
-setupExperiment();
-
 // Setup the buttons
 //---------------------
 
@@ -127,6 +126,12 @@ document.getElementById("replace_btn").onclick = (() => {
 document.getElementById("end_trial_btn").onclick = (() => {
     logthis("end trial")
     jatos.submitResultdata(logs); // TODO log everything better
+
+    trialsLeft -= 1;
+    if (trialsLeft <= 0) {
+        jatos.startNextComponent
+    }
+    setupExperiment();
 })
 
 document.getElementById("misplaced_object_btn").onclick = (() => {
@@ -146,3 +151,10 @@ document.getElementById("trust_slider").oninput = function () {
     logthis("trust: " + (this as HTMLInputElement).value.toString())
     // console.log((this as HTMLInputElement).value);
 }
+
+jatos.onLoad(() => {
+    
+    
+    setupExperiment();
+
+});
