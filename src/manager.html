@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>Survey</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <!-- <link rel="stylesheet" href="static/style.css" type="text/css"> -->
+
+    <!-- Favicon -->
+    <link rel="apple-touch-icon" sizes="180x180" href="static/ico/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="static/ico/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="static/ico/favicon-16x16.png">
+    <link rel="manifest" href="static/ico/site.webmanifest">
+
+    <!-- Scripts -->
+    <script src="jatos.js"></script>
+
+</head>
+
+<html>
+
+<body>
+    <div class="container">
+        <div class="row d-flex justify-content-center">
+            <h1>Survey goes here</h1>
+        </div>
+        <!-- <div class="row d-flex justify-content-center">
+            <p>Interface for autonomous robot supervision and error corrections.</p>
+        </div> -->
+        <div class="row">
+            <div class="col">
+                <h3>Start simulation</h3>
+                <button id="start_btn" type="button" class="btn btn-primary" data-toggle="tooltip" data-placement="top"
+                    title="Spawn the cubes in the simulation">Start Sim</button>
+                <p id="output"></p>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js"
+        integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.min.js"
+        integrity="sha384-kjU+l4N0Yf4ZOJErLsIcvOU2qSb74wXpOhqTvwVx3OElZRweTnQ6d31fXEoRD1Jy"
+        crossorigin="anonymous"></script>
+
+    <script>
+        jatos.onLoad(() => {
+            function httpGetAsync(theUrl, callback) {
+                let xmlHttpReq = new XMLHttpRequest();
+                xmlHttpReq.onreadystatechange = function () {
+                    if (xmlHttpReq.readyState == 4 && xmlHttpReq.status == 200)
+                        callback(xmlHttpReq.responseText);
+                }
+                xmlHttpReq.open("GET", theUrl, true); // true for asynchronous 
+                xmlHttpReq.send(null);
+            }
+
+            if ("simulation" in jatos.studyJsonInput) {
+                httpGetAsync(`https://***REMOVED***/manager/${jatos.studyJsonInput.simulation}/001`, function (result) {
+                    alert(result);
+                });
+            }
+
+            jatos.startNextComponent();
+        });
+    </script>
+</body>
+
+</html>
