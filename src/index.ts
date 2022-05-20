@@ -3,6 +3,9 @@ import { CubeContainer } from "./cubecontainer"
 import { ROSInterface } from "./ros";
 import { range, shuffle, getFormattedTime, downloadObjectAsJson } from "./util";
 
+//TODO get jatos types
+declare var jatos: any;
+
 // Init
 //---------------------
 
@@ -104,7 +107,7 @@ document.getElementById("sort_btn").onclick = (() => {
         command_cubes.cubelist.forEach((element) => {
             if (element.color) {
                 if (randomMistake(current_capability)) {
-                    logthis("mistake: " + (element.id + 1) + ":" + (random_empty[iempty]+1).toString())
+                    logthis("mistake: " + (element.id + 1) + ":" + (random_empty[iempty] + 1).toString())
                     ros.goPickPlace(i++, random_empty[iempty++] + 1); // put it in an empty space
                 } else {
                     ros.goPickPlace(i++, element.id + 1); // put it in the designated space
@@ -121,22 +124,22 @@ document.getElementById("replace_btn").onclick = (() => {
     setupExperiment();
 })
 
-document.getElementById("export_btn").onclick = (() => {
-    logthis("exporting...")
-    downloadObjectAsJson(logs, getFormattedTime());
+document.getElementById("end_trial_btn").onclick = (() => {
+    logthis("end trial")
+    jatos.submitResultdata(logs); // TODO log everything better
 })
 
-document.getElementById("algorithm_gamma_btn").onclick = (() => {
-    current_algorithm = "algorithm_gamma";
-    current_capability = gamma;
-    document.getElementById("current_algorithm").innerText = current_algorithm
+document.getElementById("misplaced_object_btn").onclick = (() => {
+    logthis("misplaced object");
 })
 
-document.getElementById("algorithm_echo_btn").onclick = (() => {
-    current_algorithm = "algorithm_echo";
-    current_capability = echo;
-    document.getElementById("current_algorithm").innerText = current_algorithm
+document.getElementById("strange_behavior_btn").onclick = (() => {
+    logthis("strange behavior");
+})
 
+document.getElementById("broken_robot_btn").onclick = (() => {
+    logthis("broken robot");
+    // TODO reset the simulation
 })
 
 document.getElementById("trust_slider").oninput = function () {
