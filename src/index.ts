@@ -1,7 +1,7 @@
 import "./static/style.css"
 import { CubeContainer } from "./cubecontainer"
 import { ROSInterface } from "./ros";
-import { range, shuffle} from "./util";
+import { range, shuffle } from "./util";
 
 // if (process.env.NODE_ENV !== 'production') {
 
@@ -9,12 +9,11 @@ import { range, shuffle} from "./util";
 
 //  }
 
-//TODO get jatos types
-// eslint-disable-next-line no-var
-declare var jatos: unknown;
+// TODO get jatos types
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+declare const jatos: any;
 let trialsRemaining = 10;
 let missingJatos = true;
-
 // Init
 //---------------------
 

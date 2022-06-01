@@ -52,21 +52,21 @@ export class CubeContainer {
         while (this.svg_node.lastChild) {
             this.svg_node.removeChild(this.svg_node.lastChild);
         }
-    };
+    }
 
     public setcubeColor(position: number, color: string) {
-        let cube_DOM = document.getElementById(this.parent_div_name + position.toString());
+        const cube_DOM = document.getElementById(this.parent_div_name + position.toString());
         cube_DOM.setAttribute('fill', color);
     }
 
     private static setObjectVisuals(id: string) {
-        let obj_node = document.getElementById(id);
+        const obj_node = document.getElementById(id);
         if (!obj_node) { return; }
         obj_node.setAttributeNS(null, 'stroke-width', "3");
     }
 
     private static unsetObjectVisuals(id: string) {
-        let obj_node = document.getElementById(id);
+        const obj_node = document.getElementById(id);
         if (!obj_node) { return; }
         obj_node.setAttributeNS(null, 'stroke-width', "0");
     }
@@ -86,10 +86,10 @@ export class CubeContainer {
 
         } else { // otherwise, swap the cubes
             CubeContainer.unsetObjectVisuals(CubeContainer.selected_cube);
-            let new_cube_DOM = document.getElementById(evt.target.id);
-            let old_cube_DOM = document.getElementById(CubeContainer.selected_cube);
-            let new_color = new_cube_DOM.getAttribute('fill');
-            let old_color = old_cube_DOM.getAttribute('fill');
+            const new_cube_DOM = document.getElementById(evt.target.id);
+            const old_cube_DOM = document.getElementById(CubeContainer.selected_cube);
+            const new_color = new_cube_DOM.getAttribute('fill');
+            const old_color = old_cube_DOM.getAttribute('fill');
             old_cube_DOM.setAttribute('fill', new_color);
             new_cube_DOM.setAttribute('fill', old_color);
             CubeContainer.selected_cube = null;
@@ -123,14 +123,14 @@ export class CubeContainer {
      * listCubes
      */
     public listCubes(): any {
-        let cubes = {
+        const cubes = {
             cubelist: [],
             num_cubes: 0
         }
         this.svg_node.childNodes.forEach(element => {
             let color = (element as SVGElement).getAttribute('fill');
             if (color == this.empty_color) { color = null; } else { cubes.num_cubes++; }
-            let cube = {
+            const cube = {
                 color: color,
                 id: parseInt((element as SVGElement).getAttribute('id').substring(this.parent_div_name.length)),
             }
@@ -141,6 +141,6 @@ export class CubeContainer {
 }
 
 function randomColor(): string {
-    let colors = ["#337ab7", "#5bc0de", "#5cb85c", "#f0ad4e", "#d9534f"]
+    const colors = ["#337ab7", "#5bc0de", "#5cb85c", "#f0ad4e", "#d9534f"]
     return colors[Math.floor(Math.random() * colors.length)];
 }
