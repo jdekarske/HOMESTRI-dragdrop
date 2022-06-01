@@ -11,5 +11,5 @@ module.exports = {
     'eslint:recommended',
     'plugin:@typescript-eslint/recommended',
   ],
-  "ignorePatterns": ["webpack*"],
+  "ignorePatterns": ["webpack*", "dist/"],
 };

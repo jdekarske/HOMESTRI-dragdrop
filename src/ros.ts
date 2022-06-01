@@ -73,7 +73,7 @@ export class ROSInterface {
 
     public subscribeToCubeCheck() {
 
-        let cubes_topic = new ROSLIB.Topic({
+        const cubes_topic = new ROSLIB.Topic({
             ros: this.ros,
             name: '/gazebo/model_states',
             messageType: 'gazebo_msgs/ModelStates'
@@ -100,8 +100,8 @@ export class ROSInterface {
 
     // rosservice call /spawn_objects_service "{param_name: '/cube_positions/inputs', overwrite: true, position: 1, color: [0,0,1], length: 0, width: 0}"
     public spawnCube(position: number, color: string) {
-        let rgbcolors = hexToRgb(color);
-        let request = new ROSLIB.ServiceRequest({
+        const rgbcolors = hexToRgb(color);
+        const request = new ROSLIB.ServiceRequest({
             param_name: '/cube_positions/inputs',
             overwrite: false,
             position: position,
@@ -135,7 +135,7 @@ export class ROSInterface {
     }
 
     public deleteAllCubes() {
-        let request = new ROSLIB.ServiceRequest({
+        const request = new ROSLIB.ServiceRequest({
             param_name: '',
             overwrite: true,
             position: 0,
@@ -184,15 +184,15 @@ export class ROSInterface {
     }
 
     public goPickPlace(position1: number, position2: number) {
-        let pick_object = 'cube_' + position1.toString()
-        let place_object = 'cube_' + position2.toString()
+        const pick_object = 'cube_' + position1.toString()
+        const place_object = 'cube_' + position2.toString()
 
         // if (this.cubes_in_simulation.indexOf(pick_object) > -1) {
         //     console.warn(pick_object + ' not in simulation');
         //     return;
         // }
 
-        let request = new ROSLIB.ServiceRequest({
+        const request = new ROSLIB.ServiceRequest({
             pick_object: pick_object,
             place_object: place_object,
         });
@@ -206,7 +206,7 @@ export class ROSInterface {
 
 // https://stackoverflow.com/questions/5623838/rgb-to-hex-and-hex-to-rgb
 function componentToHex(c: number) {
-    var hex = c.toString(16);
+    const hex = c.toString(16);
     return hex.length == 1 ? "0" + hex : hex;
 }
 
@@ -215,7 +215,7 @@ function rgbToHex(r: number, g: number, b: number) {
 }
 
 function hexToRgb(hex: string): { r: number; g: number; b: number; } {
-    var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+    const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
     return result ? {
         r: parseInt(result[1], 16),
         g: parseInt(result[2], 16),

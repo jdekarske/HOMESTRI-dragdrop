@@ -46,7 +46,7 @@ export class Cube extends Movable {
 
     // call this after changing object attributes
     update() {
-        let elem = this.getObjectDOM();
+        const elem = this.getObjectDOM();    
         elem.setAttributeNS(null, 'x', this.position_x.toString());
         elem.setAttributeNS(null, 'y', this.position_y.toString());
         elem.setAttributeNS(null, 'width', this.size.toString());
