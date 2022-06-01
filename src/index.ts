@@ -3,6 +3,12 @@ import { CubeContainer } from "./cubecontainer"
 import { ROSInterface } from "./ros";
 import { range, shuffle, getFormattedTime, downloadObjectAsJson } from "./util";
 
+// if (process.env.NODE_ENV !== 'production') {
+
+//    console.log('Looks like we are in development mode!');
+
+//  }
+
 //TODO get jatos types
 declare var jatos: any;
 let trialsRemaining = 10;
