@@ -1,7 +1,7 @@
 import "./static/style.css"
 import { CubeContainer } from "./cubecontainer"
 import { ROSInterface } from "./ros";
-import { range, shuffle, getFormattedTime, downloadObjectAsJson } from "./util";
+import { range, shuffle} from "./util";
 
 // if (process.env.NODE_ENV !== 'production') {
 
@@ -10,22 +10,23 @@ import { range, shuffle, getFormattedTime, downloadObjectAsJson } from "./util";
 //  }
 
 //TODO get jatos types
-declare var jatos: any;
+// eslint-disable-next-line no-var
+declare var jatos: unknown;
 let trialsRemaining = 10;
 let missingJatos = true;
 
 // Init
 //---------------------
 
-let startContainer = new CubeContainer("startcontainer", 2, 8);
-let instructionContainer = new CubeContainer("instructioncontainer", 2, 4);
-let commandContainer = new CubeContainer("commandcontainer", 2, 4);
+const startContainer = new CubeContainer("startcontainer", 2, 8);
+const instructionContainer = new CubeContainer("instructioncontainer", 2, 4);
+const commandContainer = new CubeContainer("commandcontainer", 2, 4);
 
-let gamma = 0.9; // good capability
-let echo = 0.3 // bad capability
+const gamma = 0.9; // good capability
+const echo = 0.3 // bad capability
 
-let capabilities = [gamma, echo];
-let algorithms = ["gamma", "echo"];
+const capabilities = [gamma, echo];
+const algorithms = ["gamma", "echo"];
 
 let current_algorithm = "algorithm_gamma";
 let current_capability = gamma;
@@ -34,9 +35,9 @@ function randomMistake(capability: number) {
     return (Math.random() > capability); //if the random number is higher than the capability, we will make a mistake
 }
 
-let ros = new ROSInterface();
+const ros = new ROSInterface();
 
-let logs = [];
+const logs = [];
 
 function logthis(object) {
     logs.push({
@@ -54,7 +55,7 @@ function setupExperiment() {
 
     document.getElementById("trials_remaining").innerText = `${trialsRemaining} trials remaining.`;
 
-    let choice = Math.ceil(Math.random() * 2) - 1;
+    const choice = Math.ceil(Math.random() * 2) - 1;
     current_algorithm = algorithms[choice];
     current_capability = capabilities[choice];
     logthis(current_algorithm);
@@ -73,11 +74,11 @@ function setupExperiment() {
     startContainer.fillContainer();
 
     // grab four random ones
-    var start_cubes = startContainer.listCubes();
-    var random_start_cubes_i = shuffle(range(0, start_cubes.cubelist.length)); // randomly selected cubes
+    const start_cubes = startContainer.listCubes();
+    const random_start_cubes_i = shuffle(range(0, start_cubes.cubelist.length)); // randomly selected cubes
 
     // put those in four random instruction places
-    var random_instruction_cubes_i = shuffle(range(0, instructionContainer.numberofshapes));
+    const random_instruction_cubes_i = shuffle(range(0, instructionContainer.numberofshapes));
     for (let i = 0; i < 4; i++) {
         instructionContainer.setcubeColor(
             random_instruction_cubes_i[i], // the position in the instruction box
@@ -93,7 +94,7 @@ function setupExperiment() {
 document.getElementById("send_btn").onclick = (() => {
     logthis("sendcubes")
     ros.deleteAllCubes();
-    let command_cubes = commandContainer.listCubes();
+    const command_cubes = commandContainer.listCubes();
     if (command_cubes.num_cubes == 4) {
         let i = 1;
         command_cubes.cubelist.forEach((element) => {
@@ -109,17 +110,17 @@ document.getElementById("send_btn").onclick = (() => {
 
 document.getElementById("sort_btn").onclick = (() => {
     logthis("sortcubes")
-    let command_cubes = commandContainer.listCubes();
+    const command_cubes = commandContainer.listCubes();
     if (command_cubes.num_cubes == 4) {
         // find the empty command spaces
-        let empty: number[] = [];
+        const empty: number[] = [];
         let iempty = 0;
         command_cubes.cubelist.forEach((element) => {
             if (!element.color) {
                 empty.push(element.id);
             }
         });
-        let random_empty = shuffle(empty);
+        const random_empty = shuffle(empty);
 
         let i = 1;
         command_cubes.cubelist.forEach((element) => {
