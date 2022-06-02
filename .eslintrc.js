@@ -8,8 +8,11 @@ module.exports = {
     '@typescript-eslint',
   ],
   extends: [
-    'eslint:recommended',
-    'plugin:@typescript-eslint/recommended',
+    'airbnb',
+    'airbnb-typescript/base',
   ],
-  "ignorePatterns": ["webpack*", "dist/"],
+  ignorePatterns: ["webpack*", "dist/"],
+  parserOptions: {
+    project: "./tsconfig.json",
+  },
 };
