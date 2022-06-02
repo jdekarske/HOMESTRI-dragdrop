@@ -1,4 +1,5 @@
-import "./static/style.css"
+// import "./static/style.css"
+import jatos from './jatos-shim';
 import { CubeContainer } from "./cubecontainer"
 import { ROSInterface } from "./ros";
 import { range, shuffle } from "./util";
@@ -10,10 +11,7 @@ import { range, shuffle } from "./util";
 //  }
 
 // TODO get jatos types
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-declare const jatos: any;
 let trialsRemaining = 10;
-let missingJatos = true;
 // Init
 //---------------------
 
@@ -145,11 +143,11 @@ document.getElementById("sort_btn").onclick = (() => {
 
 document.getElementById("end_trial_btn").onclick = (() => {
     logthis("end trial")
-    if (!missingJatos) jatos.submitResultData(logs); // TODO log everything better
+    jatos.submitResultData(logs); // TODO log everything better
 
     trialsRemaining -= 1;
     if (trialsRemaining <= 0) {
-        if (!missingJatos) jatos.startNextComponent();
+        jatos.startNextComponent();
     }
     setupExperiment();
 })
@@ -172,14 +170,7 @@ document.getElementById("trust_slider").oninput = function () {
     // console.log((this as HTMLInputElement).value);
 }
 
-if (typeof jatos === "undefined") {
-    console.log("JATOS not loaded, assuming we're local");
-    missingJatos = true;
-    setupExperiment();
-} else {
-    missingJatos = false;
     jatos.onLoad(() => {
         //    jatos.componentJsonInput["numTrials"] 
         setupExperiment();
     });
-}
