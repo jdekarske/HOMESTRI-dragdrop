@@ -38,7 +38,7 @@ export default class CubeContainer {
   constructor(div_name: string, numrows: number, numcolumns: number) {
     this.parent_div_name = div_name;
     this.parent_node = document.getElementById(div_name);
-    this.svg_node.onclick = this.checkClickedCube;
+    this.svg_node.onclick = CubeContainer.checkClickedCube;
     this.parent_node.appendChild(this.svg_node);
 
     this.numrows = numrows;
@@ -84,7 +84,7 @@ export default class CubeContainer {
     objNode.setAttributeNS(null, 'stroke-width', '0');
   }
 
-  private checkClickedCube(evt) {
+  private static checkClickedCube(evt) {
     // make sure we have a cube
     if (!evt.target.id) { return; } // could unselect here
 

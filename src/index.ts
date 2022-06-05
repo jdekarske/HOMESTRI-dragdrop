@@ -1,14 +1,13 @@
-// import "./static/style.css"
-import jatos from './jatos-shim';
+import './static/style.css';
+// import jatos from './jatos';
 import CubeContainer from './cubecontainer';
 import ROSInterface from './ros';
 import { range, shuffle } from './util';
 
-// if (process.env.NODE_ENV !== 'production') {
+declare const jatos: any;
 
-//    console.log('Looks like we are in development mode!');
-
-//  }
+const prod = process.env.NODE_ENV === 'production';
+if (prod) console.log('production');
 
 // TODO get jatos types
 let trialsRemaining = 10;
@@ -148,11 +147,11 @@ document.getElementById('sort_btn').onclick = (() => {
 
 document.getElementById('end_trial_btn').onclick = (() => {
   logthis('end trial');
-  jatos.submitResultData(logs); // TODO log everything better
+  if (prod) jatos.submitResultData(logs); // TODO log everything better
 
   trialsRemaining -= 1;
   if (trialsRemaining <= 0) {
-    jatos.startNextComponent();
+    if (prod) jatos.startNextComponent();
   }
   setupExperiment();
 });
@@ -175,7 +174,11 @@ document.getElementById('trust_slider').oninput = () => {
   // console.log((this as HTMLInputElement).value);
 };
 
-jatos.onLoad(() => {
-  //    jatos.componentJsonInput["numTrials"]
+if (prod) {
+  jatos.onLoad(() => {
+    //    jatos.componentJsonInput["numTrials"]
+    setupExperiment();
+  });
+} else {
   setupExperiment();
-});
+}
