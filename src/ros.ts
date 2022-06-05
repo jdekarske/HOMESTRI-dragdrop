@@ -77,7 +77,7 @@ export default class ROSInterface {
   }
 
   // https://stackoverflow.com/questions/22395357/how-to-compare-two-arrays-are-equal-using-javascript
-  private arraysAreIdentical(arr1, arr2) {
+  private static arraysAreIdentical(arr1, arr2) {
     if (arr1.length !== arr2.length) return false;
     for (let i = 0, len = arr1.length; i < len; i += 1) {
       if (arr1[i] !== arr2[i]) {
@@ -119,6 +119,7 @@ export default class ROSInterface {
 
   // rosservice call /spawn_objects_service "{param_name: '/cube_positions/inputs', overwrite: true,
   // position: 1, color: [0,0,1], length: 0, width: 0}"
+  // TODO make this an interface probably
   public spawnCube(position: number, color: string) {
     const rgbcolors = hexToRgb(color);
     const request = new ROSLIB.ServiceRequest({
