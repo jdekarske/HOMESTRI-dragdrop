@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Experiment</title>
+
+  <!-- Favicon -->
+  <link rel="apple-touch-icon" sizes="180x180" href="static/ico/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="static/ico/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="static/ico/favicon-16x16.png">
+  <link rel="manifest" href="static/ico/site.webmanifest">
+
+  <script src="https://d3js.org/d3.v6.min.js"></script>
+  <script src="jatos.js"></script>
+  <script src="intro.js"></script>
+
+</head>
+
+<body>
+
+  <div class="container" id='intro'>
+    <h1><b>WAHOO!</b></h1>
+      <hr>
+        <h4>You have completed this experiment.</h4>
+        <p id='instruction-font'>If you have any questions or concerns, please reach out to the research team at rascalUCDresearch@gmail.com. If you are a Sona participant, you should see your credits
+            appear within the next couple days.
+        </p>
+          <hr />
+          <center>
+          <div>
+            <h5><b>You may now close this browser. Thank you for participating in our experiment!</b></h5>
+          </div>
+        </center>
+  </div>
+
+  <script>
+    jatos.onLoad(function () {
+      jatos.endStudyAjax(true, "everything worked fine");
+    });
+  </script>
+
+</body>
+
+</html>

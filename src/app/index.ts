@@ -1,4 +1,5 @@
-import './static/style.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import '../static/style.css';
 // import jatos from './jatos';
 import CubeContainer from './cubecontainer';
 import ROSInterface from './ros';
