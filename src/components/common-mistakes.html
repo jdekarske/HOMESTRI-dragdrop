@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Experiment</title>
+
+  <!-- Favicon -->
+  <link rel="apple-touch-icon" sizes="180x180" href="static/ico/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="static/ico/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="static/ico/favicon-16x16.png">
+  <link rel="manifest" href="static/ico/site.webmanifest">
+
+  <script src="https://d3js.org/d3.v6.min.js"></script>
+  <script src="jatos.js"></script>
+  <script src="intro.js"></script>
+
+</head>
+
+<body>
+
+    <!-- Instruction Page 1-->
+    <div class="container" id="container-transition">
+        <div class="instructions well">
+        <h1><b>Cursor-to-Target Phase: Common Mistakes</b></h1>
+        <hr>
+        <!-- <h3><b>Instructional Video</b></h3> -->
+        <p id='instruction-font'>You should treat this study like you're sitting in a research laboratory, and give it your full attention! Here are some tips to make sure everything goes as smoothly as possible.</p>
+        <ol>
+        <li>Turn off or silence your phone - <b>you can time out of this experiment</b> if your attention lapses and your screen becomes inactive. You will be ineligible to continue/recieve full compensation if this happens.</li>
+        <li>Don't hit the 'back' button or refresh. This can easily be done on some laptops if you have a 'two-finger' trackpad shortcut set up. Consider temporarily disabling this shortcut.</li>
+        <li>If you use multiple workspaces, accidently flipping between workspaces will also log as an inactive screen. This can easily be done if you have a 'three-' or 'four-finger' trackpad shortcut set up. Consider temporarily disabling this shortcut.</li>
+        <li>Please avoid exiting from fullscreen mode during the experiment. The experiment itself will move you in and out of fullscreen at the correct time.</li>
+        <li>If you need to use the restroom, now is a good time!</li>
+        </ol>
+        <hr>
+          <p id = 'instruction-font'>   
+            <center>
+            *** <b>NOTE: Please focus your attention on the computer screen and avoid looking down at your hand throughout the experiment.</b>***
+            </center>
+        </p>
+        <p id = 'instruction-font'>Please understand that we <em>reserve the right to not compensate entries</em> that fail to follow instructions.</p>
+        <hr>
+        <center>
+            <h5><b>Please click OK when you are ready to proceed with the experimental trials.</b></h5>
+            <script type="text/javascript">
+            //console.log(psiTurk.getInstructionIndicator())
+            </script>
+        </center>
+        </div>
+        <hr>
+        <center>
+            <!-- <button type="button" class="btn btn-primary btn-lg" onClick="ready_to_advance();">
+            <span class="glyphicon glyphicon-arrow-left"></span> Back 
+            </button>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -->
+            <button type="button" class="btn btn-primary btn-lg" onClick="ready_to_advance()">
+            <span class="glyphicon glyphicon-arrow-right"></span> Ok
+            </button>
+            <br>
+        </center>
+        <br>
+    </div>
+    
+</body>
+
+</html>

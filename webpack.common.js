@@ -3,7 +3,11 @@ const CopyPlugin = require("copy-webpack-plugin");
 // const HtmlWebpackPlugin = require('html-webpack-plugin') // TODO figure this out
 
 module.exports = {
-    entry: './src/index.ts',
+    entry: {
+        app: './src/app/index.ts',
+        components: './src/components/index.ts',
+        manager: './src/manager/index.ts',
+    },
     module: {
         rules: [
             {
@@ -25,18 +29,18 @@ module.exports = {
         ],
     },
     resolve: {
-        extensions: ['.tsx', '.ts', '.js'],
+        extensions: ['.ts', '.js'],
     },
     output: {
-        filename: 'bundle.js',
+        filename: '[name].js',
         path: path.resolve(__dirname, 'dist'),
     },
     plugins: [
         new CopyPlugin({
             patterns: [
                 { context: "src/static", from: "./**/*", to: "static" },
-                { from: "src/index.html", to: "index.html" },
-                { from: "src/manager.html", to: "manager.html" },
+                { from: "src/app/index.html", to: "index.html" },
+                { from: "src/manager/manager.html", to: "[name].html" },
             ],
         }),
     ],

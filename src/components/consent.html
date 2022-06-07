@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Experiment</title>
+
+  <!-- Favicon -->
+  <link rel="apple-touch-icon" sizes="180x180" href="static/ico/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="static/ico/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="static/ico/favicon-16x16.png">
+  <link rel="manifest" href="static/ico/site.webmanifest">
+
+  <script src="jatos.js"></script>
+  <script src="intro.js"></script>
+
+</head>
+
+<body>
+
+  <!-- ************ -->
+  <!-- CONSENT FORM -->
+  <!-- ************ -->
+  <div class="container">
+    <h1>Consent Form</h1>
+    <h4>Please review the consent form below.</h4>
+    <div class="row justify-content-center">
+      <div class="col-10 text-center embed-responsive embed-responsive-16by9">
+        <iframe src="images/hrp502-consent-form.pdf"></iframe>
+      </div>
+    </div>
+    <hr />
+    <div class="row">
+      <h5>If you agree and consent to these terms, please click "I Agree" to continue. Otherwise, please click "I do
+        NOT Agree" and exit the page.</h5>
+    </div>
+    <div class="row justify-content-between">
+      <div class="col-4">
+        <button class="btn btn-danger btn-md" type="submit"
+          onClick="jatos.abortStudy('Subject elected not to continue.');">I do <u><b>NOT</b></u> agree to these terms
+          and wish to exit.</button>
+      </div>
+      <div class="col-4">
+        <button class="btn btn-primary btn-md" type="submit" onClick="ready_to_advance();">I <u><b>AGREE</b></u>
+          to these terms and wish to continue.</button>
+      </div>
+    </div>
+    <br>
+  </div>
+
+</body>
+
+</html>
