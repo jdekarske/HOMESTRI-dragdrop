@@ -39,8 +39,9 @@ module.exports = {
         new CopyPlugin({
             patterns: [
                 { context: "src/static", from: "./**/*", to: "static" },
-                { from: "src/app/index.html", to: "index.html" },
-                { from: "src/manager/manager.html", to: "[name].html" },
+                { context: "src", from: "app/index.html", to: "index.html" },
+                { context: "src", from: "manager/manager.html", to: "[name].html" },
+                { context: "src", from: "components/*", to: "[name].html" },
             ],
         }),
     ],

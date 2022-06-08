@@ -13,35 +13,22 @@
   <link rel="icon" type="image/png" sizes="16x16" href="static/ico/favicon-16x16.png">
   <link rel="manifest" href="static/ico/site.webmanifest">
 
-  <script src="https://d3js.org/d3.v6.min.js"></script>
-  <script src="jatos.js"></script>
-  <script src="intro.js"></script>
+<script src="jatos.js"></script>
 
 </head>
 
 <body>
-
-  <div class="container" id='intro'>
-    <h1><b>WAHOO!</b></h1>
-      <hr>
-        <h4>You have completed this experiment.</h4>
-        <p id='instruction-font'>If you have any questions or concerns, please reach out to the research team at rascalUCDresearch@gmail.com. If you are a Sona participant, you should see your credits
-            appear within the next couple days.
-        </p>
-          <hr />
-          <center>
-          <div>
-            <h5><b>You may now close this browser. Thank you for participating in our experiment!</b></h5>
-          </div>
-        </center>
+  <div class="container">
+    <h4>You have completed this experiment.</h4>
+    <p>If you have any questions or concerns, please reach out to the research team. If you are a Sona participant, you
+      should see your credits appear within the next couple days.
+    </p>
+    <div>
+      <h5>You may now close this browser. Thank you for participating in our experiment!</h5>
+    </div>
   </div>
 
-  <script>
-    jatos.onLoad(function () {
-      jatos.endStudyAjax(true, "everything worked fine");
-    });
-  </script>
-
+<script src="components.js"></script>
 </body>
 
 </html>

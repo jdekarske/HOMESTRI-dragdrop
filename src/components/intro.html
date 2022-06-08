@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html>
-<!-- this comment is a CICD test -->
 
 <head>
   <meta charset="utf-8">
@@ -15,7 +14,6 @@
   <link rel="manifest" href="static/ico/site.webmanifest">
 
   <script src="jatos.js"></script>
-  <script src="intro.js"></script>
 
 </head>
 
@@ -46,10 +44,18 @@
     </p>
     <p>For this experiment, you will need a keyboard with arrow keys and occasionally a mouse.</p>
     <div>
-      <button id="surveysubmit" class="btn btn-primary btn-lg" type="submit"
-        onClick="ready_to_advance();">Continue</button>
+      <button id="surveysubmit" class="btn btn-primary btn-lg" type="submit" onClick="advance();">Continue</button>
     </div>
   </div>
+
+  <script src="components.js"></script>
+  <script>
+    function advance() {
+      jatos.onload(() => {
+        jatos.startNextComponent();
+      });
+    }
+  </script>
 
 </body>
 
