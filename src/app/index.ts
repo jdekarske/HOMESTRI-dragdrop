@@ -1,11 +1,8 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../static/style.css';
-// import jatos from './jatos';
 import CubeContainer from './cubecontainer';
 import ROSInterface from './ros';
 import { range, shuffle } from './util';
-
-declare const jatos: any;
 
 const prod = process.env.NODE_ENV === 'production';
 if (prod) console.log('production');
