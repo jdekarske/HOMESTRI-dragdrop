@@ -18,44 +18,38 @@
 </head>
 
 <body>
-
   <div class="container">
     <div class="row">
       <div class="col">
         <h1>Welcome!</h1>
-        <h4>We will begin the experiment shortly.</h4>
+        <hr>
+        <div class="row">
+          <div class="col">
+            <h4>The experiment will begin shortly, thank you for participating!</h4>
+            <p>
+              If you advance past this page, you will not be eligible to restart and complete the experiment.
+            </p>
+          </div>
+          <div class="col">
+            <p>
+              This purpose of this experiment is to improve the way the people work with smart technology.
+              Results from your participation may shape the capabilities of many technologies you work with
+              in the future!
+            </p>
+            <p>
+              This experiment will take between 30 and 60 minutes. Please ensure you have adequate time to finish in a
+              quiet
+              environment. If you indicate that you are a Sona participant on the next
+              page, you will receive 1 credit.
+            </p>
+            <button class="btn btn-primary btn-lg" onClick="advance();">Continue</button>
+          </div>
+        </div>
       </div>
-    </div>
-    <p>
-      If you are <b>NOT</b> on a Chrome browser, please close this window and reopen the link provided in Google
-      Chrome. Additionally, please check that your window is zoomed to 100% (if there is a magnifying glass in your
-      browser's address bar, click on it and choose 'Reset'). This is required to prevent some technical difficulties.
-      Contact the researchers if you have any issues.
-    </p>
-    <p>
-      ***If you advance past this page, you will not be eligible to restart and complete the experiment.***
-    </p>
-    <hr />
-    <h3>Experiment Information</h3>
-    <p>
-      This experiment will take between 30 and 60 minutes. Please ensure you have adequate time to finish in a quiet
-      environment. If you indicate that you are a Sona participant on the next
-      page, you will receive 1 credit.
-    </p>
-    <p>For this experiment, you will need a keyboard with arrow keys and occasionally a mouse.</p>
-    <div>
-      <button id="surveysubmit" class="btn btn-primary btn-lg" type="submit" onClick="advance();">Continue</button>
     </div>
   </div>
 
   <script src="components.js"></script>
-  <script>
-    function advance() {
-      jatos.onload(() => {
-        jatos.startNextComponent();
-      });
-    }
-  </script>
 
 </body>
 

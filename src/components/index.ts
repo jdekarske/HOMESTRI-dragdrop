@@ -1,8 +1,11 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../static/style.css';
 
-console.log('this is for components');
-
+function advance() {
+  jatos.onLoad(() => {
+    jatos.startNextComponent();
+  });
+}
 // const subject = {
 //   age: null,
 //   genderIdentity: null,
