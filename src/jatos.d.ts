@@ -6,18 +6,16 @@
 // TypeScript Version: 4.7
 
 /* ----------------------------------
- This is not complete. Only makes the library somewhat usable
+ This is absolutely not complete. Only makes the library somewhat usable
  ---------------------------------- */
 
-declare const jatos: any;
+declare namespace jatos {
+  function submitResultData(resultData: object, onSuccess?: any, onError?: any): void;
 
-// declare module 'jatos' {
-//   function submitResultData(resultData: object, onSuccess?: any, onError?: any): void;
+  function startNextComponent(resultData?: object, param2?: any, param3?: any): void;
 
-//   function startNextComponent(resultData?: object, param2?: any, param3?: any): void;
-
-//   function onLoad(func: () => void): void;
-// }
+  function onLoad(func: () => void): void;
+}
 
 // don't do anything with jatos if we aren't on the server.
 // if (process.env.NODE_ENV !== 'production') {
@@ -26,5 +24,3 @@ declare const jatos: any;
 //   jatos.submitResultData = (arr: any[]) => arr;
 //   jatos.onLoad = (func: () => void) => { func(); };
 // }
-
-export default jatos;
