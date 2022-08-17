@@ -6,6 +6,13 @@ function advance() {
     jatos.startNextComponent();
   });
 }
+
+function abort() {
+  jatos.onLoad(() => {
+    jatos.abortStudy('Subject elected to not continue.');
+  });
+}
+
 // const subject = {
 //   age: null,
 //   genderIdentity: null,
