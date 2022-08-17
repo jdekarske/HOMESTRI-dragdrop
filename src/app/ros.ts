@@ -25,13 +25,15 @@ function filterItems(arr, query) {
 }
 
 export default class ROSInterface {
-  private remote_url = 'wss://coe-mae-lella.ou.ad3.ucdavis.edu/simulatorws/001';
+  private remote_host = 'wss://coe-mae-lella.ou.ad3.ucdavis.edu/simulatorws/';
+
+  private worker_ID = 1;
 
   private local_url = 'ws://localhost:9090';
 
   public ros = new ROSLIB.Ros({});
 
-  private url = this.remote_url;
+  private url: string;
 
   public cubes_in_simulation: string[];
 
@@ -47,7 +49,7 @@ export default class ROSInterface {
   private rosOnReconnect(error) {
     console.log('Error connecting to websocket server: ', error);
     setTimeout(() => {
-      this.ros.connect(this.remote_url);
+      this.ros.connect(this.url);
     }, 1000);
   }
 
@@ -57,7 +59,11 @@ export default class ROSInterface {
     this.ros.on('close', () => {
       console.log('Connection to websocket server closed.');
     });
+  }
 
+  set workerID(value: number) {
+    this.worker_ID = value;
+    this.url = this.remote_host + value.toString(); // TODO sanitize
     this.ros.connect(this.url);
   }
 
