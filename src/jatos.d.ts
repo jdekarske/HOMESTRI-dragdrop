@@ -15,6 +15,8 @@ declare namespace jatos {
   function startNextComponent(resultData?: object, param2?: any, param3?: any): void;
 
   function onLoad(func: () => void): void;
+
+  function abortStudy(str?: string): void;
 }
 
 // don't do anything with jatos if we aren't on the server.
