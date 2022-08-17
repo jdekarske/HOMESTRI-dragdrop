@@ -19,17 +19,19 @@
 
 <body>
   <div class="container">
-    <h1>Consent Form</h1>
-    <h4>Please review the consent form below.</h4>
-    <div class="row justify-content-center">
-      <div class="col-10 text-center embed-responsive embed-responsive-16by9">
-        <iframe src="images/hrp502-consent-form.pdf"></iframe>
+    <div class="row">
+      <div class="col">
+        <h1>Consent Form</h1>
+        <h4>Please review the consent form by clicking the pdf icon below.</h4>
       </div>
     </div>
     <hr />
-    <div class="row">
-      <h5>If you agree and consent to these terms, please click "I Agree" to continue. Otherwise, please click "I do
-        NOT Agree" and exit the page.</h5>
+    <div class="row justify-content-center">
+      <div class="col">
+        <a href="static/hrp502-consent-form.pdf">
+          <img src="static/icons8-pdf-96.png" alt="Consent form" />
+        </a>
+      </div>
     </div>
     <div class="row justify-content-between">
       <div class="col-4">
@@ -41,24 +43,9 @@
           to these terms and wish to continue.</button>
       </div>
     </div>
-    <br>
   </div>
-  
+
   <script src="components.js"></script>
-  <script>
-    function advance() {
-      jatos.onload(() => {
-        jatos.startNextComponent();
-      });
-    }
-
-    function abort() {
-      jatos.onload(() => {
-        jatos.abortStudy('Subject elected to not continue.');
-      });
-    }
-  </script>
-
 </body>
 
 </html>
