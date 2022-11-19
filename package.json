@@ -8,7 +8,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "webpack --config webpack.prod.js",
-    "start": "webpack serve --open --config webpack.dev.js",
+    "start": "webpack serve --config webpack.prod.js",
+    "start-dev": "webpack serve --open --config webpack.dev.js",
     "deploy": "npm run build && (./deploy.sh || echo 'scp the file to your server yourself!' && exit 1)",
     "clean": "rm -rf node_modules/ dist/"
   },
