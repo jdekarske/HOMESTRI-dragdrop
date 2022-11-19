@@ -6,8 +6,8 @@ COPY . .
 
 RUN ln -s /usr/bin/nodejs /usr/bin/node
 
-RUN npm i && npx webpack
+RUN npm i
 
 EXPOSE 8080
 
-# CMD ["npx http-server -s"]
+CMD ["npm", "run", "start"]
