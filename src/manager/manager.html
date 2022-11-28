@@ -46,7 +46,7 @@
             }
 
             if ("simulation" in jatos.componentJsonInput) {
-                httpGetAsync(`https://***REMOVED***/manager/${jatos.componentJsonInput.simulation}/001`, function (result) {
+                httpGetAsync(`https://***REMOVED***/manager/${jatos.componentJsonInput.simulation}/${jatos.workerId}`, function (result) {
                     alert(result);
                 });
             }
