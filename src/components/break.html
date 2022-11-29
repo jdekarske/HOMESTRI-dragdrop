@@ -14,37 +14,28 @@
     <link rel="manifest" href="static/ico/site.webmanifest">
 
     <script src="jatos.js"></script>
-    <script src="components.js"></script>
 
 </head>
 
 <body>
-    <div class="container">
-        <h1>Consent Form</h1>
-        <h4>Please review the consent form below.</h4>
-        <div class="row justify-content-center">
-            <div class="col-10 text-center embed-responsive embed-responsive-16by9">
-                <iframe src="images/hrp502-consent-form.pdf"></iframe>
-            </div>
-        </div>
-        <hr />
-        <div class="row">
-            <h5>If you agree and consent to these terms, please click "I Agree" to continue. Otherwise, please click "I
-                do
-                NOT Agree" and exit the page.</h5>
-        </div>
-        <div class="row justify-content-between">
-            <div class="col-4">
-                <button class="btn btn-danger btn-md" type="submit" onClick="abort()">I do <u><b>NOT</b></u>
-                    agree to these terms and wish to exit.</button>
-            </div>
-            <div class="col-4">
-                <button class="btn btn-primary btn-md" type="submit" onClick="advance();">I <u><b>AGREE</b></u>
-                    to these terms and wish to continue.</button>
-            </div>
-        </div>
-        <br>
+
+  <div class="container">
+    <div class="row">
+      <h1>Break</h1>
     </div>
+    <div class="row">
+      <p>Thank you for participating in the experiment so far. Please take a 5 minute break.</p>
+    </div>
+    <div class="row">
+      <h5>Please click continue when you are ready to proceed with the experimental trials.</h5>
+    </div>
+    <div class="row">
+      <button type="button" class="btn btn-primary btn-md" id="advance">
+        <span class="glyphicon glyphicon-arrow-right"></span> Continue
+      </button>
+    </div>
+  </div>
 </body>
 
+    <script src="components.js"></script>
 </html>
