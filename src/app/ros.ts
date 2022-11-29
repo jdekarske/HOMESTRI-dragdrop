@@ -27,7 +27,7 @@ function filterItems(arr, query) {
 export default class ROSInterface {
   private remote_host = 'wss://coe-mae-lella.ou.ad3.ucdavis.edu/simulatorws/';
 
-  private worker_ID = 1;
+  private worker_ID = 1; // TODO if I want to do more at a time
 
   private local_url = 'ws://localhost:9090';
 

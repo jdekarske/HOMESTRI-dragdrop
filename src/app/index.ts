@@ -7,7 +7,6 @@ import { range, shuffle } from './util';
 const prod = process.env.NODE_ENV === 'production';
 if (prod) console.log('production');
 
-// TODO get jatos types
 let trialsRemaining = 10;
 // Init
 //---------------------
