@@ -14,6 +14,7 @@
 
     <!-- Scripts -->
     <script src="jatos.js"></script>
+    <script src="manager.js"></script>
 
 </head>
 
@@ -46,7 +47,7 @@
             }
 
             if ("simulation" in jatos.componentJsonInput) {
-                httpGetAsync(`https://coe-mae-lella.ou.ad3.ucdavis.edu/manager/${jatos.componentJsonInput.simulation}/${jatos.workerId}`, function (result) {
+                httpGetAsync(`https://coe-mae-lella.ou.ad3.ucdavis.edu/manager/${jatos.componentJsonInput.simulation}/1`, function (result) {
                     alert(result);
                 });
             }

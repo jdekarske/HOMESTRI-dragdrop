@@ -19,6 +19,8 @@ declare namespace jatos {
   function abortStudy(str?: string): void;
 
   function addJatosIds(resultData?: object): void;
+
+  const componentJsonInput: object;
 }
 
 // don't do anything with jatos if we aren't on the server.
