@@ -30,6 +30,7 @@ function randomMistake(capability: number) {
 }
 
 const ros = new ROSInterface();
+ros.workerID = 1; // TODO constant workerID
 
 const logs = [];
 

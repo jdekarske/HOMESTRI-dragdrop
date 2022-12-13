@@ -27,9 +27,8 @@ interface FormObject {
 }
 
 // Function used to check if all questions were filled in info form, if so, starts the experiment
-document.getElementById('checkInfo').addEventListener('click', () => {
+document.getElementById('checkInfo')?.addEventListener('click', () => {
   const values: FormObject[] = $('#infoform').serializeArray();
-  console.log(values);
   values.forEach((obj) => {
     subject[obj.name] = obj.value;
   });
@@ -49,23 +48,20 @@ document.getElementById('checkInfo').addEventListener('click', () => {
       subject.yesGames,
     ].every((e) => e)
   ) {
-    alert('incomplete');
-    return false;
+    alert('incomplete survey');
+  } else {
+    jatos.addJatosIds(subject);
+    jatos.startNextComponent(subject);
   }
-
-  jatos.addJatosIds(subject);
-  jatos.startNextComponent(subject);
 });
 
-const advancebtn = document.getElementById('advance');
-advancebtn?.addEventListener('click', () => {
+document.getElementById('advance')?.addEventListener('click', () => {
   jatos.onLoad(() => {
     jatos.startNextComponent();
   });
 });
 
-const abortbtn = document.getElementById('abort');
-abortbtn?.addEventListener('click', () => {
+document.getElementById('abort')?.addEventListener('click', () => {
   jatos.onLoad(() => {
     jatos.abortStudy('Subject elected to not continue.');
   });
