@@ -1,3 +1,6 @@
+// TODO add timer for single trial
+// TODO add timeout for single trial
+// add send cubes checks
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../static/style.css';
 import CubeContainer from './cubecontainer';
@@ -104,7 +107,7 @@ document.getElementById('send_btn').onclick = (() => {
   ros.deleteAllCubes();
   const commandCubes = commandContainer.listCubes();
   if (commandCubes.num_cubes === 4) {
-    let i = 1;
+    let i = 0;
     commandCubes.cubelist.forEach((element) => {
       if (element.color) {
         logthis(`spawncube: ${i.toString()}:${element.color}`);
