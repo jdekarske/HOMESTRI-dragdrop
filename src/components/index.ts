@@ -1,57 +1,45 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../static/style.css';
-import $ from 'jquery';
 
-const subject = {
-  age: null,
-  genderIdentity: null,
-  addGender: null,
-  sex: null,
-  ethnicity: null,
-  aian: 'false',
-  asian: 'false',
-  baa: 'false',
-  nhopi: 'false',
-  white: 'false',
-  colorblind: null,
-  make: null,
-  videoGames: null,
-  yesGames: null,
-  email: null,
-  surveytime: null,
-};
+// a generalized script to handle most forms
+// There can only be one form element per page. All required inputs must have an "required"
+// attribute as in: <input required type="radio" name="something" value="i" />
 
-interface FormObject {
-  name: string,
-  value: string,
+function intersects(a: any[], b: any[]): boolean {
+// check if elements exist in both a and b
+// its okay if b has more elements, as long as a intersects b
+// a would be the array with required keys
+  return a.length === a.filter((item) => b.indexOf(item) >= 0).length;
 }
 
-// Function used to check if all questions were filled in info form, if so, starts the experiment
+// check if required fields are set
 document.getElementById('checkInfo')?.addEventListener('click', () => {
-  const values: FormObject[] = $('#infoform').serializeArray();
-  values.forEach((obj) => {
-    subject[obj.name] = obj.value;
-  });
+  const form = document.getElementsByTagName('form')[0];
+  const requiredKeys = Array.from(form.getElementsByTagName('input'))
+    .filter((x) => (x as HTMLInputElement).required)
+    .map((x) => x.name)
+    .filter((value, index, self) => self.indexOf(value) === index); // unique values
 
-  subject.surveytime = Date.now();
+  let data: Object[] = [];
+  const values = new FormData(form);
+  values.forEach((key, value) => {
+    if (typeof key === 'string') {
+      const newField: Object = {};
+      newField[value] = key; // warning, this is counterintuitive
+      data.push(newField);
+    }
+  });
+  data = Object.assign({}, ...data);
 
   // don't accept if they don't fill out survey
-  if (
-    ![
-      subject.age,
-      subject.ethnicity,
-      subject.genderIdentity,
-      subject.sex,
-      subject.colorblind,
-      subject.make,
-      subject.videoGames,
-      subject.yesGames,
-    ].every((e) => e)
-  ) {
-    alert('incomplete survey');
+  if (!intersects(requiredKeys, Object.keys(data))) {
+    alert('Please complete all necessary fields');
   } else {
-    jatos.addJatosIds(subject);
-    jatos.startNextComponent(subject);
+    jatos.onLoad(() => {
+      data.push({ surveyTime: Date.now() });
+      jatos.addJatosIds(data);
+      jatos.startNextComponent(data);
+    });
   }
 });
 
