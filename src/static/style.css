@@ -43,14 +43,26 @@ svg {
   margin-top: 1em;
 }
 
-.likert {
+.likert-inline {
   margin-bottom: 0px;
   display: flex;
   align-items: center;
 }
 
+.likert-inline li {
+  list-style-type: none;
+  margin: 10px;
+}
+
+.first {
+    text-align: right;
+}
+
+.likert {
+  margin-bottom: 0px;
+}
+
 .likert li {
-  float: left;
   list-style-type: none;
 }
 

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Experiment</title>
+
+    <!-- Favicon -->
+    <link rel="apple-touch-icon" sizes="180x180" href="static/ico/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="static/ico/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="static/ico/favicon-16x16.png">
+    <link rel="manifest" href="static/ico/site.webmanifest">
+
+    <script src="jatos.js"></script>
+
+</head>
+
+<body>
+    <div class="container">
+        <div class="row">
+            <h1>Pre-Experiment Survey</h1>
+        </div>
+        <div class="row">
+            <p>Please rate the robot on the left of the screen using each scale in the list to the right.</p>
+        </div>
+        <div class="row">
+            <div class="col-6">
+                <h4>Robot Description:</h4>
+                <p> The following is an exercept from the Universal Robots website about the robot that will be used in
+                    this experiment. </p>
+                <p>The UR5e is a lightweight, adaptable collaborative industrial robot that tackles medium-duty
+                    applications with ultimate flexibility. The UR5e is designed for seamless integration into a wide
+                    range of applications.</p>
+                <div class="embed-responsive">
+                    <video src="/static/ur5e.mp4" class="embed-responsive-item" preload="auto" muted autoplay
+                        loop></video>
+                </div>
+            </div>
+            <div class="col-6">
+                <h4>Scales:</h4>
+                <form id='pre-survey' action="javascript:void(0);">
+                </form>
+                <button class="btn btn-primary" type="submit" id="checkInfo">Submit</button>
+            </div>
+        </div>
+    </div>
+</body>
+
+<script>
+    const survey_questions = [
+        ["Fake", "Natural"],
+        ["Machinelike", "Humanlike"],
+        //["Unconscious", "Conscious"],
+        //["Artificial", "Lifelike"],
+
+        //["Dead", "Alive"],
+        ["Stagnant", "Lively"],
+        //["Mechanical", "Organic"],
+        ["Artificial", "Lifelike"],
+        //["Inert", "Interactive"],
+        //["Apathetic", "Responsive"],
+
+        //["Dislike", "Like"],
+        ["Unfriendly", "Friendly"],
+        //["Unkind", "Kind"],
+        //["Unpleasant", "Pleasant"],
+        //["Awful", "Nice"],
+
+        ["Incompetent", "Competent"],
+        //["Ignorent", "Knowledgeable"],
+        ["Irresponsible", "Responsible"],
+        ["Unintelligent", "Intelligent"],
+        //["Foolish", "Sensible"],
+
+        ["Anxious", "Relaxed"],
+        ["Agitated", "Calm"],
+        //["Quiescent", "Surprised"],
+    ];
+
+    const numlikert = 5;
+    var form = document.getElementsByTagName('form')[0]
+    var surveyhtml = '';
+
+    survey_questions.forEach(function (item, index) {
+        surveyhtml += '<div class="form-row" id="' + item[1] + '">';
+        surveyhtml += '<ul class="likert-inline"><li class="col-3 first">' + item[0] + '</li>';
+        for (var i = 0; i < numlikert; i++) {
+            surveyhtml += '<li><input required type="radio" name="' + item[0] + '" value="' + (i + 1) + '" /></li>';
+        }
+        surveyhtml += '<li class="col-3">' + item[1] + '</li></ul></div>';
+    });
+    form.innerHTML = surveyhtml;
+
+</script>
+
+<script src="components.js"></script>
+
+</html>
