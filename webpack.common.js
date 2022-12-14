@@ -1,6 +1,7 @@
 const path = require('path');
 const CopyPlugin = require("copy-webpack-plugin");
 // const HtmlWebpackPlugin = require('html-webpack-plugin') // TODO figure this out
+// https://www.reddit.com/r/webdev/comments/dy39kx/how_to_handle_videos_with_webpack/
 
 module.exports = {
     entry: {
