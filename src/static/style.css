@@ -43,10 +43,19 @@ svg {
   margin-top: 1em;
 }
 
+.robot-vid {
+    display: flex;
+    justify-content: center;
+}
+
 .likert-inline {
   margin-bottom: 0px;
   display: flex;
   align-items: center;
+}
+
+.likert-inline:hover {
+    background-color: white;
 }
 
 .likert-inline li {
