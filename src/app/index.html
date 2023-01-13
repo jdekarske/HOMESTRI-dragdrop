@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<html>
 
 <head>
     <meta charset="utf-8">
@@ -16,8 +17,6 @@
 
 </head>
 
-<html>
-
 <body>
     <div class="container">
         <div class="row" name="dev"></div>
@@ -26,20 +25,6 @@
         </div>
         <div class="row">
             <div class="col">
-                <h3>Instructions</h3>
-                <p id="instructions"> In order to ensure consistent shape recognition in the placement of stowage in
-                    this station, you must monitor this autonomous robot's behavior. To initiate sorting,
-                    consider the pieces of stowage in <b>Intake</b> and the required configuration shown in
-                    <b>Instruction</b>.
-                    Move stowage from <b>Intake</b> to <b>Robot Command</b> by clicking the stowage piece and the
-                    desired
-                    position. The grey spaces correspond to positions on the top
-                    and bottom of the rack. Throughout the process please adjust your trust in the system using the
-                    purple slider beneath the camera feed where the left indicates <b>less trust</b> and the right
-                    indicates
-                    <b>more trust</b>. Additionally, please report and issues using the <b>Report Robot Issue</b>
-                    dropdown menu.
-                </p>
                 <h4>Intake</h4>
                 <p>These shapes are ready to be sorted.</p>
                 <div class="shape_container" id="startcontainer"></div>
@@ -64,10 +49,11 @@
                 <div class="row">
                     <h3>Robot</h3>
                     <p id="current_algorithm"></p>
+                    <p id="status_element"> </p>
                     <img id="camera_stream" src="static/background.svg" class="img-fluid" alt="Responsive image">
                 </div>
                 <div class="row">
-                    <p>Please rate your trust using the scale below.</p>
+                    <h4>Trust Rating</h4>
                     <form class="slide-container">
                         <input id="trust_slider" type="range" min="0" max="100" class="slider" />
                     </form>
@@ -94,6 +80,16 @@
                     </div>
                 </div>
             </div>
+        </div>
+        <div class="row">
+            <h3>Instructions</h3>
+            <p id="instructions">Consider the pieces of stowage in <b>Intake</b> and the required configuration shown in
+                <b>Instruction</b>. Move stowage from <b>Intake</b> to <b>Robot Command</b> by clicking the stowage
+                piece and the desired position. Throughout the process please adjust your trust in the system using the
+                purple slider beneath the camera feed where the left indicates <b>less trust</b> and the right indicates
+                <b>more trust</b>. Additionally, please report and issues using the <b>Report Robot Issue</b> dropdown
+                menu.
+            </p>
         </div>
         <hr>
     </div>

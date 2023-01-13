@@ -1,16 +1,6 @@
 /* eslint-disable object-shorthand */
 import * as ROSLIB from 'roslib';
 
-// https://stackoverflow.com/questions/5623838/rgb-to-hex-and-hex-to-rgb
-function componentToHex(c: number) {
-  const hex = c.toString(16);
-  return hex.length === 1 ? `0${hex}` : hex;
-}
-
-function rgbToHex(r: number, g: number, b: number) {
-  return `#${componentToHex(r)}${componentToHex(g)}${componentToHex(b)}`;
-}
-
 function hexToRgb(hex: string): { r: number; g: number; b: number; } {
   const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
   return result ? {
@@ -20,7 +10,7 @@ function hexToRgb(hex: string): { r: number; g: number; b: number; } {
   } : null;
 }
 
-function filterItems(arr, query) {
+function filterItems(arr: string[], query: string) {
   return arr.filter((el) => el.toLowerCase().indexOf(query.toLowerCase()) !== -1);
 }
 
@@ -37,17 +27,40 @@ export default class ROSInterface {
 
   public cubes_in_simulation: string[];
 
+  public camera_element: HTMLElement; // this might get a better type
+
+  public status_element: HTMLElement;
+
   // Connecting to server
   // ----------------------
 
+  private setStatus(status: boolean) {
+    if (status === true) {
+      this.status_element.innerHTML = '🟢 Remote simulation connected.';
+    } else {
+      this.status_element.innerHTML = '🔴 Remote Simulation disconnected. Contact experiment team.';
+      this.camera_element.setAttribute('src', 'static/background.svg');
+    }
+  }
+
   private rosOnConnect() {
     console.log('Connection to websocket!');
+    this.setStatus(true);
     this.subscribeToCamera();
     this.subscribeToCubeCheck();
   }
 
-  private rosOnReconnect(error) {
+  private rosOnReconnect(error: Event) {
     console.log('Error connecting to websocket server: ', error);
+    this.setStatus(false);
+    setTimeout(() => {
+      this.ros.connect(this.url);
+    }, 1000);
+  }
+
+  private rosOnClose() {
+    console.log('Connection to websocket server closed.');
+    this.setStatus(false);
     setTimeout(() => {
       this.ros.connect(this.url);
     }, 1000);
@@ -56,13 +69,12 @@ export default class ROSInterface {
   constructor() {
     this.ros.on('connection', this.rosOnConnect.bind(this));
     this.ros.on('error', this.rosOnReconnect.bind(this));
-    this.ros.on('close', () => {
-      console.log('Connection to websocket server closed.');
-    });
+    this.ros.on('close', this.rosOnClose.bind(this));
   }
 
   set workerID(value: number) {
     this.worker_ID = value;
+    // this.url = this.local_url; // TODO sanitize
     this.url = this.remote_host + value.toString(); // TODO sanitize
     this.ros.connect(this.url);
   }
@@ -78,7 +90,7 @@ export default class ROSInterface {
 
   public subscribeToCamera() {
     this.camera_topic.subscribe((message: ROSLIB.Message & any) => {
-      document.getElementById('camera_stream').setAttribute('src', `data:image/jpg;base64,${message.data}`);
+      this.camera_element.setAttribute('src', `data:image/jpg;base64,${message.data}`);
     });
   }
 
@@ -142,7 +154,7 @@ export default class ROSInterface {
     this.spawnCubesServiceCall();
   }
 
-  public spawnCubesCallback(result) {
+  public spawnCubesCallback(result) { // TServiceResponse... a template... idk what result is
     console.log(`Result for service call on spawncubes: ${result.status}`);
     ROSInterface.spawning_flag = false;
 

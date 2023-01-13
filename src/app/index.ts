@@ -34,6 +34,8 @@ function randomMistake(capability: number) {
 
 const ros = new ROSInterface();
 ros.workerID = 1; // TODO constant workerID
+ros.camera_element = document.getElementById('camera_stream');
+ros.status_element = document.getElementById('status_element');
 
 const logs = [];
 
