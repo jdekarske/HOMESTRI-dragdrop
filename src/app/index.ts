@@ -1,6 +1,4 @@
-// TODO add timer for single trial
-// TODO add timeout for single trial
-// add send cubes checks
+// TODO add send cubes checks
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../static/style.css';
 import CubeContainer from './cubecontainer';
@@ -8,8 +6,9 @@ import ROSInterface from './ros';
 import { range, shuffle } from './util';
 
 const prod = process.env.NODE_ENV === 'production';
-if (prod) console.log('production');
+if (prod) console.log('production'); // eslint-disable-line no-console
 
+// TODO
 let trialsRemaining = 10;
 // Init
 //---------------------
@@ -39,7 +38,7 @@ ros.status_element = document.getElementById('status_element');
 
 const logs = [];
 
-function logthis(object) {
+function logthis(object: any) {
   logs.push({
     time: performance.now(),
     value: object,
@@ -87,14 +86,14 @@ function setupExperiment() {
   const startCubes = startContainer.listCubes();
 
   // randomly selected cubes
-  const randomStartCubesi = shuffle(range(0, startCubes.cubelist.length));
+  const randomStartCubesi = shuffle(range(0, startCubes.length));
 
   // put those in four random instruction places
   const randomInstructionCubesi = shuffle(range(0, instructionContainer.numberofshapes));
   for (let i = 0; i < 4; i += 1) {
     instructionContainer.setcubeColor(
       randomInstructionCubesi[i], // the position in the instruction box
-      startCubes.cubelist[randomStartCubesi[i]].color,
+      startCubes[randomStartCubesi[i]].color,
     ); // random color from start box
   }
 
@@ -108,9 +107,9 @@ document.getElementById('send_btn').onclick = (() => {
   logthis('sendcubes');
   ros.deleteAllCubes();
   const commandCubes = commandContainer.listCubes();
-  if (commandCubes.num_cubes === 4) {
+  if (commandCubes.length === 4) {
     let i = 0;
-    commandCubes.cubelist.forEach((element) => {
+    commandCubes.forEach((element) => {
       if (element.color) {
         logthis(`spawncube: ${i.toString()}:${element.color}`);
         ros.spawnCube(i += 1, element.color);
@@ -125,11 +124,11 @@ document.getElementById('send_btn').onclick = (() => {
 document.getElementById('sort_btn').onclick = (() => {
   logthis('sortcubes');
   const commandCubes = commandContainer.listCubes();
-  if (commandCubes.num_cubes === 4) {
+  if (commandCubes.length === 4) {
     // find the empty command spaces
     const empty: number[] = [];
     let iempty = 0;
-    commandCubes.cubelist.forEach((element) => {
+    commandCubes.forEach((element) => {
       if (!element.color) {
         empty.push(element.id);
       }
@@ -137,7 +136,7 @@ document.getElementById('sort_btn').onclick = (() => {
     const randomEmpty = shuffle(empty);
 
     let i = 1;
-    commandCubes.cubelist.forEach((element) => {
+    commandCubes.forEach((element) => {
       if (element.color) {
         if (randomMistake(currentCapability)) {
           logthis(`mistake: ${element.id + 1}:${(randomEmpty[iempty] + 1).toString()}`);

@@ -3,9 +3,7 @@
 // A generic object for things that can be dragged around. You have to implement the svg shape
 // properties.
 class Movable {
-  public shape_node;
-
-  private parent_node: HTMLElement;
+  public shape_node: SVGElement;
 
   public id: string;
 

@@ -136,20 +136,17 @@ export default class CubeContainer {
   /**
      * listCubes
      */
-  public listCubes(): any {
-    const cubes = {
-      cubelist: [],
-      num_cubes: 0,
-    };
+  public listCubes(): object[] {
+    const cubelist = [];
     this.svg_node.childNodes.forEach((element) => {
       let color = (element as SVGElement).getAttribute('fill');
-      if (color === this.empty_color) { color = null; } else { cubes.num_cubes += 1; }
+      if (color === this.empty_color) { color = null; }
       const cube = {
         color,
         id: parseInt((element as SVGElement).getAttribute('id').substring(this.parent_div_name.length), 10),
       };
-      cubes.cubelist.push(cube);
+      cubelist.push(cube);
     });
-    return cubes;
+    return cubelist;
   }
 }
