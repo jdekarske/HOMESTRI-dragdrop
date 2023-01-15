@@ -38,10 +38,10 @@ ros.status_element = document.getElementById('status_element');
 
 const logs = [];
 
-function logthis(object: any) {
+function logthis(object: any) { // eslint-disable-line @typescript-eslint/no-explicit-any
   logs.push({
     time: performance.now(),
-    value: object,
+    value: object, // eslint-disable-line @typescript-eslint/no-unsafe-assignment
   });
 }
 

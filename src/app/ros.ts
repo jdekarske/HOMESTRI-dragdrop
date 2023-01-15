@@ -1,4 +1,4 @@
-/* eslint-disable object-shorthand */
+/* eslint-disable @typescript-eslint/no-unsafe-argument */
 import * as ROSLIB from 'roslib';
 
 function hexToRgb(hex: string): { r: number; g: number; b: number; } {
@@ -10,22 +10,25 @@ function hexToRgb(hex: string): { r: number; g: number; b: number; } {
   } : null;
 }
 
-function filterItems(arr: string[], query: string) {
-  return arr.filter((el) => el.toLowerCase().indexOf(query.toLowerCase()) !== -1);
+// find cubes in simulation and convert to number
+function filterItems(arr: string[], query: string): number[] {
+  return arr.filter((el) => el.toLowerCase()
+    .indexOf(query.toLowerCase()) !== -1)
+    .map(Number);
 }
 
 export default class ROSInterface {
   private remote_host = 'wss://***REMOVED***/simulatorws/';
 
-  private worker_ID = 1; // TODO if I want to do more at a time
+  private worker_ID = 1; // eslint-disable-line @typescript-eslint/no-unused-vars
 
-  private local_url = 'ws://localhost:9090';
+  // private local_url = 'ws://localhost:9090';
 
   public ros = new ROSLIB.Ros({});
 
   private url: string;
 
-  public cubes_in_simulation: string[];
+  public cubes_in_simulation: number[];
 
   public camera_element: HTMLElement; // this might get a better type
 
@@ -44,14 +47,14 @@ export default class ROSInterface {
   }
 
   private rosOnConnect() {
-    console.log('Connection to websocket!');
+    // console.log('Connection to websocket!');
     this.setStatus(true);
     this.subscribeToCamera();
     this.subscribeToCubeCheck();
   }
 
   private rosOnReconnect(error: Event) {
-    console.log('Error connecting to websocket server: ', error);
+    console.log('Error connecting to websocket server: ', error); // eslint-disable-line no-console
     this.setStatus(false);
     setTimeout(() => {
       this.ros.connect(this.url);
@@ -59,7 +62,6 @@ export default class ROSInterface {
   }
 
   private rosOnClose() {
-    console.log('Connection to websocket server closed.');
     this.setStatus(false);
     setTimeout(() => {
       this.ros.connect(this.url);
@@ -89,20 +91,9 @@ export default class ROSInterface {
   });
 
   public subscribeToCamera() {
-    this.camera_topic.subscribe((message: ROSLIB.Message & any) => {
+    this.camera_topic.subscribe((message: ROSLIB.Message & { data: string }) => {
       this.camera_element.setAttribute('src', `data:image/jpg;base64,${message.data}`);
     });
-  }
-
-  // https://stackoverflow.com/questions/22395357/how-to-compare-two-arrays-are-equal-using-javascript
-  private static arraysAreIdentical(arr1, arr2) {
-    if (arr1.length !== arr2.length) return false;
-    for (let i = 0, len = arr1.length; i < len; i += 1) {
-      if (arr1[i] !== arr2[i]) {
-        return false;
-      }
-    }
-    return true;
   }
 
   // Check for cubes
@@ -115,7 +106,7 @@ export default class ROSInterface {
       messageType: 'gazebo_msgs/ModelStates',
     });
 
-    cubesTopic.subscribe((message: ROSLIB.Message & any) => {
+    cubesTopic.subscribe((message: ROSLIB.Message & { name: string[] }) => {
       this.cubes_in_simulation = filterItems(message.name, 'cube_');
     });
   }
@@ -154,8 +145,8 @@ export default class ROSInterface {
     this.spawnCubesServiceCall();
   }
 
-  public spawnCubesCallback(result) { // TServiceResponse... a template... idk what result is
-    console.log(`Result for service call on spawncubes: ${result.status}`);
+  public spawnCubesCallback(): void {
+    // console.log(`Result for service call on spawncubes: ${result.status}`);
     ROSInterface.spawning_flag = false;
 
     // if there are more things in the queue, send the next one
@@ -206,8 +197,8 @@ export default class ROSInterface {
 
   static moving_flag = false; // determines if the simulation is moving
 
-  public moveCubesCallback(result) {
-    console.log(`Result for service call on movecubes: ${result.status}`);
+  public moveCubesCallback() {
+    // console.log(`Result for service call on movecubes: ${result.status}`);
     ROSInterface.moving_flag = false;
 
     // if there are more things in the queue, send the next one

@@ -10,9 +10,13 @@
  ---------------------------------- */
 
 declare namespace jatos {
-  function submitResultData(resultData: object, onSuccess?: any, onError?: any): void;
+  function submitResultData(resultData: object, onSuccess?: () => void, onError?: () => void): void;
 
-  function startNextComponent(resultData?: object, param2?: any, param3?: any): void;
+  function startNextComponent(resultData?: object, onError?: () => void): void;
+  function startNextComponent(
+    resultData?: object | string,
+    message?: string,
+    onError?: () => void): void;
 
   function onLoad(func: () => void): void;
 

@@ -5,6 +5,12 @@ function randomColor(): string {
   return colors[Math.floor(Math.random() * colors.length)];
 }
 
+interface DisplayCube {
+  id: number,
+  DOMid: string,
+  color: string,
+}
+
 export default class CubeContainer {
   protected svg_node = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
 
@@ -15,7 +21,7 @@ export default class CubeContainer {
   // cubes in the interface
   private next_id = 0;
 
-  private static selected_cube: string;
+  private static selected_cube: DisplayCube;
 
   public numberofshapes = 0;
 
@@ -38,7 +44,7 @@ export default class CubeContainer {
   constructor(div_name: string, numrows: number, numcolumns: number) {
     this.parent_div_name = div_name;
     this.parent_node = document.getElementById(div_name);
-    this.svg_node.onclick = CubeContainer.checkClickedCube;
+    this.svg_node.onclick = (...args) => CubeContainer.checkClickedCube(...args);
     this.parent_node.appendChild(this.svg_node);
 
     this.numrows = numrows;
@@ -72,34 +78,37 @@ export default class CubeContainer {
     cubeDOM.setAttribute('fill', color);
   }
 
-  private static setObjectVisuals(id: string) {
+  private static setOutline(id: string) {
     const objNode = document.getElementById(id);
-    if (!objNode) { return; }
     objNode.setAttributeNS(null, 'stroke-width', '3');
   }
 
-  private static unsetObjectVisuals(id: string) {
+  private static unsetOutline(id: string) {
     const objNode = document.getElementById(id);
-    if (!objNode) { return; }
     objNode.setAttributeNS(null, 'stroke-width', '0');
   }
 
-  private static checkClickedCube(evt) {
-    // make sure we have a cube
-    if (!evt.target.id) { return; } // could unselect here
+  private static checkClickedCube(evt: Event) {
+    // make sure we have a cube (and not the box)
+    if (!(evt.target as Element).id) { return; }
+    const newCube: DisplayCube = {
+      DOMid: (evt.target as Element).id,
+      color: (evt.target as Element).getAttribute('fill'),
+      id: parseInt((evt.target as Element).id.match(/\d+/g)[0], 10),
+    };
 
     // instruction cubes are not selectable
     const dontSelect = 'instructioncontainer';
-    if (evt.target.id.includes(dontSelect)) { return; }
+    if (newCube.DOMid.includes(dontSelect)) { return; }
 
     // if no cube selected, select it
     if (!CubeContainer.selected_cube) {
-      CubeContainer.selected_cube = evt.target.id;
-      CubeContainer.setObjectVisuals(evt.target.id);
+      CubeContainer.selected_cube = newCube;
+      CubeContainer.setOutline(newCube.DOMid);
     } else { // otherwise, swap the cubes
-      CubeContainer.unsetObjectVisuals(CubeContainer.selected_cube);
-      const newCubeDOM = document.getElementById(evt.target.id);
-      const oldCubeDOM = document.getElementById(CubeContainer.selected_cube);
+      CubeContainer.unsetOutline(CubeContainer.selected_cube.DOMid);
+      const newCubeDOM = document.getElementById(newCube.DOMid);
+      const oldCubeDOM = document.getElementById(CubeContainer.selected_cube.DOMid);
       const newColor = newCubeDOM.getAttribute('fill');
       const oldColor = oldCubeDOM.getAttribute('fill');
       oldCubeDOM.setAttribute('fill', newColor);
@@ -136,14 +145,15 @@ export default class CubeContainer {
   /**
      * listCubes
      */
-  public listCubes(): object[] {
-    const cubelist = [];
+  public listCubes(): DisplayCube[] {
+    const cubelist: DisplayCube[] = [];
     this.svg_node.childNodes.forEach((element) => {
       let color = (element as SVGElement).getAttribute('fill');
       if (color === this.empty_color) { color = null; }
-      const cube = {
+      const cube: DisplayCube = {
         color,
         id: parseInt((element as SVGElement).getAttribute('id').substring(this.parent_div_name.length), 10),
+        DOMid: (element as SVGElement).id,
       };
       cubelist.push(cube);
     });
