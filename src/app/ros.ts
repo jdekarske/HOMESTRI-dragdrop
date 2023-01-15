@@ -139,6 +139,7 @@ export default class ROSInterface {
       length: 0,
       width: 0,
     });
+    console.log(request);
 
     // add to queue and call the service if its the only thing in there
     ROSInterface.spawn_cubes_queue.push(request);

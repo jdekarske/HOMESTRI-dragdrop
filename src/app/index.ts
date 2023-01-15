@@ -107,7 +107,7 @@ document.getElementById('send_btn').onclick = (() => {
   logthis('sendcubes');
   ros.deleteAllCubes();
   const commandCubes = commandContainer.listCubes();
-  if (commandCubes.length === 4) {
+  if (commandCubes.filter((v) => v.color === null).length === 4) {
     let i = 0;
     commandCubes.forEach((element) => {
       if (element.color) {
@@ -124,7 +124,7 @@ document.getElementById('send_btn').onclick = (() => {
 document.getElementById('sort_btn').onclick = (() => {
   logthis('sortcubes');
   const commandCubes = commandContainer.listCubes();
-  if (commandCubes.length === 4) {
+  if (commandCubes.filter((v) => v.color === null).length === 4) {
     // find the empty command spaces
     const empty: number[] = [];
     let iempty = 0;
