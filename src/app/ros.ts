@@ -92,7 +92,7 @@ export default class ROSInterface {
 
   public subscribeToCamera() {
     this.camera_topic.subscribe((message: ROSLIB.Message & { data: string }) => {
-      this.camera_element.setAttribute('src', `data:image/jpg;base64,${message.data}`);
+      this.camera_element.setAttribute('src', `data:image/png;base64,${message.data}`);
     });
   }
 
