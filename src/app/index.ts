@@ -8,23 +8,24 @@ import { range, shuffle } from './util';
 const prod = process.env.NODE_ENV === 'production';
 if (prod) console.log('production'); // eslint-disable-line no-console
 
-// TODO
+// TODO make this a jatos var
 let trialsRemaining = 10;
 // Init
 //---------------------
 
-const startContainer = new CubeContainer('startcontainer', 2, 8);
-const instructionContainer = new CubeContainer('instructioncontainer', 2, 4);
-const commandContainer = new CubeContainer('commandcontainer', 2, 4);
-
 const gamma = 0.9; // good capability
 const echo = 0.3; // bad capability
+const numCubes = 4; // the number of cubes that will be sorted
 
 const capabilities = [gamma, echo];
 const algorithms = ['gamma', 'echo'];
 
 let currentAlgorithm = 'algorithm_gamma';
 let currentCapability = gamma;
+
+const startContainer = new CubeContainer('startcontainer', 2, 8);
+const instructionContainer = new CubeContainer('instructioncontainer', 2, numCubes);
+const commandContainer = new CubeContainer('commandcontainer', 2, numCubes);
 
 function randomMistake(capability: number) {
   // if the random number is higher than the capability, we will make a mistake
@@ -90,7 +91,7 @@ function setupExperiment() {
 
   // put those in four random instruction places
   const randomInstructionCubesi = shuffle(range(0, instructionContainer.numberofshapes));
-  for (let i = 0; i < 4; i += 1) {
+  for (let i = 0; i < numCubes; i += 1) {
     instructionContainer.setcubeColor(
       randomInstructionCubesi[i], // the position in the instruction box
       startCubes[randomStartCubesi[i]].color,
@@ -107,7 +108,7 @@ document.getElementById('send_btn').onclick = (() => {
   logthis('sendcubes');
   ros.deleteAllCubes();
   const commandCubes = commandContainer.listCubes();
-  if (commandCubes.filter((v) => v.color === null).length === 4) {
+  if (commandCubes.filter((v) => v.color !== null).length === numCubes) {
     let i = 0;
     commandCubes.forEach((element) => {
       if (element.color) {
@@ -124,7 +125,7 @@ document.getElementById('send_btn').onclick = (() => {
 document.getElementById('sort_btn').onclick = (() => {
   logthis('sortcubes');
   const commandCubes = commandContainer.listCubes();
-  if (commandCubes.filter((v) => v.color === null).length === 4) {
+  if (commandCubes.filter((v) => v.color !== null).length === numCubes) {
     // find the empty command spaces
     const empty: number[] = [];
     let iempty = 0;
@@ -135,7 +136,7 @@ document.getElementById('sort_btn').onclick = (() => {
     });
     const randomEmpty = shuffle(empty);
 
-    let i = 1;
+    let i = 0;
     commandCubes.forEach((element) => {
       if (element.color) {
         if (randomMistake(currentCapability)) {
