@@ -5,6 +5,8 @@ import CubeContainer from './cubecontainer';
 import ROSInterface from './ros';
 import { range, shuffle } from './util';
 
+console.log(process.env.manager_key); // eslint-disable-line no-console
+
 const prod = process.env.NODE_ENV === 'production';
 if (prod) console.log('production'); // eslint-disable-line no-console
 
