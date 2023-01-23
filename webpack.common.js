@@ -1,5 +1,7 @@
 const path = require('path');
 const CopyPlugin = require("copy-webpack-plugin");
+const fs = require('fs');
+const { DefinePlugin } = require('webpack')
 // const HtmlWebpackPlugin = require('html-webpack-plugin') // TODO figure this out
 // https://www.reddit.com/r/webdev/comments/dy39kx/how_to_handle_videos_with_webpack/
 
@@ -44,6 +46,9 @@ module.exports = {
                 { context: "src", from: "manager/manager.html", to: "[name].html" },
                 { context: "src", from: "components/*", to: "[name].html" },
             ],
+        }),
+        new DefinePlugin({
+            'process.env.simulator_host': JSON.stringify(fs.readFileSync('./endpoint.txt', { encoding: 'utf-8'}) || ''),
         }),
     ],
 };

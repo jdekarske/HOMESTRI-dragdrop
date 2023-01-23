@@ -18,18 +18,15 @@ function filterItems(arr: string[], query: string): number[] {
 }
 
 export default class ROSInterface {
-  private remote_host = 'wss://***REMOVED***/simulatorws/';
-
-  private worker_ID = 1; // eslint-disable-line @typescript-eslint/no-unused-vars
+  private remote_host: string;
 
   // private local_url = 'ws://localhost:9090';
 
   public ros = new ROSLIB.Ros({});
 
-  private url: string;
-
   public cubes_in_simulation: number[];
 
+  // TODO only subscribe to topic if element is set
   public camera_element: HTMLElement; // this might get a better type
 
   public status_element: HTMLElement;
@@ -57,14 +54,14 @@ export default class ROSInterface {
     console.log('Error connecting to websocket server: ', error); // eslint-disable-line no-console
     this.setStatus(false);
     setTimeout(() => {
-      this.ros.connect(this.url);
+      this.ros.connect(this.remote_host);
     }, 1000);
   }
 
   private rosOnClose() {
     this.setStatus(false);
     setTimeout(() => {
-      this.ros.connect(this.url);
+      this.ros.connect(this.remote_host);
     }, 1000);
   }
 
@@ -74,11 +71,9 @@ export default class ROSInterface {
     this.ros.on('close', this.rosOnClose.bind(this));
   }
 
-  set workerID(value: number) {
-    this.worker_ID = value;
-    // this.url = this.local_url; // TODO sanitize
-    this.url = this.remote_host + value.toString(); // TODO sanitize
-    this.ros.connect(this.url);
+  public set remoteHost(value: string) {
+    this.remote_host = value;
+    this.ros.connect(this.remote_host);
   }
 
   // Subscribing to the camera stream
@@ -139,7 +134,6 @@ export default class ROSInterface {
       length: 0,
       width: 0,
     });
-    console.log(request);
 
     // add to queue and call the service if its the only thing in there
     ROSInterface.spawn_cubes_queue.push(request);

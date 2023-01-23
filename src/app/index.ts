@@ -1,4 +1,3 @@
-// TODO add send cubes checks
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../static/style.css';
 import CubeContainer from './cubecontainer';
@@ -35,7 +34,7 @@ function randomMistake(capability: number) {
 }
 
 const ros = new ROSInterface();
-ros.workerID = 1; // TODO constant workerID
+ros.remoteHost = process.env.simulator_host;
 ros.camera_element = document.getElementById('camera_stream');
 ros.status_element = document.getElementById('status_element');
 
@@ -158,11 +157,6 @@ document.getElementById('sort_btn').onclick = (() => {
   return true;
 });
 
-// TODO not using right now
-// document.getElementById("replace_btn").onclick = (() => {
-//     setupExperiment();
-// })
-
 document.getElementById('end_trial_btn').onclick = (() => {
   logthis('end trial');
   if (prod) jatos.submitResultData(logs); // TODO log everything better
@@ -189,7 +183,6 @@ document.getElementById('broken_robot_btn').onclick = (() => {
 
 document.getElementById('trust_slider').oninput = () => {
   logthis(`trust: ${(this as HTMLInputElement).value.toString()}`);
-  // console.log((this as HTMLInputElement).value);
 };
 
 if (prod) {
@@ -198,5 +191,6 @@ if (prod) {
     setupExperiment();
   });
 } else {
+  // TODO optionally load jatos stuff here from config file
   setupExperiment();
 }
