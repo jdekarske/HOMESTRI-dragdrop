@@ -48,7 +48,7 @@ module.exports = {
             ],
         }),
         new DefinePlugin({
-            'process.env.simulator_host': JSON.stringify(fs.readFileSync('./endpoint.txt', { encoding: 'utf-8'}) || ''),
+            'process.env.simulator_host': JSON.stringify(fs.readFileSync('./hostname.txt', { encoding: 'utf-8'}) || 'localhost'),
         }),
     ],
 };

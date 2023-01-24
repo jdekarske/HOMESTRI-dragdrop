@@ -25,12 +25,8 @@ declare namespace jatos {
   function addJatosIds(resultData?: object): void;
 
   const componentJsonInput: object;
-}
 
-// don't do anything with jatos if we aren't on the server.
-// if (process.env.NODE_ENV !== 'production') {
-//   console.warn('Looks like we are in development mode!');
-//   jatos.startNextComponent = () => {};
-//   jatos.submitResultData = (arr: any[]) => arr;
-//   jatos.onLoad = (func: () => void) => { func(); };
-// }
+  const studySessionData: object;
+
+  const workerId: number;
+}
