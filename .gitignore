@@ -1,7 +1,7 @@
 .vscode
 deploy.sh
 manager.key
-endpoint.txt
+hostname.txt
 
 node_modules
 dist
