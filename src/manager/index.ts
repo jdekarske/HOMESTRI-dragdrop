@@ -67,9 +67,9 @@ jatos.onLoad(async () => {
       jatos.studySessionData.token = await register(workerID);
     } else if ('token' in jatos.studySessionData) {
       if (endpoint === 'start') {
-        start(jatos.studySessionData.token as Token);
+        await start(jatos.studySessionData.token as Token);
       } else if (endpoint === 'kill') {
-        kill(jatos.studySessionData.token as Token);
+        await kill(jatos.studySessionData.token as Token);
       }
     } else {
       console.log('something went wrong starting the simulation');

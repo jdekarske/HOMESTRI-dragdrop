@@ -24,9 +24,9 @@ declare namespace jatos {
 
   function addJatosIds(resultData?: object): void;
 
-  const componentJsonInput: object;
+  const componentJsonInput: any;
 
-  const studySessionData: object;
+  const studySessionData: any;
 
   const workerId: number;
 }
