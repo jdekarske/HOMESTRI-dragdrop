@@ -32,7 +32,7 @@ function randomMistake(capability: number) {
 }
 
 const ros = new ROSInterface();
-ros.remoteHost = `wss://${process.env.simulator_host}simulatorws/1`; // TODO workerID
+ros.remoteHost = `wss://${process.env.simulator_host}/simulatorws/1`; // TODO workerID
 ros.camera_element = document.getElementById('camera_stream');
 ros.status_element = document.getElementById('status_element');
 
