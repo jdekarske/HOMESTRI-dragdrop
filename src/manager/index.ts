@@ -1,4 +1,6 @@
 /* eslint-disable @typescript-eslint/no-floating-promises */
+/* eslint-disable @typescript-eslint/no-misused-promises */
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
 import '../static/style.css';
 
 // from webpack define plugin
@@ -57,21 +59,22 @@ async function kill(token: Token) {
     });
 }
 
-jatos.onLoad(() => {
+jatos.onLoad(async () => {
   if ('manager' in jatos.componentJsonInput) {
     const endpoint = jatos.componentJsonInput.manager as string;
     const workerID = jatos.workerId;
     if (endpoint === 'register') {
-      register(workerID);
+      jatos.studySessionData.token = await register(workerID);
     } else if ('token' in jatos.studySessionData) {
       if (endpoint === 'start') {
         start(jatos.studySessionData.token as Token);
       } else if (endpoint === 'kill') {
         kill(jatos.studySessionData.token as Token);
       }
-      jatos.startNextComponent();
     } else {
       console.log('something went wrong starting the simulation');
+      return;
     }
+    jatos.startNextComponent();
   }
 });
