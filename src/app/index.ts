@@ -8,12 +8,12 @@ const prod = process.env.NODE_ENV === 'production';
 if (prod) console.log('production'); // eslint-disable-line no-console
 
 // TODO make this a jatos var
-let trialsRemaining = 10;
+let trialsRemaining = 3;
 // Init
 //---------------------
 
-const gamma = 0.9; // good capability
-const echo = 0.3; // bad capability
+const gamma = 1.0; // good capability
+const echo = 0.5; // bad capability
 const numCubes = 4; // the number of cubes that will be sorted
 
 const capabilities = [gamma, echo];
@@ -181,7 +181,7 @@ document.getElementById('broken_robot_btn').onclick = (() => {
 });
 
 document.getElementById('trust_slider').oninput = () => {
-  logthis(`trust: ${(this as HTMLInputElement).value.toString()}`);
+  logthis(`trust: ${(document.getElementById('trust_slider') as HTMLInputElement).value.toString()}`);
 };
 
 if (prod) {
