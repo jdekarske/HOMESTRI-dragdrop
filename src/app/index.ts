@@ -8,7 +8,8 @@ const prod = process.env.NODE_ENV === 'production';
 if (prod) console.log('production'); // eslint-disable-line no-console
 
 // TODO make this a jatos var
-let trialsRemaining = 3;
+const totalTrials = 3;
+let trialsRemaining = totalTrials;
 // Init
 //---------------------
 
@@ -63,14 +64,15 @@ function logthis(object: any) { // eslint-disable-line @typescript-eslint/no-exp
 
 function setupExperiment() {
   logthis('trial start!');
+  logthis(`trialsRemaining ${trialsRemaining}`);
 
   document.getElementById('trials_remaining').innerText = `${trialsRemaining} trials remaining.`;
 
   const choice = Math.ceil(Math.random() * 2) - 1;
   currentAlgorithm = algorithms[choice];
   currentCapability = capabilities[choice];
-  logthis(currentAlgorithm);
-  logthis(currentCapability);
+  logthis(`currentAlgorithm ${currentAlgorithm}`);
+  logthis(`currentCapability ${currentCapability}`);
   document.getElementById('current_algorithm').innerText = `Current Algorithm: ${currentAlgorithm}`;
 
   // make sure the containers are empty
