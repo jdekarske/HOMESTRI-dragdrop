@@ -99,6 +99,7 @@ function setupExperiment() {
     ); // random color from start box
   }
 
+  ros.resetArm();
   ros.deleteAllCubes();
 }
 
@@ -176,7 +177,7 @@ document.getElementById('strange_behavior_btn').onclick = (() => {
 
 document.getElementById('broken_robot_btn').onclick = (() => {
   logthis('broken robot');
-  // TODO reset the simulation
+  ros.resetArm();
 });
 
 document.getElementById('trust_slider').oninput = () => {

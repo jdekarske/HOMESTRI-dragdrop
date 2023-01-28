@@ -232,4 +232,18 @@ export default class ROSInterface {
     ROSInterface.move_cubes_queue.push(request);
     this.moveCubesServiceCall();
   }
+
+  // Reset pick and place
+  // -----------------
+
+  private resetClient = new ROSLIB.Service({
+    ros: this.ros,
+    name: '/pick_place/reset',
+    serviceType: 'targetpose/reset',
+  });
+
+  public resetArm() {
+    const request = new ROSLIB.ServiceRequest({ });
+    this.resetClient.callService(request, () => {});
+  }
 }
