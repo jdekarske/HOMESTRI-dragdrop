@@ -169,18 +169,18 @@ document.getElementById('end_trial_btn').onclick = (() => {
   setupExperiment();
 });
 
-document.getElementById('misplaced_object_btn').onclick = (() => {
-  logthis('misplaced object');
-});
-
-document.getElementById('strange_behavior_btn').onclick = (() => {
-  logthis('strange behavior');
-});
-
-document.getElementById('broken_robot_btn').onclick = (() => {
-  logthis('broken robot');
-  ros.resetArm();
-});
+// document.getElementById('misplaced_object_btn').onclick = (() => {
+//   logthis('misplaced object');
+// });
+//
+// document.getElementById('strange_behavior_btn').onclick = (() => {
+//   logthis('strange behavior');
+// });
+//
+// document.getElementById('broken_robot_btn').onclick = (() => {
+//   logthis('broken robot');
+//   ros.resetArm();
+// });
 
 document.getElementById('trust_slider').oninput = () => {
   logthis(`trust: ${(document.getElementById('trust_slider') as HTMLInputElement).value.toString()}`);
