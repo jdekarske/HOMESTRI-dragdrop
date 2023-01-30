@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <title>Experiment</title>
 
@@ -19,35 +19,52 @@
 
 <body>
     <div class="container">
-        <div>
-            <h1>Common Mistakes</h1>
-            <hr>
-            <p id='instruction-font'>You should treat this study like you're sitting in a research laboratory and give
-                it your full attention! Here are some tips to make sure everything goes as smoothly as possible.</p>
-            <ol>
-                <li>Turn off or silence your phone - <b>you can time out of this experiment</b> if your attention lapses
-                    and your screen becomes inactive. You will be ineligible to continue/receive full compensation if
-                    this happens.</li>
-                <li>Don't hit the 'back' button or refresh. This can easily be done on some laptops if you have a
-                    'two-finger' trackpad shortcut set up. Consider temporarily disabling this shortcut.</li>
-                <li>If you use multiple workspaces, accidentally flipping between workspaces will also log as an inactive
-                    screen. This can easily be done if you have a 'three-' or 'four-finger' trackpad shortcut set up.
-                    Consider temporarily disabling this shortcut.</li>
-                <li>Please avoid exiting from fullscreen mode during the experiment. The experiment itself will move you
-                    in and out of fullscreen at the correct time.</li>
-                <li>If you need to use the restroom, now is a good time!</li>
-            </ol>
-            <p>
-                NOTE: Please focus your attention on the computer screen and avoid looking down at your hand
-                throughout the experiment.
-            </p>
-            <p>Please understand that we <em>reserve the right to not compensate entries</em> that fail to follow
-                instructions.</p>
-            <button type="button" class="btn btn-primary btn-lg" id="advance">
-                <span class="glyphicon glyphicon-arrow-right"></span> Ok
-            </button>
+        <div class="row d-flex justify-content-center">
+            <h1>Experiment Instructions</h1>
         </div>
+        <div class="row">
+            <div class="col">
+                <p id="instructions">
+                    Welcome to your new job as a robotics flight controller for NASA! In this task, you will be
+                    collaborating with a remotely situated robot arm to sort mission stowage. Your interface will
+                    display the available stowage and a specification for how the robot should sort the stowage on the
+                    rack. We are currently testing two different robot algorithms and are interested in how these affect
+                    your trust in the robot.
+                </p>
+                <p>
+                    The image on this page displays your user interface for the task. There are some call-outs for
+                    essential details in the interface. Consider the pieces of stowage (color blocks) in <b>Intake</b>
+                    and the required configuration shown in <b>Instruction</b>. Move stowage from <b>Intake</b> to
+                    <b>Robot Command</b> by clicking the stowage piece and the desired position. The grey blocks
+                    correspond to positions on the top and bottom of the rack, as indicated by the number labels. You
+                    should do your best to follow the assigned configuration! When the configuration is ready, click the
+                    <b>Send Stowage</b> button to drop the cubes in the stowage box, then the <b>Start Sorting</b>
+                    button to signal that you are ready for the robot to start sorting. Throughout the process, please
+                    adjust your trust in the system using the purple slider beneath the camera feed where the left
+                    indicates <b>less trust</b>, and the right indicates <b>more trust</b>.
+                </p>
+                <p>
+                    The robot you'll work with is a real physics simulation running software actually used in industry.
+                    The simulation video is being streamed live from a high-performance computer. As a result, you may
+                    see some strange behavior, like cubes flying off-screen or the robot arm colliding with a part of
+                    the environment. Typically, these things are fixed by proceeding to the next trial, but if the
+                    simulation becomes non-responsive, please take a screenshot and contact the experiment team. Thank
+                    you!
+                </p>
+            </div>
+            <div class="col-6">
+                <div class="row">
+                    <img src="static/instructions.svg" class="img-fluid" alt="Responsive image">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <button class="btn btn-primary" type="submit" id="advance">Continue</button>
+        </div>
+        <hr>
+    </div>
+
+    <script src="app.js"></script>
 </body>
 
-    <script src="components.js"></script>
 </html>
