@@ -223,7 +223,7 @@ export default class ROSInterface {
     if (this.cubes_in_simulation.indexOf(position1) === -1) {
       // console.warn(`${pickObject} not in simulation`); this is expected
       if (ROSInterface.spawning_flag) {
-        setInterval(this.goPickPlace.bind(this, position1, position2), 1000);
+        setTimeout(this.goPickPlace.bind(this, position1, position2), 1000);
         return;
       }
       return;
