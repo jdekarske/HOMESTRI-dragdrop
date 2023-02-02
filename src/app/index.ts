@@ -47,6 +47,16 @@ function logthis(object: any) { // eslint-disable-line @typescript-eslint/no-exp
   });
 }
 
+// Buttons
+//--------
+
+// const sendBtn = document.getElementById('send_btn'); // sort automatically
+const sortBtn = document.getElementById('sort_btn');
+const endTrialBtn = document.getElementById('end_trial_btn');
+// const misplacedBtn = document.getElementById('misplaced_object_btn');
+// const strangeBtn = document.getElementById('strange_behavior_btn');
+// const brokneBtn = document.getElementById('broken_robot_btn');
+
 // Setup the experiment
 //---------------------
 
@@ -55,6 +65,7 @@ function setupExperiment() {
   logthis(`trialsRemaining ${trialsRemaining}`);
 
   document.getElementById('trials_remaining').innerText = `${trialsRemaining} trials remaining.`;
+  endTrialBtn.setAttribute('disabled', 'true');
 
   const choice = Math.ceil(Math.random() * 2) - 1;
   currentAlgorithm = algorithms[choice];
@@ -113,7 +124,7 @@ function sort() {
 
     let i = 0;
     commandCubes.forEach((element) => {
-      if (element.color) {
+      if (element.color) { // not an empty space
         if (randomMistake(currentCapability)) {
           logthis(`mistake: ${element.id + 1}:${(randomEmpty[iempty] + 1).toString()}`);
           ros.goPickPlace(i += 1, randomEmpty[iempty += 1] + 1); // put it in an empty space
@@ -134,6 +145,8 @@ function send() {
   ros.deleteAllCubes();
   const commandCubes = commandContainer.listCubes();
   if (commandCubes.filter((v) => v.color !== null).length === numCubes) {
+    commandContainer.disable = true;
+    sortBtn.setAttribute('disabled', 'true');
     let i = 0;
     commandCubes.forEach((element) => {
       if (element.color) {
@@ -141,11 +154,13 @@ function send() {
         ros.spawnCube(i += 1, element.color);
       }
     });
+
+    // FIXME I really want a separate send button
+    sort();
   } else {
-    // alert that you need 4 cubes
+    // TODO alert that you need 4 cubes
     return false;
   }
-  sort();
   return true;
 }
 
@@ -160,19 +175,20 @@ function endTrial() {
   setupExperiment();
 }
 
-// document.getElementById('send_btn').onclick = send; // sort automatically
-document.getElementById('sort_btn').onclick = send; // sort automatically
-document.getElementById('end_trial_btn').onclick = endTrial;
-// document.getElementById('misplaced_object_btn').onclick = (() => {
+// sendBtn.onclick = send;
+sortBtn.onclick = send; // sort automatically
+endTrialBtn.onclick = endTrial;
+// misplacedBtn.onclick = (() => {
 //   logthis('misplaced object');
 // });
-// document.getElementById('strange_behavior_btn').onclick = (() => {
+// strangeBtn.onclick = (() => {
 //   logthis('strange behavior');
 // });
-// document.getElementById('broken_robot_btn').onclick = (() => {
+// brokenBtn.onclick = (() => {
 //   logthis('broken robot');
 //   ros.resetArm();
 // });
+
 document.getElementById('trust_slider').oninput = () => {
   logthis(`trust: ${(document.getElementById('trust_slider') as HTMLInputElement).value.toString()}`);
 };

@@ -18,6 +18,8 @@ export default class CubeContainer {
 
   protected parent_div_name: string;
 
+  private disabled = false;
+
   // cubes in the interface
   private next_id = 0;
 
@@ -90,7 +92,7 @@ export default class CubeContainer {
 
   private static checkClickedCube(evt: Event) {
     // make sure we have a cube (and not the box)
-    if (!(evt.target as Element).id) { return; }
+    if (!(evt.target as SVGElement).classList.contains('movable')) { return; }
     const newCube: DisplayCube = {
       DOMid: (evt.target as Element).id,
       color: (evt.target as Element).getAttribute('fill'),
@@ -98,6 +100,7 @@ export default class CubeContainer {
     };
 
     // instruction cubes are not selectable
+    // TODO use the disabled property
     const dontSelect = 'instructioncontainer';
     if (newCube.DOMid.includes(dontSelect)) { return; }
 
@@ -115,6 +118,37 @@ export default class CubeContainer {
       newCubeDOM.setAttribute('fill', oldColor);
       CubeContainer.selected_cube = null;
     }
+  }
+
+  public set disable(setting: boolean) {
+    if (this.disabled === setting) return;
+    this.disabled = setting;
+
+    if (this.disabled) {
+      const disabledNode = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+      disabledNode.setAttributeNS(null, 'id', 'disabledNode');
+      disabledNode.setAttributeNS(null, 'width', '100%');
+      disabledNode.setAttributeNS(null, 'height', '100%');
+      disabledNode.setAttributeNS(null, 'fill', 'red');
+      disabledNode.setAttributeNS(null, 'opacity', '20%');
+      const disabledText = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+      disabledText.innerHTML = 'Sorting...';
+      disabledText.setAttributeNS(null, 'id', 'disabledText');
+      disabledText.setAttributeNS(null, 'x', '50%');
+      disabledText.setAttributeNS(null, 'y', '50%');
+      disabledText.setAttributeNS(null, 'text-anchor', 'middle');
+      this.svg_node.appendChild(disabledText);
+      this.svg_node.appendChild(disabledNode);
+    } else {
+      const disabledNode = this.svg_node.getElementById('disabledNode');
+      const disabledText = this.svg_node.getElementById('disabledText');
+      this.svg_node.removeChild(disabledNode);
+      this.svg_node.removeChild(disabledText);
+    }
+  }
+
+  public get disable() {
+    return this.disabled;
   }
 
   /**
@@ -147,16 +181,20 @@ export default class CubeContainer {
      */
   public listCubes(): DisplayCube[] {
     const cubelist: DisplayCube[] = [];
-    this.svg_node.childNodes.forEach((element) => {
-      let color = (element as SVGElement).getAttribute('fill');
-      if (color === this.empty_color) { color = null; }
-      const cube: DisplayCube = {
-        color,
-        id: parseInt((element as SVGElement).getAttribute('id').substring(this.parent_div_name.length), 10),
-        DOMid: (element as SVGElement).id,
-      };
-      cubelist.push(cube);
-    });
+    const movables = this.svg_node.getElementsByClassName('movable');
+    Array.prototype.forEach.call(
+      movables,
+      (element: SVGElement) => {
+        let color = element.getAttribute('fill');
+        if (color === this.empty_color) { color = null; }
+        const cube: DisplayCube = {
+          color,
+          id: parseInt(element.getAttribute('id').substring(this.parent_div_name.length), 10),
+          DOMid: element.id,
+        };
+        cubelist.push(cube);
+      },
+    );
     return cubelist;
   }
 }
