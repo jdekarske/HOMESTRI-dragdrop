@@ -14,7 +14,9 @@ function hexToRgb(hex: string): { r: number; g: number; b: number; } {
 function filterItems(arr: string[], query: string): number[] {
   return arr.filter((el) => el.toLowerCase()
     .indexOf(query.toLowerCase()) !== -1)
-    .map(Number);
+    .map((num) => num.slice(-1)) // assume we have "cube_n"
+    .map(Number)
+    .map((num) => ((num - 1) % 4) + 1); // TODO hacky
 }
 
 export default class ROSInterface {
@@ -218,10 +220,14 @@ export default class ROSInterface {
     const pickObject = `cube_${position1.toString()}`;
     const placeObject = `cube_${position2.toString()}`;
 
-    // if (this.cubes_in_simulation.indexOf(pick_object) > -1) {
-    //     console.warn(pick_object + ' not in simulation');
-    //     return;
-    // }
+    if (this.cubes_in_simulation.indexOf(position1) === -1) {
+      // console.warn(`${pickObject} not in simulation`); this is expected
+      if (ROSInterface.spawning_flag) {
+        setInterval(this.goPickPlace.bind(this, position1, position2), 1000);
+        return;
+      }
+      return;
+    }
 
     const request = new ROSLIB.ServiceRequest({
       pick_object: pickObject,

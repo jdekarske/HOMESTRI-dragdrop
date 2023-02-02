@@ -105,28 +105,7 @@ function setupExperiment() {
   ros.deleteAllCubes();
 }
 
-// Setup the buttons
-//---------------------
-
-document.getElementById('send_btn').onclick = (() => {
-  logthis('sendcubes');
-  ros.deleteAllCubes();
-  const commandCubes = commandContainer.listCubes();
-  if (commandCubes.filter((v) => v.color !== null).length === numCubes) {
-    let i = 0;
-    commandCubes.forEach((element) => {
-      if (element.color) {
-        logthis(`spawncube: ${i.toString()}:${element.color}`);
-        ros.spawnCube(i += 1, element.color);
-      }
-    });
-  } else {
-    return false;
-  }
-  return true;
-});
-
-document.getElementById('sort_btn').onclick = (() => {
+function sort() {
   logthis('sortcubes');
   const commandCubes = commandContainer.listCubes();
   if (commandCubes.filter((v) => v.color !== null).length === numCubes) {
@@ -156,9 +135,29 @@ document.getElementById('sort_btn').onclick = (() => {
     return false;
   }
   return true;
-});
+}
 
-document.getElementById('end_trial_btn').onclick = (() => {
+function send() {
+  logthis('sendcubes');
+  ros.deleteAllCubes();
+  const commandCubes = commandContainer.listCubes();
+  if (commandCubes.filter((v) => v.color !== null).length === numCubes) {
+    let i = 0;
+    commandCubes.forEach((element) => {
+      if (element.color) {
+        logthis(`spawncube: ${i.toString()}:${element.color}`);
+        ros.spawnCube(i += 1, element.color);
+      }
+    });
+  } else {
+    // alert that you need 4 cubes
+    return false;
+  }
+  sort();
+  return true;
+}
+
+function endTrial() {
   logthis('end trial');
   if (prod) jatos.submitResultData(logs); // TODO log everything better
 
@@ -167,21 +166,21 @@ document.getElementById('end_trial_btn').onclick = (() => {
     if (prod) jatos.startNextComponent();
   }
   setupExperiment();
-});
+}
 
+// document.getElementById('send_btn').onclick = send; // sort automatically
+document.getElementById('sort_btn').onclick = send; // sort automatically
+document.getElementById('end_trial_btn').onclick = endTrial;
 // document.getElementById('misplaced_object_btn').onclick = (() => {
 //   logthis('misplaced object');
 // });
-//
 // document.getElementById('strange_behavior_btn').onclick = (() => {
 //   logthis('strange behavior');
 // });
-//
 // document.getElementById('broken_robot_btn').onclick = (() => {
 //   logthis('broken robot');
 //   ros.resetArm();
 // });
-
 document.getElementById('trust_slider').oninput = () => {
   logthis(`trust: ${(document.getElementById('trust_slider') as HTMLInputElement).value.toString()}`);
 };
