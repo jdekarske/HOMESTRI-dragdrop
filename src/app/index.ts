@@ -37,6 +37,7 @@ ros.remoteHost = `wss://${process.env.simulator_host}/simulatorws/1`; // TODO wo
 ros.camera_element = document.getElementById('camera_stream');
 ros.status_element = document.getElementById('status_element');
 
+// TODO this should be a class or library
 const logs = [];
 
 function logthis(object: any) { // eslint-disable-line @typescript-eslint/no-explicit-any
@@ -45,19 +46,6 @@ function logthis(object: any) { // eslint-disable-line @typescript-eslint/no-exp
     value: object, // eslint-disable-line @typescript-eslint/no-unsafe-assignment
   });
 }
-
-// TODO this chunk should help when running multiple sims
-// if (!prod) {
-//   const input = document.createElement('input');
-//   input.setAttribute('type', 'text');
-//   input.setAttribute('value', '1');
-//   input.addEventListener('keypress', (event: KeyboardEvent) => {
-//     if (event.key === 'Enter') {
-//       ros.workerID = parseInt(input.value, 10);
-//     }
-//   });
-//   document.getElementsByName('dev')[0].appendChild(input);
-// }
 
 // Setup the experiment
 //---------------------
