@@ -108,6 +108,9 @@ function setupExperiment() {
 function sort() {
   logthis('sortcubes');
   const commandCubes = commandContainer.listCubes();
+  logthis(commandContainer.listCubes());
+  logthis(instructionContainer.listCubes());
+  logthis(startContainer.listCubes());
   if (commandCubes.filter((v) => v.color !== null).length === numCubes) {
     // find the empty command spaces
     const empty: number[] = [];
