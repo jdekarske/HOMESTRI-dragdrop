@@ -28,8 +28,7 @@ export default class ROSInterface {
 
   public cubes_in_simulation: number[];
 
-  // TODO only subscribe to topic if element is set
-  public camera_element: HTMLElement; // this might get a better type
+  public camera_element: HTMLElement;
 
   public status_element: HTMLElement;
 
@@ -41,7 +40,7 @@ export default class ROSInterface {
       this.status_element.innerHTML = '🟢 Remote simulation connected.';
     } else {
       this.status_element.innerHTML = '🔴 Remote Simulation disconnected. Contact experiment team.';
-      this.camera_element.setAttribute('src', 'static/background.svg');
+      this.camera_element?.setAttribute('src', 'static/background.svg');
     }
   }
 
@@ -87,16 +86,16 @@ export default class ROSInterface {
     messageType: 'sensor_msgs/CompressedImage',
   });
 
-  public subscribeToCamera() {
+  private subscribeToCamera() {
     this.camera_topic.subscribe((message: ROSLIB.Message & { data: string }) => {
-      this.camera_element.setAttribute('src', `data:image/png;base64,${message.data}`);
+      this.camera_element?.setAttribute('src', `data:image/png;base64,${message.data}`);
     });
   }
 
   // Check for cubes
   // -----------------
 
-  public subscribeToCubeCheck() {
+  private subscribeToCubeCheck() {
     const cubesTopic = new ROSLIB.Topic({
       ros: this.ros,
       name: '/gazebo/model_states',
@@ -142,7 +141,7 @@ export default class ROSInterface {
     this.spawnCubesServiceCall();
   }
 
-  public spawnCubesCallback(): void {
+  private spawnCubesCallback(): void {
     // console.log(`Result for service call on spawncubes: ${result.status}`);
     ROSInterface.spawning_flag = false;
 
@@ -154,7 +153,7 @@ export default class ROSInterface {
 
   // method to send spawn cube request to the simulation backend, there is no guarantee messages are
   // received sequentially
-  public spawnCubesServiceCall() {
+  private spawnCubesServiceCall() {
     if (!ROSInterface.spawning_flag) {
       ROSInterface.spawning_flag = true;
       this.spawnCubesClient.callService(
@@ -194,7 +193,7 @@ export default class ROSInterface {
 
   static moving_flag = false; // determines if the simulation is moving
 
-  public moveCubesCallback() {
+  private moveCubesCallback() {
     // console.log(`Result for service call on movecubes: ${result.status}`);
     ROSInterface.moving_flag = false;
 
@@ -206,7 +205,7 @@ export default class ROSInterface {
 
   // method to send move cube request to the simulation backend, there is no guarantee messages are
   // received sequentially
-  public moveCubesServiceCall() {
+  private moveCubesServiceCall() {
     if (!ROSInterface.moving_flag) {
       ROSInterface.moving_flag = true;
       this.goPickPlaceClient.callService(
