@@ -19,6 +19,20 @@ function filterItems(arr: string[], query: string): number[] {
     .map((num) => ((num - 1) % 4) + 1); // TODO hacky
 }
 
+interface PickPlaceRequest {
+  pick_object: string;
+  place_object: string;
+}
+
+interface SpawnCubeRequest {
+  param_name: string,
+  overwrite: boolean,
+  position: number,
+  color: number[],
+  length: number,
+  width: number,
+}
+
 export default class ROSInterface {
   private remote_host: string;
 
@@ -31,6 +45,11 @@ export default class ROSInterface {
   public camera_element: HTMLElement;
 
   public status_element: HTMLElement;
+
+  // TODO Promises... but roslibjs makes that messy
+  public userMoveCubesCallback: ()=>void;
+
+  public userSpawnCubesCallback: ()=>void;
 
   // Connecting to server
   // ----------------------
@@ -141,13 +160,15 @@ export default class ROSInterface {
     this.spawnCubesServiceCall();
   }
 
-  private spawnCubesCallback(): void {
+  private spawnCubesCallback() {
     // console.log(`Result for service call on spawncubes: ${result.status}`);
     ROSInterface.spawning_flag = false;
 
     // if there are more things in the queue, send the next one
     if (ROSInterface.spawn_cubes_queue.length >= 1) {
       this.spawnCubesServiceCall();
+    } else {
+      this.userSpawnCubesCallback?.();
     }
   }
 
@@ -200,6 +221,8 @@ export default class ROSInterface {
     // if there are more things in the queue, send the next one
     if (ROSInterface.move_cubes_queue.length >= 1) {
       this.moveCubesServiceCall();
+    } else {
+      this.userMoveCubesCallback?.();
     }
   }
 
@@ -207,9 +230,23 @@ export default class ROSInterface {
   // received sequentially
   private moveCubesServiceCall() {
     if (!ROSInterface.moving_flag) {
+      const nextCube = ROSInterface.move_cubes_queue.shift() as PickPlaceRequest;
+
+      // TODO if the cubes don't exist, send it to the end of the queue
+      // then probably try a couple times before giving up
+      // if(this.cubes_in_simulation.indexOf(parseInt(nextCube.pick_object.slice(-1), 10)) === -1) {
+      //   console.log('cube not in simulation');
+      //   if (ROSInterface.spawning_flag) {
+      //     console.log('cube still spawing');
+      //     // setTimeout(this.goPickPlace.bind(this, position1, position2), 1000);
+      //     // return;
+      //   }
+      //   // return;
+      // }
+
       ROSInterface.moving_flag = true;
       this.goPickPlaceClient.callService(
-        ROSInterface.move_cubes_queue.shift(),
+        nextCube,
         this.moveCubesCallback.bind(this),
       );
     }
@@ -218,15 +255,6 @@ export default class ROSInterface {
   public goPickPlace(position1: number, position2: number) {
     const pickObject = `cube_${position1.toString()}`;
     const placeObject = `cube_${position2.toString()}`;
-
-    if (this.cubes_in_simulation.indexOf(position1) === -1) {
-      // console.warn(`${pickObject} not in simulation`); this is expected
-      if (ROSInterface.spawning_flag) {
-        setTimeout(this.goPickPlace.bind(this, position1, position2), 1000);
-        return;
-      }
-      return;
-    }
 
     const request = new ROSLIB.ServiceRequest({
       pick_object: pickObject,

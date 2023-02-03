@@ -33,7 +33,7 @@ function randomMistake(capability: number) {
 }
 
 const ros = new ROSInterface();
-ros.remoteHost = `wss://${process.env.simulator_host}/simulatorws/1`; // TODO workerID
+ros.remoteHost = `${process.env.simulator_host}/1`; // TODO workerID
 ros.camera_element = document.getElementById('camera_stream');
 ros.status_element = document.getElementById('status_element');
 
@@ -51,8 +51,8 @@ function logthis(object: any) { // eslint-disable-line @typescript-eslint/no-exp
 //--------
 
 // const sendBtn = document.getElementById('send_btn'); // sort automatically
-const sortBtn = document.getElementById('sort_btn');
-const endTrialBtn = document.getElementById('end_trial_btn');
+const sortBtn = document.getElementById('sort_btn') as HTMLInputElement;
+const endTrialBtn = document.getElementById('end_trial_btn') as HTMLInputElement;
 // const misplacedBtn = document.getElementById('misplaced_object_btn');
 // const strangeBtn = document.getElementById('strange_behavior_btn');
 // const brokneBtn = document.getElementById('broken_robot_btn');
@@ -65,7 +65,7 @@ function setupExperiment() {
   logthis(`trialsRemaining ${trialsRemaining}`);
 
   document.getElementById('trials_remaining').innerText = `${trialsRemaining} trials remaining.`;
-  endTrialBtn.setAttribute('disabled', 'true');
+  endTrialBtn.disabled = true;
 
   const choice = Math.ceil(Math.random() * 2) - 1;
   currentAlgorithm = algorithms[choice];
@@ -146,7 +146,8 @@ function send() {
   const commandCubes = commandContainer.listCubes();
   if (commandCubes.filter((v) => v.color !== null).length === numCubes) {
     commandContainer.disable = true;
-    sortBtn.setAttribute('disabled', 'true');
+    sortBtn.disabled = true;
+    endTrialBtn.disabled = true;
     let i = 0;
     commandCubes.forEach((element) => {
       if (element.color) {
@@ -154,9 +155,6 @@ function send() {
         ros.spawnCube(i += 1, element.color);
       }
     });
-
-    // FIXME I really want a separate send button
-    sort();
   } else {
     // TODO alert that you need 4 cubes
     return false;
@@ -174,6 +172,17 @@ function endTrial() {
   }
   setupExperiment();
 }
+
+ros.userSpawnCubesCallback = () => {
+  sort(); // TODO will only sort if there are cubes
+};
+
+ros.userMoveCubesCallback = () => {
+  console.log('movecubes');
+  commandContainer.disable = false;
+  endTrialBtn.disabled = false;
+  sortBtn.disabled = false;
+};
 
 // sendBtn.onclick = send;
 sortBtn.onclick = send; // sort automatically
