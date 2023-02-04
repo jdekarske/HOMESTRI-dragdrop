@@ -126,8 +126,10 @@ function sort() {
     commandCubes.forEach((element) => {
       if (element.color) { // not an empty space
         if (randomMistake(currentCapability)) {
-          logthis(`mistake: ${element.id + 1}:${(randomEmpty[iempty] + 1).toString()}`);
-          ros.goPickPlace(i += 1, randomEmpty[iempty += 1] + 1); // put it in an empty space
+          const newSpace = randomEmpty[iempty] + 1;
+          logthis(`mistake: ${element.id + 1}:${newSpace.toString()}`);
+          ros.goPickPlace(i += 1, newSpace); // put it in an empty space
+          iempty += 1;
         } else {
           ros.goPickPlace(i += 1, element.id + 1); // put it in the designated space
           logthis(`correct: ${element.id + 1}:${(element.id + 1).toString()}`);
