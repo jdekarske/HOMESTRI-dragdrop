@@ -3,6 +3,9 @@ const common = require('./webpack.common.js');
 const fs = require('fs');
 const { DefinePlugin } = require('webpack')
 
+// FIXME: export this
+const config = JSON.parse(fs.readFileSync('./config.json'));
+
 module.exports = merge(common, {
   mode: 'development',
   devtool: 'inline-source-map',
@@ -11,7 +14,7 @@ module.exports = merge(common, {
   },
     plugins: [
         new DefinePlugin({
-            'process.env.manager_key': JSON.stringify(fs.readFileSync('./manager.key', { encoding: 'utf-8'}) || ''),
+            'process.env.key': JSON.stringify(config["key"]) || null,
         }),
     ]
 });

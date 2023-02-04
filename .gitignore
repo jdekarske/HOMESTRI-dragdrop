@@ -1,7 +1,6 @@
 .vscode
 deploy.sh
-manager.key
-hostname.txt
+config.json
 
 node_modules
 dist

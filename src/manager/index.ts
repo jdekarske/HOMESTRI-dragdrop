@@ -4,8 +4,8 @@
 import '../static/style.css';
 
 // from webpack define plugin
-const host = `https://${process.env.simulator_host}/manager/`;
-// const authKey = process.env.manager_key;
+const host = `https://${process.env.host}/${process.env.endpoints_manager}/`;
+// const authKey = process.env.manager_key; // TODO for dev manager
 
 type Token = string;
 

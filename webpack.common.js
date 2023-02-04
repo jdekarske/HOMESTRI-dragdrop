@@ -1,9 +1,12 @@
 const path = require('path');
 const CopyPlugin = require("copy-webpack-plugin");
 const fs = require('fs');
-const { DefinePlugin } = require('webpack')
+const { DefinePlugin } = require('webpack');
 // const HtmlWebpackPlugin = require('html-webpack-plugin') // TODO figure this out
 // https://www.reddit.com/r/webdev/comments/dy39kx/how_to_handle_videos_with_webpack/
+
+// FIXME: export this
+const config = JSON.parse(fs.readFileSync('./config.json'));
 
 module.exports = {
     entry: {
@@ -48,7 +51,10 @@ module.exports = {
             ],
         }),
         new DefinePlugin({
-            'process.env.simulator_host': JSON.stringify(fs.readFileSync('./hostname.txt', { encoding: 'utf-8'}) || 'localhost'),
+            'TEST': "'test!!!'",
+            'process.env.host': JSON.stringify(config["host"]) || null,
+            'process.env.endpoints_manager': JSON.stringify(config["endpoints"]["manager"]) || null,
+            'process.env.endpoints_simulation': JSON.stringify(config["endpoints"]["simulation"]) || null,
         }),
     ],
 };
