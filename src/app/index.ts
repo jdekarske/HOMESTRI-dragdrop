@@ -8,7 +8,7 @@ const prod = process.env.NODE_ENV === 'production';
 if (prod) console.log('production'); // eslint-disable-line no-console
 
 // TODO make this a jatos var
-const totalTrials = 10;
+const totalTrials = 6;
 let trialsRemaining = totalTrials;
 // Init
 //---------------------
