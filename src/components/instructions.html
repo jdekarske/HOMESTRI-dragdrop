@@ -2,69 +2,72 @@
 <html>
 
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <title>Experiment</title>
+  <title>Experiment</title>
 
-    <!-- Favicon -->
-    <link rel="apple-touch-icon" sizes="180x180" href="static/ico/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="static/ico/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="static/ico/favicon-16x16.png">
-    <link rel="manifest" href="static/ico/site.webmanifest">
+  <!-- Favicon -->
+  <link rel="apple-touch-icon" sizes="180x180" href="static/ico/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="static/ico/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="static/ico/favicon-16x16.png">
+  <link rel="manifest" href="static/ico/site.webmanifest">
 
-    <script src="jatos.js"></script>
+  <script src="jatos.js"></script>
 
 </head>
 
 <body>
-    <div class="container">
-        <div class="row d-flex justify-content-center">
-            <h1>Experiment Instructions</h1>
-        </div>
-        <div class="row">
-            <div class="col">
-                <p id="instructions">
-                    Welcome to your new job as a robotics flight controller for NASA! In this task, you will be
-                    collaborating with a remotely situated robot arm to sort mission stowage. Your interface will
-                    display the available stowage and a specification for how the robot should sort the stowage on the
-                    rack. We are currently testing two different robot algorithms and are interested in how these affect
-                    your trust in the robot.
-                </p>
-                <p>
-                    The image on this page displays your user interface for the task. There are some call-outs for
-                    essential details in the interface. Consider the pieces of stowage (color blocks) in <b>Intake</b>
-                    and the required configuration shown in <b>Instruction</b>. Move stowage from <b>Intake</b> to
-                    <b>Robot Command</b> by clicking the stowage piece and the desired position. The grey blocks
-                    correspond to positions on the top and bottom of the rack, as indicated by the number labels. You
-                    should do your best to follow the assigned configuration! When the configuration is ready, click the
-                    <b>Send Stowage</b> button to drop the cubes in the stowage box, then the <b>Start Sorting</b>
-                    button to signal that you are ready for the robot to start sorting. Throughout the process, please
-                    adjust your trust in the system using the purple slider beneath the camera feed where the left
-                    indicates <b>less trust</b>, and the right indicates <b>more trust</b>.
-                </p>
-                <p>
-                    The robot you'll work with is a real physics simulation running software actually used in industry.
-                    The simulation video is being streamed live from a high-performance computer. As a result, you may
-                    see some strange behavior, like cubes flying off-screen or the robot arm colliding with a part of
-                    the environment. Typically, these things are fixed by proceeding to the next trial, but if the
-                    simulation becomes non-responsive, please take a screenshot and contact the experiment team. Thank
-                    you!
-                </p>
-            </div>
-            <div class="col-6">
-                <div class="row">
-                    <img src="static/instructions.svg" class="img-fluid" alt="Responsive image">
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <button class="btn btn-primary" type="submit" id="advance">Continue</button>
-        </div>
-        <hr>
+  <div class="container">
+    <div class="row d-flex justify-content-center">
+      <h1>Experiment Instructions</h1>
     </div>
+    <div class="row">
+      <div class="col">
+        <p id="instructions"> Welcome to your new job as a robotics flight controller for NASA! In this task, you will
+          be collaborating with a remotely situated robot arm to sort mission stowage. <b>Stowage</b> are pieces of
+          equipment or supplies needed for the mission and are represented by cubes in the simulation and colored
+          squares in the interface. Your interface will display the
+          available stowage and a specification for how the robot should sort the stowage on the rack. We are currently
+          testing two different robot algorithms and are interested in how these affect your trust in the robot. </p>
+        <p> The image on this page displays your user interface for the task. There are some labels for essential
+          details in the interface.</p>
+        <ul>
+          <li><b>Intake:</b> Stowage available on station to be sorted.</li>
+          <li><b>Instruction:</b> The required configuration of stowage on the rack.</li>
+          <li><b>Robot Command:</b> The configuration of stowage that you want the robot to place on the rack.</li>
+          <li><b>Start Sorting:</b> Button to spawn cubes in the stowage box and command the robot to start sorting.
+          </li>
+          <li><b>Robot:</b> A live stream of a camera in the station.</li>
+          <li><b>Algorithm:</b> The current algorithm used by the robot.</li>
+          <li><b>Trust Rating:</b> An input for you to evaluate your <b>trust in the robot</b>. Please change this
+            whenever your trust in the robot changes!</li>
+          <li><b>Next Trial:</b> Click this to move to the next trial after sorting.</li>
+        </ul>
+        <p>Each trial, move stowage from <b>Intake</b> to <b>Robot Command</b> according to the <b>Instruction</b>. As
+          seen in the graphic, each position in the <b>Intake</b> and <b>Robot Command</b> corresponds to a position on
+          the rack. When you are satisfied, click <b>Start Sorting</b>! Throughout the process, please adjust your trust
+          in the system using the purple slider beneath the camera feed where the left indicates <b>less trust</b>, and
+          the right indicates <b>more trust</b>.</p>
+        <p>The robot you'll work with is a real physics simulation running software actually used in industry. The
+          simulation video is being streamed live from a high-performance computer. As a result, you may see some
+          strange behavior, like cubes flying off-screen or the robot arm colliding with a part of the environment.
+          Typically, these things are fixed by proceeding to the next trial, but if the simulation becomes
+          non-responsive, please take a screenshot and contact the experiment team. Thank you! </p>
+      </div>
+      <div class="col-6">
+        <div class="row">
+          <img src="static/instructions.svg" class="img-fluid" alt="Responsive image">
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <button class="btn btn-primary" type="submit" id="advance">Continue</button>
+    </div>
+    <hr>
+  </div>
 
-    <script src="components.js"></script>
+  <script src="components.js"></script>
 </body>
 
 </html>

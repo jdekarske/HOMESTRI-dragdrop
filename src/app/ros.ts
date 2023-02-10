@@ -38,6 +38,7 @@ export default class ROSInterface {
 
   // private local_url = 'ws://localhost:9090';
 
+  // TODO add websocket options here
   public ros = new ROSLIB.Ros({});
 
   public cubes_in_simulation: number[];

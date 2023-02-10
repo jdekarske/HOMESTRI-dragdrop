@@ -2,150 +2,149 @@
 <html>
 
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Experiment</title>
+  <title>Experiment</title>
 
-    <!-- Favicon -->
-    <link rel="apple-touch-icon" sizes="180x180" href="static/ico/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="static/ico/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="static/ico/favicon-16x16.png">
-    <link rel="manifest" href="static/ico/site.webmanifest">
+  <!-- Favicon -->
+  <link rel="apple-touch-icon" sizes="180x180" href="static/ico/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="static/ico/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="static/ico/favicon-16x16.png">
+  <link rel="manifest" href="static/ico/site.webmanifest">
 
-    <script src="jatos.js"></script>
+  <script src="jatos.js"></script>
 
 </head>
 
 <body>
-    <div class="container">
-        <div class="row">
-            <h1>Intake Information</h1>
-        </div>
-        <div class="row">
-            <p> Before we begin, please complete the following demographic survey. This information will only be used in
-                reports as part of an aggregate of subject data (e.g. mean age of subjects), or in case studies that do
-                not reveal your identity. </p>
-            <p>If you are a Sona participant, please enter your email below. <b>Failure to do so correctly could result
-                    in delay of credits.</b> </p>
-        </div>
-        <div class="row">
-            <form id='demo-survey' action="javascript:void(0);">
-                <div class="form-group">
-                    <input placeholder="Age" type="number" id="age" name="age" min="18" max="99" class="col-m-2"
-                        required>
-                </div>
-                <div class="form-group">
-                    <h5>Gender Identity</h5>
-                    <label for="genderIdentity">Do you think of yourself as:</label>
-                    <select class="custom-select col-m-2" name="genderIdentity" required>
-                        <option value="" disabled selected>--please select an option--</option>
-                        <option value="female">Female</option>
-                        <option value="male">Male</option>
-                        <option value="transgender man/transman/female-to-male (FTM)">Transgender
-                            man/transman/female-to-male (FTM)
-                        </option>
-                        <option value="transgender woman/transwoman/male-to-female (MTF)">Transgender
-                            woman/transwoman/male-to-female (MTF)</option>
-                        <option value="genderqueer/gender nonconforming neither exclusively male nor female">
-                            Genderqueer/gender
-                            nonconforming neither exclusively male nor female</option>
-                        <option value="none">None of the above</option>
-                        <option value="decline to answer">Decline to answer</option>
-                    </select>
-                    <label for="addGender">If you answered <i>None of the above</i>, please specify an additional gender
-                        category (or other): </label>
-                    <input type='text' name='addGender'>
-                </div>
-                <div class="form-group">
-                    <label for="sex">What sex was originally listed on your birth certificate?</label>
-                    <select class="custom-select col-m-2" name="sex" required>
-                        <option value="" disabled selected>--please select an option--</option>
-                        <option value="female">Female</option>
-                        <option value="male">Male</option>
-                        <option value="decline to answer">Decline to answer</option>
-                    </select>
-                </div>
-
-                <!-- https://gist.github.com/ag14spirit/255ca96e7c6c2f0c3845e2ade14de245 -->
-                <div class="form-group">
-                    <h5>Race & Ethnicity</h5>
-                    <label for="ethnicity">Do you consider yourself Hispanic/Latino or not Hispanic/Latino?</label>
-                    <select class="custom-select col-m-2" name="ethnicity" required>
-                        <option value="" disabled selected>--please select an option--</option>
-                        <option value="hispanic/latino">Hispanic/Latino</option>
-                        <option value="not hispanic/latino">NOT Hispanic/Latino</option>
-                        <option value="decline to answer">Decline to answer</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="race">Which of the following five racial designations best
-                        describes you? More than one choice is acceptable.</label><br>
-                    <input type="checkbox" name="race" value="aian">
-                    <label for="aian">American Indian or Alaska Native</label><br>
-                    <input type="checkbox" name="race" value="asian">
-                    <label for="asian">Asian</label><br>
-                    <input type="checkbox" name="race" value="baa">
-                    <label for="blackorafricanamerican">Black or African American</label><br>
-                    <input type="checkbox" name="race" value="nhopi">
-                    <label for="native hawaiin or other pacific islander">Native Hawaiian or Other Pacific
-                        Islander</label><br>
-                    <input type="checkbox" name="race" value="white">
-                    <label for="white">White</label><br>
-                </div>
-                <h5>Additional Information</h5>
-                <div class="form-group">
-                    <select class="custom-select col-m-2" name="colorblind" required>
-                        <option value="" disabled selected>Do you experience color blindness?</option>
-                        <option value="false">No</option>
-                        <option value="deuteranomaly">Deuteranomaly</option>
-                        <option value="protanomaly">Protanomaly</option>
-                        <option value="tritanomaly">Tritanomaly</option>
-                        <option value="tritanopia">Tritanopia</option>
-                        <option value="other">Other color blindess</option>
-                        <option value="decline">Decline to answer</option>
-                    </select>
-                    <select class="custom-select col-m-2" name="make" required>
-                        <option value="" disabled selected>What is the make of your laptop or computer?</option>
-                        <option value="apple">Apple</option>
-                        <option value="asus">ASUS</option>
-                        <option value="dell">Dell</option>
-                        <option value="hp">HP</option>
-                        <option value="lenovo">Lenovo</option>
-                        <option value="microsoft">Microsoft (Surface)</option>
-                        <option value="other">Other</option>
-                    </select>
-                    <select class="custom-select col-m-2" name="videoGames" required>
-                        <option value="" disabled selected>Do you currently play video games (within the last year)?
-                        </option>
-                        <option value="yes">Yes</option>
-                        <option value="no">No</option>
-                    </select>
-                    <select class="custom-select col-m-2" name="yesGames" required>
-                        <option value="" disabled selected>Please indicate the frequency that you play video games (if
-                            you don't
-                            play, please select N/A):</option>
-                        <option value="0">N/A</option>
-                        <option value="1">Less than an hour per week</option>
-                        <option value="2">1 to 5 hours per week</option>
-                        <option value="3">6 to 10 hours per week</option>
-                        <option value="4">11 to 20 hours per week</option>
-                        <option value="5">More than 20 hours per week</option>
-                    </select>
-                </div>
-                <label for="email">If you are a Sona participant, please enter your email so we can assign your credits
-                    upon study completion.</label>
-                <input class="form-control col-md-4" aria-describedby="emailHelp" type='email'
-                    placeholder="aggie@example.com" name="email">
-            </form>
-        </div>
-        <hr />
-        <div class="row">
-            <h5>By clicking submit, you verify that the above information is accurate to the best of your knowledge.
-            </h5>
-            <button class="btn btn-primary" type="submit" id="checkInfo">Submit</button>
-        </div>
+  <div class="container">
+    <div class="row">
+      <h1>Intake Information</h1>
     </div>
+    <div class="row">
+      <p> Before we begin, please complete the following demographic survey. This information will only be used in
+        reports as part of an aggregate of subject data (e.g., the mean age of subjects) or in case studies that do not
+        reveal your identity.</p>
+      <p>If you are a Sona participant, please enter your email below. <b>Failure to do so correctly could result
+          in delay of credits.</b> </p>
+    </div>
+    <div class="row">
+      <form id='demo-survey' action="javascript:void(0);">
+        <div class="form-group">
+          <input placeholder="Age" type="number" id="age" name="age" min="18" max="99" class="col-m-2" required>
+        </div>
+        <div class="form-group">
+          <h5>Gender Identity</h5>
+          <label for="genderIdentity">Do you think of yourself as:</label>
+          <select class="custom-select col-m-2" name="genderIdentity" required>
+            <option value="" disabled selected>--please select an option--</option>
+            <option value="female">Female</option>
+            <option value="male">Male</option>
+            <option value="transgender man/transman/female-to-male (FTM)">Transgender
+              man/transman/female-to-male (FTM)
+            </option>
+            <option value="transgender woman/transwoman/male-to-female (MTF)">Transgender
+              woman/transwoman/male-to-female (MTF)</option>
+            <option value="genderqueer/gender nonconforming neither exclusively male nor female">
+              Genderqueer/gender
+              nonconforming neither exclusively male nor female</option>
+            <option value="none">None of the above</option>
+            <option value="decline to answer">Decline to answer</option>
+          </select>
+          <label for="addGender">If you answered <i>None of the above</i>, please specify an additional gender
+            category (or other): </label>
+          <input type='text' name='addGender'>
+        </div>
+        <div class="form-group">
+          <label for="sex">What sex was originally listed on your birth certificate?</label>
+          <select class="custom-select col-m-2" name="sex" required>
+            <option value="" disabled selected>--please select an option--</option>
+            <option value="female">Female</option>
+            <option value="male">Male</option>
+            <option value="decline to answer">Decline to answer</option>
+          </select>
+        </div>
+
+        <!-- https://gist.github.com/ag14spirit/255ca96e7c6c2f0c3845e2ade14de245 -->
+        <div class="form-group">
+          <h5>Race & Ethnicity</h5>
+          <label for="ethnicity">Do you consider yourself Hispanic/Latino or not Hispanic/Latino?</label>
+          <select class="custom-select col-m-2" name="ethnicity" required>
+            <option value="" disabled selected>--please select an option--</option>
+            <option value="hispanic/latino">Hispanic/Latino</option>
+            <option value="not hispanic/latino">NOT Hispanic/Latino</option>
+            <option value="decline to answer">Decline to answer</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="race">Which of the following five racial designations best
+            describes you? More than one choice is acceptable.</label><br>
+          <input type="checkbox" name="race" value="aian">
+          <label for="aian">American Indian or Alaska Native</label><br>
+          <input type="checkbox" name="race" value="asian">
+          <label for="asian">Asian</label><br>
+          <input type="checkbox" name="race" value="baa">
+          <label for="blackorafricanamerican">Black or African American</label><br>
+          <input type="checkbox" name="race" value="nhopi">
+          <label for="native hawaiin or other pacific islander">Native Hawaiian or Other Pacific
+            Islander</label><br>
+          <input type="checkbox" name="race" value="white">
+          <label for="white">White</label><br>
+        </div>
+        <h5>Additional Information</h5>
+        <div class="form-group">
+          <select class="custom-select col-m-2" name="colorblind" required>
+            <option value="" disabled selected>Do you experience color blindness?</option>
+            <option value="false">No</option>
+            <option value="deuteranomaly">Deuteranomaly</option>
+            <option value="protanomaly">Protanomaly</option>
+            <option value="tritanomaly">Tritanomaly</option>
+            <option value="tritanopia">Tritanopia</option>
+            <option value="other">Other color blindess</option>
+            <option value="decline">Decline to answer</option>
+          </select>
+          <select class="custom-select col-m-2" name="make" required>
+            <option value="" disabled selected>What is the make of your laptop or computer?</option>
+            <option value="apple">Apple</option>
+            <option value="asus">ASUS</option>
+            <option value="dell">Dell</option>
+            <option value="hp">HP</option>
+            <option value="lenovo">Lenovo</option>
+            <option value="microsoft">Microsoft (Surface)</option>
+            <option value="other">Other</option>
+          </select>
+          <select class="custom-select col-m-2" name="videoGames" required>
+            <option value="" disabled selected>Do you currently play video games (within the last year)?
+            </option>
+            <option value="yes">Yes</option>
+            <option value="no">No</option>
+          </select>
+          <select class="custom-select col-m-2" name="yesGames" required>
+            <option value="" disabled selected>Please indicate the frequency that you play video games (if
+              you don't
+              play, please select N/A):</option>
+            <option value="0">N/A</option>
+            <option value="1">Less than an hour per week</option>
+            <option value="2">1 to 5 hours per week</option>
+            <option value="3">6 to 10 hours per week</option>
+            <option value="4">11 to 20 hours per week</option>
+            <option value="5">More than 20 hours per week</option>
+          </select>
+        </div>
+        <label for="email">If you are a Sona participant, please enter your email so we can assign your credits
+          upon study completion.</label>
+        <input class="form-control col-md-4" aria-describedby="emailHelp" type='email' placeholder="aggie@example.com"
+          name="email">
+      </form>
+    </div>
+    <hr />
+    <div class="row">
+      <h5>By clicking submit, you verify that the above information is accurate to the best of your knowledge.
+      </h5>
+      <button class="btn btn-primary" type="submit" id="checkInfo">Submit</button>
+    </div>
+  </div>
 </body>
 
 <script src="components.js"></script>

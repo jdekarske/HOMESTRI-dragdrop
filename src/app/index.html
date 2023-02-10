@@ -2,98 +2,100 @@
 <html>
 
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <title>Experiment</title>
+  <title>Experiment</title>
 
-    <!-- Favicon -->
-    <link rel="apple-touch-icon" sizes="180x180" href="static/ico/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="static/ico/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="static/ico/favicon-16x16.png">
-    <link rel="manifest" href="static/ico/site.webmanifest">
+  <!-- Favicon -->
+  <link rel="apple-touch-icon" sizes="180x180" href="static/ico/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="static/ico/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="static/ico/favicon-16x16.png">
+  <link rel="manifest" href="static/ico/site.webmanifest">
 
-    <script src="jatos.js"></script>
+  <script src="jatos.js"></script>
 
 </head>
 
 <body>
-    <div class="container">
-        <div class="row" name="dev"></div>
-        <div class="row d-flex justify-content-center">
-            <h1>Station Manipulator Storage Handling</h1>
+  <div class="container">
+    <div class="row" name="dev"></div>
+    <div class="row d-flex justify-content-center">
+      <h1>Station Manipulator Storage Handling</h1>
+    </div>
+    <div class="row">
+      <div class="col">
+        <div class="row">
+          <h4>Intake</h4>
+          <p>Stowage are ready to be sorted.</p>
+          <div class="shape_container" id="startcontainer"></div>
         </div>
         <div class="row">
-            <div class="col">
-                <h4>Intake</h4>
-                <p>These shapes are ready to be sorted.</p>
-                <div class="shape_container" id="startcontainer"></div>
-                <div class="row">
-                    <div class="col">
-                        <h4>Instruction</h4>
-                        <p>This is the required shape configuration.</p>
-                        <div class="shape_container" id="instructioncontainer"></div>
-                    </div>
-                    <div class="col">
-                        <h4>Robot Command</h4>
-                        <p>These are the shapes the robot will place.</p>
-                        <div class="shape_container" id="commandcontainer"></div>
-                        <!-- <button id="send_btn" type="button" class="btn btn-primary" data-toggle="tooltip" -->
-                        <!--     data-placement="top" title="Spawn the stowage in the simulation">Send Stowage</button> -->
-                        <button id="sort_btn" type="button" class="btn btn-primary" data-toggle="tooltip"
-                            data-placement="top" title="Tell the robot to place these shapes">Start Sorting</button>
-                    </div>
-                </div>
-            </div>
-            <div class="col-6">
-                <div class="row">
-                    <h3>Robot</h3>
-                    <p id="current_algorithm"></p>
-                    <p id="status_element"> </p>
-                    <img id="camera_stream" src="static/background.svg" class="img-fluid" alt="Responsive image">
-                </div>
-                <div class="row">
-                    <h4>Trust Rating</h4>
-                    <form class="slide-container">
-                        <input id="trust_slider" type="range" min="0" max="100" class="slider" />
-                    </form>
-                </div>
-                <hr>
-                <div class="row">
-                    <div class="col">
-                        <button id="end_trial_btn" type="button" class="btn btn-primary">End Trial</button>
-                    </div>
-                    <div class="col">
-                        <p id="trials_remaining"></p>
-                    </div>
-                    <!-- <div class="col"> -->
-                    <!--     <div class="dropdown"> -->
-                    <!--         <button class="btn btn-secondary dropdown-toggle" type="button" id="report_issue" -->
-                    <!--             data-bs-toggle="dropdown" aria-expanded="false">Report -->
-                    <!--             Robot Issue</button> -->
-                    <!--         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton"> -->
-                    <!--             <a class="dropdown-item" href="#" id="misplaced_object_btn">Misplaced Object</a> -->
-                    <!--             <a class="dropdown-item" href="#" id="strange_behavior_btn">Strange Behavior</a> -->
-                    <!--             <a class="dropdown-item" href="#" id="broken_robot_btn">Robot is Broken</a> -->
-                    <!--         </div> -->
-                    <!--     </div> -->
-                    <!-- </div> -->
-                </div>
-            </div>
+          <div class="col">
+            <h4>Instruction</h4>
+            <p>This is the required stowage configuration.</p>
+            <div class="shape_container" id="instructioncontainer"></div>
+          </div>
+          <div class="col">
+            <h4>Robot Command</h4>
+            <p>These are the stowage the robot will place.</p>
+            <div class="shape_container" id="commandcontainer"></div>
+            <!-- <button id="send_btn" type="button" class="btn btn-primary" data-toggle="tooltip" -->
+            <!--     data-placement="top" title="Spawn the stowage in the simulation">Send Stowage</button> -->
+            <button id="sort_btn" type="button" class="btn btn-primary" data-toggle="tooltip" data-placement="top"
+              title="Tell the robot to place these shapes">Start Sorting</button>
+          </div>
+        </div>
+      </div>
+      <div class="col-6">
+        <div class="row">
+          <h4>Robot</h4>
+          <p id="status_element"> </p>
+          <div style="position: relative;">
+            <p id="current_algorithm" class="algorithm"></p>
+            <img id="camera_stream" src="static/background.svg" class="img-fluid" alt="Responsive image">
+          </div>
         </div>
         <div class="row">
-            <h3>Instructions</h3>
-            <p id="instructions">Consider the pieces of stowage in <b>Intake</b> and the required configuration shown in
-                <b>Instruction</b>. Move stowage from <b>Intake</b> to <b>Robot Command</b> by clicking the stowage
-                piece and the desired position. Throughout the process please adjust your trust in the system using the
-                purple slider beneath the camera feed where the left indicates <b>less trust</b> and the right indicates
-                <b>more trust</b>.
-            </p>
+          <h4>Trust Rating</h4>
+          <form class="slide-container">
+            <input id="trust_slider" type="range" min="0" max="100" class="slider" />
+          </form>
         </div>
         <hr>
+        <div class="row">
+          <div class="col">
+            <button id="next_trial_btn" type="button" class="btn btn-primary">Next Trial</button>
+          </div>
+          <div class="col">
+            <p id="trials_remaining"></p>
+          </div>
+          <!-- <div class="col"> -->
+          <!--     <div class="dropdown"> -->
+          <!--         <button class="btn btn-secondary dropdown-toggle" type="button" id="report_issue" -->
+          <!--             data-bs-toggle="dropdown" aria-expanded="false">Report -->
+          <!--             Robot Issue</button> -->
+          <!--         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton"> -->
+          <!--             <a class="dropdown-item" href="#" id="misplaced_object_btn">Misplaced Object</a> -->
+          <!--             <a class="dropdown-item" href="#" id="strange_behavior_btn">Strange Behavior</a> -->
+          <!--             <a class="dropdown-item" href="#" id="broken_robot_btn">Robot is Broken</a> -->
+          <!--         </div> -->
+          <!--     </div> -->
+          <!-- </div> -->
+        </div>
+      </div>
     </div>
+    <div class="row">
+    </div>
+    <h3>Instructions</h3>
+    <p id="instructions"> Move stowage from <b>Intake</b> to <b>Robot Command</b> according to the <b>Instruction</b>.
+      When you are satisfied, click <b>Start Sorting</b>! Throughout the process, please adjust your <b>trust in the
+        robot</b> using the purple slider beneath the camera feed where the left indicates <b>less trust</b>, and the
+      right indicates <b>more trust</b>. </p>
+    <hr>
+  </div>
 
-    <script src="app.js"></script>
+  <script src="app.js"></script>
 </body>
 
 </html>

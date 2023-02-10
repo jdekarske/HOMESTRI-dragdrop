@@ -8,7 +8,7 @@ const prod = process.env.NODE_ENV === 'production';
 if (prod) console.log('production'); // eslint-disable-line no-console
 
 // TODO make this a jatos var
-const totalTrials = 6;
+const totalTrials = 10;
 let trialsRemaining = totalTrials;
 // Init
 //---------------------
@@ -52,7 +52,7 @@ function logthis(object: any) { // eslint-disable-line @typescript-eslint/no-exp
 
 // const sendBtn = document.getElementById('send_btn'); // sort automatically
 const sortBtn = document.getElementById('sort_btn') as HTMLInputElement;
-const endTrialBtn = document.getElementById('end_trial_btn') as HTMLInputElement;
+const nextTrialBtn = document.getElementById('next_trial_btn') as HTMLInputElement;
 // const misplacedBtn = document.getElementById('misplaced_object_btn');
 // const strangeBtn = document.getElementById('strange_behavior_btn');
 // const brokneBtn = document.getElementById('broken_robot_btn');
@@ -65,7 +65,7 @@ function setupExperiment() {
   logthis(`trialsRemaining ${trialsRemaining}`);
 
   document.getElementById('trials_remaining').innerText = `${trialsRemaining} trials remaining.`;
-  endTrialBtn.disabled = true;
+  nextTrialBtn.disabled = true;
 
   const choice = Math.ceil(Math.random() * 2) - 1;
   currentAlgorithm = algorithms[choice];
@@ -149,7 +149,7 @@ function send() {
   if (commandCubes.filter((v) => v.color !== null).length === numCubes) {
     commandContainer.disable = true;
     sortBtn.disabled = true;
-    endTrialBtn.disabled = true;
+    nextTrialBtn.disabled = true;
     let i = 0;
     commandCubes.forEach((element) => {
       if (element.color) {
@@ -164,7 +164,7 @@ function send() {
   return true;
 }
 
-function endTrial() {
+function nextTrial() {
   logthis('end trial');
   if (prod) jatos.submitResultData(logs); // TODO log everything better
 
@@ -182,13 +182,13 @@ ros.userSpawnCubesCallback = () => {
 ros.userMoveCubesCallback = () => {
   console.log('movecubes');
   commandContainer.disable = false;
-  endTrialBtn.disabled = false;
+  nextTrialBtn.disabled = false;
   sortBtn.disabled = false;
 };
 
 // sendBtn.onclick = send;
 sortBtn.onclick = send; // sort automatically
-endTrialBtn.onclick = endTrial;
+nextTrialBtn.onclick = nextTrial;
 // misplacedBtn.onclick = (() => {
 //   logthis('misplaced object');
 // });

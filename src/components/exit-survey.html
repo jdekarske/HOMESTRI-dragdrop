@@ -2,78 +2,78 @@
 <html>
 
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Experiment</title>
+  <title>Experiment</title>
 
-    <!-- Favicon -->
-    <link rel="apple-touch-icon" sizes="180x180" href="static/ico/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="static/ico/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="static/ico/favicon-16x16.png">
-    <link rel="manifest" href="static/ico/site.webmanifest">
+  <!-- Favicon -->
+  <link rel="apple-touch-icon" sizes="180x180" href="static/ico/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="static/ico/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="static/ico/favicon-16x16.png">
+  <link rel="manifest" href="static/ico/site.webmanifest">
 
-    <script src="jatos.js"></script>
+  <script src="jatos.js"></script>
 
 </head>
 
 <body>
-    <div class="container">
-        <div class="row">
-            <h1>Exit Survey</h1>
-        </div>
-        <div class="row">
-            <h4>Please answer the following subjective questions about the experiment.</h4>
-        </div>
-        <div class="row">
-            <form id='exit-survey' action="javascript:void(0);">
-                <div class="form-group">
-                    <div class="form-row likert" id="speed">
-                        <label for="speed" style="margin: 10px;">Regarding the speed of the robot, which of these
-                            statements do you most agree with?</label>
-                        <li><input type="radio" name="speed" value="1" />The robot moved too quickly.</li>
-                        <li><input type="radio" name="speed" value="2" />The robot moved quickly.</li>
-                        <li><input type="radio" name="speed" value="3" />The robot moved at the right speed.</li>
-                        <li><input type="radio" name="speed" value="4" />The robot moved slowly.</li>
-                        <li><input type="radio" name="speed" value="5" />The robot moved too slowly.</li>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="form-row likert" id="legibility">
-                        <label for="legibility" style="margin: 10px;">“Legibility” is a term used to describe the
-                            information that a robotic motion conveys to an observer. A movement is legible if you
-                            understand the intention of the robot. With this in mind, which of these statements do you
-                            most agree with?</label>
-                        <li><input type="radio" name="legibility" value="1" />The robot moved too quickly.</li>
-                        <li><input type="radio" name="legibility" value="2" />The robot moved quickly.</li>
-                        <li><input type="radio" name="legibility" value="3" />The robot moved at the right speed.</li>
-                        <li><input type="radio" name="legibility" value="4" />The robot moved slowly.</li>
-                        <li><input type="radio" name="legibility" value="5" />The robot moved too slowly.</li>
-                    </div>
-                </div>
-                <div class="form-group" id="changetrust">
-                    <label for="changetrust">What caused you to change your trust in the robot?</label>
-                    <textarea class="form-control" name="changetrust" id="changetrust" rows="3" required></textarea>
-                </div>
-                <div class="form-group" id="whyfail">
-                    <label for="whyfail">Why do you think the robot failed to complete the task at times?</label>
-                    <textarea class="form-control" name="whyfail" id="whyfail" rows="3" required></textarea>
-                </div>
-                <div class="form-group" id="difficult">
-                    <label for="difficult">Was any part of the experiment difficult or hard to understand?</label>
-                    <textarea class="form-control" name="difficult" id="difficult" rows="3" required></textarea>
-                </div>
-                <div class="form-group" id="technical">
-                    <label for="technical">Were there any technical problems with the experiment? </label>
-                    <textarea class="form-control" name="technical" id="technical" rows="3" required></textarea>
-                </div>
-            </form>
-        </div>
-        <hr />
-        <div class="row">
-            <button class="btn btn-primary" type="submit" id="checkInfo">Submit</button>
-        </div>
+  <div class="container">
+    <div class="row">
+      <h1>Exit Survey</h1>
     </div>
+    <div class="row">
+      <h4>Please answer the following subjective questions about the experiment.</h4>
+    </div>
+    <div class="row">
+      <form id='exit-survey' action="javascript:void(0);">
+        <div class="form-group">
+          <div class="form-row likert" id="speed">
+            <label for="speed" style="margin: 10px;">Regarding the speed of the robot, which of these
+              statements do you most agree with?</label>
+            <li><input type="radio" name="speed" value="1" />The robot moved too quickly.</li>
+            <li><input type="radio" name="speed" value="2" />The robot moved quickly.</li>
+            <li><input type="radio" name="speed" value="3" />The robot moved at the right speed.</li>
+            <li><input type="radio" name="speed" value="4" />The robot moved slowly.</li>
+            <li><input type="radio" name="speed" value="5" />The robot moved too slowly.</li>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="form-row likert" id="legibility">
+            <label for="legibility" style="margin: 10px;">“Legibility” is a term used to describe the
+              information that a robotic motion conveys to an observer. A movement is legible if you
+              understand the intention of the robot. With this in mind, which of these statements do you
+              most agree with?</label>
+            <li><input type="radio" name="legibility" value="1" />The robot moved too quickly.</li>
+            <li><input type="radio" name="legibility" value="2" />The robot moved quickly.</li>
+            <li><input type="radio" name="legibility" value="3" />The robot moved at the right speed.</li>
+            <li><input type="radio" name="legibility" value="4" />The robot moved slowly.</li>
+            <li><input type="radio" name="legibility" value="5" />The robot moved too slowly.</li>
+          </div>
+        </div>
+        <div class="form-group" id="changetrust">
+          <label for="changetrust">What caused you to change your trust in the robot?</label>
+          <textarea class="form-control" name="changetrust" id="changetrust" rows="3" required></textarea>
+        </div>
+        <div class="form-group" id="whyfail">
+          <label for="whyfail">Why do you think the robot failed to complete the task at times?</label>
+          <textarea class="form-control" name="whyfail" id="whyfail" rows="3" required></textarea>
+        </div>
+        <div class="form-group" id="difficult">
+          <label for="difficult">Was any part of the experiment difficult or hard to understand?</label>
+          <textarea class="form-control" name="difficult" id="difficult" rows="3" required></textarea>
+        </div>
+        <div class="form-group" id="technical">
+          <label for="technical">Were there any technical problems with the experiment? </label>
+          <textarea class="form-control" name="technical" id="technical" rows="3" required></textarea>
+        </div>
+      </form>
+    </div>
+    <hr />
+    <div class="row">
+      <button class="btn btn-primary" type="submit" id="checkInfo">Submit</button>
+    </div>
+  </div>
 </body>
 
 <script src="components.js"></script>

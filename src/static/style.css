@@ -48,6 +48,14 @@ svg {
     justify-content: center;
 }
 
+.algorithm {
+  position: absolute;
+  margin-top: 10px;
+  margin-left: 10px;
+  font-size: 16pt;
+  text-shadow: 0px 0px 2px white;
+}
+
 .likert-inline {
   margin-bottom: 0px;
   display: flex;
