@@ -90,11 +90,6 @@ svg {
   list-style-type: none;
 }
 
-.slide-container {
-  width: 90%;
-  margin: auto;
-}
-
 .slider {
   -webkit-appearance: none;
   width: 100%;
