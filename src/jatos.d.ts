@@ -28,5 +28,7 @@ declare namespace jatos {
 
   const studySessionData: any;
 
+  const urlQueryParameters: any;
+
   const workerId: number;
 }

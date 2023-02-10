@@ -13,17 +13,27 @@
   <link rel="icon" type="image/png" sizes="16x16" href="static/ico/favicon-16x16.png">
   <link rel="manifest" href="static/ico/site.webmanifest">
 
+  <script src="jatos.js"></script>
+
 </head>
 
 <body>
   <div class="container">
-    <h4>You have completed this experiment.</h4>
-    <p>If you have any questions or concerns, don't hesitate to contact the research team. If you are a Sona
-      participant, your credits should appear within the next few days.</p>
-    <div>
-      <h5>You may now close this browser. Thank you for participating in our experiment!</h5>
+    <div class="row">
+      <div class="col">
+        <h4>You have completed this experiment.</h4>
+        <p>If you have any questions or concerns, don't hesitate to contact the research team. If you are a Sona
+          participant, your credits will appear after clicking 'End Study'.</p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-2">
+        <a class="btn btn-primary" id="end">End Study</a>
+      </div>
     </div>
   </div>
 </body>
+
+<script src="components.js"></script>
 
 </html>

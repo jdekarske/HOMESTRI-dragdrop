@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../static/style.css';
 
@@ -12,6 +13,10 @@ function intersects<T>(a: T[], b: T[]): boolean {
 // its okay if b has more elements, as long as a intersects b
 // a would be the array with required keys
   return a.length === a.filter((item) => b.indexOf(item) >= 0).length;
+}
+
+function assignCredit(experiment_id: string, credit_token: string, survey_code: string): string {
+  return `https://ucdavis.sona-systems.com/webstudy_credit.aspx?experiment_id=${experiment_id}&credit_token=${credit_token}&survey_code=${survey_code}`;
 }
 
 // check if required fields are set
@@ -58,4 +63,14 @@ document.getElementById('abort')?.addEventListener('click', () => {
   jatos.onLoad(() => {
     jatos.abortStudy('Subject elected to not continue.');
   });
+});
+
+jatos.onLoad(() => {
+  if ('experiment_id' in jatos.componentJsonInput) {
+    const experimentID = jatos.componentJsonInput.experiment_id as string;
+    const creditToken = jatos.componentJsonInput.credit_token as string;
+    const sc = jatos.urlQueryParameters.sc as string;
+    const finishURL = assignCredit(experimentID, creditToken, sc);
+    document.getElementById('end')?.setAttribute('href', finishURL);
+  }
 });
