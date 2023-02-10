@@ -52,8 +52,15 @@ svg {
   position: absolute;
   margin-top: 10px;
   margin-left: 10px;
+  background: rgb(170, 164, 185);
+  background: rgba(170, 164, 185, 0.66);
+}
+
+.algorithm-text {
+  /* position: absolute; */
   font-size: 16pt;
-  text-shadow: 0px 0px 2px white;
+  text-shadow: 0px 0px 2px rgb(170, 164, 185);
+  margin: 0;
 }
 
 .likert-inline {
