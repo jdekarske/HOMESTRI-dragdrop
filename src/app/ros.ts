@@ -36,8 +36,6 @@ interface SpawnCubeRequest {
 export default class ROSInterface {
   private remote_host: string;
 
-  // private local_url = 'ws://localhost:9090';
-
   // TODO add websocket options here
   public ros = new ROSLIB.Ros({});
 
@@ -233,21 +231,12 @@ export default class ROSInterface {
     if (!ROSInterface.moving_flag) {
       const nextCube = ROSInterface.move_cubes_queue.shift() as PickPlaceRequest;
 
-      // TODO if the cubes don't exist, send it to the end of the queue
-      // then probably try a couple times before giving up
-      // if(this.cubes_in_simulation.indexOf(parseInt(nextCube.pick_object.slice(-1), 10)) === -1) {
-      //   console.log('cube not in simulation');
-      //   if (ROSInterface.spawning_flag) {
-      //     console.log('cube still spawing');
-      //     // setTimeout(this.goPickPlace.bind(this, position1, position2), 1000);
-      //     // return;
-      //   }
-      //   // return;
-      // }
-
       ROSInterface.moving_flag = true;
       this.goPickPlaceClient.callService(
         nextCube,
+        this.moveCubesCallback.bind(this),
+        // run the thing again even if it fails (idk if this works)
+        // everything falls apart otherwise
         this.moveCubesCallback.bind(this),
       );
     }
