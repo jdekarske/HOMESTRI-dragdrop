@@ -15,6 +15,7 @@ module.exports = merge(common, {
     plugins: [
         new DefinePlugin({
             'process.env.key': JSON.stringify(config["key"]) || null,
+            'process.env.use_jatos': false,
         }),
     ]
 });

@@ -4,8 +4,8 @@ import CubeContainer from './cubecontainer';
 import ROSInterface from './ros';
 import { range, shuffle } from './util';
 
-const prod = process.env.NODE_ENV === 'production';
-if (prod) console.log('production'); // eslint-disable-line no-console
+const useJatos = process.env.use_jatos;
+console.debug(useJatos);
 
 // TODO make this a jatos var
 const totalTrials = 10;
@@ -166,11 +166,11 @@ function send() {
 
 function nextTrial() {
   logthis('end trial');
-  if (prod) jatos.submitResultData(logs); // TODO log everything better
+  if (useJatos) jatos.submitResultData(logs); // TODO log everything better
 
   trialsRemaining -= 1;
   if (trialsRemaining <= 0) {
-    if (prod) jatos.startNextComponent();
+    if (useJatos) jatos.startNextComponent();
   }
   setupExperiment();
 }
@@ -204,7 +204,7 @@ document.getElementById('trust_slider').oninput = () => {
   logthis(`trust: ${(document.getElementById('trust_slider') as HTMLInputElement).value.toString()}`);
 };
 
-if (prod) {
+if (useJatos) {
   jatos.onLoad(() => {
     //    jatos.componentJsonInput["numTrials"]
     setupExperiment();
