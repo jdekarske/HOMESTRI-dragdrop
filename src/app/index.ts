@@ -207,6 +207,7 @@ document.getElementById('trust_slider').oninput = () => {
 if (useJatos) {
   jatos.onLoad(() => {
     //    jatos.componentJsonInput["numTrials"]
+    logthis(jatos.addJatosIds({ startTime: Date.now() }));
     setupExperiment();
   });
 } else {
