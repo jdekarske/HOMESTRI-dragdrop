@@ -51,10 +51,8 @@ module.exports = {
             ],
         }),
         new DefinePlugin({
-            'TEST': "'test!!!'",
             'process.env.host': JSON.stringify(config["host"]) || null,
             'process.env.protocol': JSON.stringify(config["protocol"]) || null,
-            'process.env.use_jatos': config["use_jatos"] || null,
             'process.env.endpoints_manager': JSON.stringify(config["endpoints"]["manager"]) || null,
             'process.env.endpoints_simulation': JSON.stringify(config["endpoints"]["simulation"]) || null,
         }),
