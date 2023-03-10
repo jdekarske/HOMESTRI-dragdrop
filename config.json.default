@@ -1,0 +1,9 @@
+{
+    "host": "localhost:9090",
+    "protocol": "ws://",
+    "use_jatos": false,
+    "endpoints": {
+        "manager": "",
+        "simulation": ""
+    }
+}

@@ -1,0 +1,18 @@
+version: '3.8'
+
+services:
+  ros:
+      image: jdekarske/homestri-remote-experiment
+      command: /bin/bash -c "/etc/X11/startdummy-xorg.bash"
+      runtime: nvidia
+      ports:
+        - 9090:9090
+      volumes:
+        - /etc/timezone:/etc/timezone:ro
+        - /etc/localtime:/etc/localtime:ro
+        - $PWD/rosbags/:/catkin_ws/rosbags/
+
+  gui:
+      image: gui
+      ports:
+        - 8080:8080
