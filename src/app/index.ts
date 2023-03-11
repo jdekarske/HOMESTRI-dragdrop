@@ -102,6 +102,10 @@ function setupExperiment() {
 
   ros.resetArm();
   ros.deleteAllCubes();
+
+  setInterval(() => {
+    logthis(ros.latency);
+  }, 10_000);
 }
 
 function sort() {

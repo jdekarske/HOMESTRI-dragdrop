@@ -19,18 +19,37 @@ function filterItems(arr: string[], query: string): number[] {
     .map((num) => ((num - 1) % 4) + 1); // TODO hacky
 }
 
-interface PickPlaceRequest {
-  pick_object: string;
-  place_object: string;
+interface TimeMessage {
+  time: {
+    secs: number,
+    nsecs: number
+  }
 }
 
-interface SpawnCubeRequest {
-  param_name: string,
-  overwrite: boolean,
-  position: number,
-  color: number[],
-  length: number,
-  width: number,
+interface Latency {
+  time: number,
+  rostime: number,
+  latency: number,
+}
+
+interface CameraMessage {
+  data: string,
+  header: {
+    seq: number,
+    stamp: {
+      secs: number,
+      nsecs: number
+    }
+  }
+}
+
+interface CubeMessage {
+  name: string[],
+}
+
+interface PickPlaceRequest {
+  pick_object: string,
+  place_object: string,
 }
 
 export default class ROSInterface {
@@ -50,6 +69,10 @@ export default class ROSInterface {
 
   public userSpawnCubesCallback: ()=>void;
 
+  private last_latency: Latency = { time: 0, rostime: 0, latency: 0 };
+
+  private time_sent = 0;
+
   // Connecting to server
   // ----------------------
 
@@ -67,6 +90,7 @@ export default class ROSInterface {
     this.setStatus(true);
     this.subscribeToCamera();
     this.subscribeToCubeCheck();
+    this.last_latency = this.latency;
   }
 
   private rosOnReconnect(error: Event) {
@@ -95,6 +119,35 @@ export default class ROSInterface {
     this.ros.connect(this.remote_host);
   }
 
+  // track time
+  // -----------------
+
+  // always spawn sequentially in position 1. the ROS stuff will take care of further naming
+
+  private getTimeClient = new ROSLIB.Service({
+    ros: this.ros,
+    name: '/rosapi/get_time',
+    serviceType: 'rosapi/GetTime',
+  });
+
+  public getTime() {
+    const request = new ROSLIB.ServiceRequest({});
+    this.time_sent = performance.now();
+    this.getTimeClient.callService(request, (message: TimeMessage) => {
+      const msecs = message.time.secs * 1_000 + message.time.nsecs / 1_000_000;
+      this.last_latency = {
+        time: this.time_sent,
+        rostime: msecs,
+        latency: performance.now() - this.time_sent,
+      };
+    });
+  }
+
+  public get latency() : Latency {
+    this.getTime();
+    return this.last_latency; // not going to get cheeky with async stuff
+  }
+
   // Subscribing to the camera stream
   // ----------------------
 
@@ -105,7 +158,7 @@ export default class ROSInterface {
   });
 
   private subscribeToCamera() {
-    this.camera_topic.subscribe((message: ROSLIB.Message & { data: string }) => {
+    this.camera_topic.subscribe((message: CameraMessage) => {
       this.camera_element?.setAttribute('src', `data:image/png;base64,${message.data}`);
     });
   }
@@ -120,7 +173,7 @@ export default class ROSInterface {
       messageType: 'gazebo_msgs/ModelStates',
     });
 
-    cubesTopic.subscribe((message: ROSLIB.Message & { name: string[] }) => {
+    cubesTopic.subscribe((message: CubeMessage) => {
       this.cubes_in_simulation = filterItems(message.name, 'cube_');
     });
   }
