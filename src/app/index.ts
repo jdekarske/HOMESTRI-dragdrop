@@ -62,7 +62,7 @@ const nextTrialBtn = document.getElementById('next_trial_btn') as HTMLInputEleme
 
 function setupExperiment() {
   logthis('trial start!');
-  logthis(`trialsRemaining ${trialsRemaining}`);
+  logthis({ trial: totalTrials - trialsRemaining });
 
   document.getElementById('trials_remaining').innerText = `${trialsRemaining} trials remaining.`;
   nextTrialBtn.disabled = true;
@@ -70,8 +70,8 @@ function setupExperiment() {
   const choice = Math.ceil(Math.random() * 2) - 1;
   currentAlgorithm = algorithms[choice];
   currentCapability = capabilities[choice];
-  logthis(`currentAlgorithm ${currentAlgorithm}`);
-  logthis(`currentCapability ${currentCapability}`);
+  logthis({ currentAlgorithm });
+  logthis({ currentCapability });
   document.getElementById('current_algorithm').innerText = `Current Algorithm: ${currentAlgorithm}`;
 
   // make sure the containers are empty
@@ -110,9 +110,9 @@ function setupExperiment() {
 
 function sort() {
   logthis('sortcubes');
-  logthis(commandContainer.listCubes());
-  logthis(instructionContainer.listCubes());
-  logthis(startContainer.listCubes());
+  logthis({ commandContainer: commandContainer.listCubes() });
+  logthis({ instructionContainer: instructionContainer.listCubes() });
+  logthis({ startContainer: startContainer.listCubes() });
 
   const commandCubes = commandContainer.listCubes();
   if (commandCubes.filter((v) => v.color !== null).length === numCubes) {
