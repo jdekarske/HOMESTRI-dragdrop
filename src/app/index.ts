@@ -2,7 +2,9 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import '../static/style.css';
 import CubeContainer from './cubecontainer';
 import ROSInterface from './ros';
-import { range, shuffle } from './util';
+import {
+  range, shuffle, downloadObjectAsJson, getFormattedTime,
+} from './util';
 
 const useJatos = process.env.use_jatos;
 console.debug(useJatos);
@@ -170,11 +172,15 @@ function send() {
 
 function nextTrial() {
   logthis('end trial');
-  if (useJatos) jatos.submitResultData(logs); // TODO log everything better
+  if (useJatos) jatos.submitResultData(logs);
 
   trialsRemaining -= 1;
   if (trialsRemaining <= 0) {
-    if (useJatos) jatos.startNextComponent();
+    if (useJatos) {
+      jatos.startNextComponent();
+    } else {
+      downloadObjectAsJson(logs, getFormattedTime());
+    }
   }
   setupExperiment();
 }
